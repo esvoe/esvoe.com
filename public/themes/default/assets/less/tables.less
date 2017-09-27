@@ -1,0 +1,68 @@
+@import 'variables.less';
+.panel > .panel-body + .table
+{
+	border-top:1px solid @table-border-color;
+}
+.table 
+{
+	background-color: white;
+	>thead
+	{
+		>tr
+		{
+			>th
+			{
+				text-transform: capitalize;
+				color : @table-heading-color;
+				background-color: @table-heading-bg-color;
+				border-top:1px solid @table-border-color;
+				border-bottom:1px solid @table-border-color;
+				.sort
+				{
+					float: right;
+					margin-right: 10px;
+				}
+				&:first-child
+				{
+					padding-left: 20px;
+				}
+			}
+		}
+	}
+	>tbody
+	{
+		> tr
+		{
+			> td
+			{
+				color: @primary-content-color;
+				font-weight: 600;
+				vertical-align: middle;
+				border-bottom: 1px solid @table-border-color;
+				.text-muted
+				{
+					font-weight: 400;
+				}
+				&:first-child
+				{
+					padding-left: 20px;
+				}
+			}
+		}		
+	}
+}
+
+.table-heading
+{
+	font-family: @primary-font;
+	font-size: 24px;
+	color: @primary-content-color;
+	.sub-text
+	{
+		color: @secondary-content-color;
+		font-size: 14px;
+		margin-left: 8px;
+		border-left : 1px solid @table-border-color;
+		padding-left: 8px;
+	}
+}

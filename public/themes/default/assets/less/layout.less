@@ -1,0 +1,178 @@
+@import 'variables.less';
+
+// ****************************************************************************
+// *                                  LAYOUT                                  *
+// *        layout which includes left sidebar, wrapper, right sidebar        *
+// ****************************************************************************
+
+.wrapper
+{
+	position: relative;
+	.content-wrapper
+	{
+		margin-left: 250px;
+		padding-bottom: 20px;
+	}
+
+	.left-sidebar 
+	{
+		position: absolute;
+		width: 250px;
+		min-height: 1200px !important;
+		top: 0;
+		bottom: 0; /* any large number will do */
+		display: block;
+		background: #273142;
+		border-widt: 0px;
+		box-shadow: inset -1px 0px 0px 0px #313D4F;
+		padding-bottom: 30px;
+		
+		.left-sidebar-brand
+		{
+			background-image: linear-gradient(-1deg, #1991EB 2%, #2DA1F8 98%);
+			height: 70px;
+			width: 100%;
+			text-decoration: none;
+			display: block;
+			margin-bottom: 30px;
+			color: white;
+			font-size: 24px;
+			text-transform: uppercase;
+			line-height: 64px;
+			text-align: center;
+		}
+
+		.left-sidebar-menu
+		{
+			padding-left: 0px;
+			li
+			{
+				list-style: none;
+				padding-left: 30px;
+				padding-right: 30px;
+				a
+				{
+					font-family: @primary-font;
+					font-weight: 500;
+					letter-spacing: 0.3px;
+					font-size: 14px;
+					color: #B7C0CD;
+					display: block;
+					text-transform: capitalize;
+					line-height: 36px;
+					text-decoration: none;
+					.badge
+					{
+						float: right;
+						margin-top: 6px;
+					}
+					.menu-icon
+					{
+						float: right !important;
+						color: #475364;
+						font-size: 14px;
+						line-height: 32px;
+
+					}
+				}
+				
+				// when we hover menu li's item
+				&:hover, &.active
+				{
+					background-color: #313D4F;
+					> a
+					{
+						color : #FFF;
+					}
+					&.has-submenu
+					{
+						background-color: transparent;
+					}
+
+				}
+				&.menu-header
+				{
+					// margin-bottom:12px; 
+					&:hover
+					{
+						background-color: transparent;
+					}
+					a
+					{
+						font-family: @primary-font;
+						font-weight: 600;
+						display: inline-block;
+						color: #5B6779;
+						text-transform: uppercase;
+						font-size: 12px;
+						cursor: default;
+						&.menu-icon
+						{
+							float: right !important;
+							color: #475364;
+							font-size: 16px;
+							cursor: pointer;
+							&:hover
+							{
+								color: white;
+							}
+						}
+					}
+				}
+			}
+		}
+		.seperator
+		{
+			/* Divider: */
+			background: @primary-content-color;
+			height: 1px;
+			margin-top: 16px;
+			margin-bottom: 26px;
+		}
+		li.has-submenu
+		{
+			> ul 
+			{ 
+				display: none;
+			}
+			&.active > ul
+			{
+				display: block;
+			}
+
+			&:hover
+			{
+				background: transparent;
+			}
+			ul 
+			{
+				padding-left: 0px;
+				> li
+				{
+					padding-left: 10px;
+					 > a
+					{
+						font-size: 12px;
+					}
+				}
+			}
+		}
+	}
+	@media (max-width: 1024px)
+	{
+		.content-wrapper
+		{
+			margin-left: 0px;
+			padding-bottom: 20px;
+		}
+
+		.left-sidebar
+		{
+			position: absolute;
+			width: 250px;
+			margin-left: -250px;
+			left: -250px;
+		}
+	}
+}
+

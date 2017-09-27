@@ -1,0 +1,78 @@
+<?php
+
+return array (
+  'accepted' => ': Nitelik kabul edilmesi gerekir.',
+  'active_url' => ': Özellik geçerli bir URL değil.',
+  'after' => ': Tarihi: nitelik sonra bir tarih olmalıdır.',
+  'alpha' => ': Nitelik sadece harf içerebilir.',
+  'alpha_dash' => ': Özellik yalnızca harf, sayı ve tire içerebilir.',
+  'alpha_num' => ': Nitelik sadece harfleri ve rakamları içerebilir.',
+  'array' => ': Özellik bir dizi olmalıdır.',
+  'before' => ': Tarihi: özellik önceki bir tarih olmalıdır.',
+  'between' => 
+  array (
+    'numeric' => 'sayısal',
+    'file' => 'dosya',
+    'string' => 'dizi',
+    'array' => 'dizi',
+  ),
+  'boolean' => ': Öznitelik alanı doğru veya yanlış olması gerekir.',
+  'confirmed' => ': Nitelik onayı eşleşmiyor.',
+  'date' => ': Özellik geçerli bir tarih değil.',
+  'date_format' => ': Nitelik biçimi eşleşmiyor: biçimi.',
+  'different' => ': Nitelik ve: diğer farklı olmalıdır.',
+  'digits' => ': Özellik olmalıdır: hane rakam.',
+  'digits_between' => ': Özellik arasında olmalıdır: min ve: max rakam.',
+  'distinct' => ': Öznitelik alanı yinelenen bir değere sahiptir.',
+  'email' => ': Özellik geçerli bir e-posta adresi olmalıdır.',
+  'exists' => 'Seçili: özniteliği geçersiz.',
+  'filled' => ': Özellik alanı gerekiyor.',
+  'image' => ': Özellik bir görüntü olması gerekir.',
+  'in' => 'Seçili: özniteliği geçersiz.',
+  'in_array' => ': Başka öznitelik alanı mevcut değildir.',
+  'integer' => ': Özellik bir tamsayı olmalıdır.',
+  'ip' => ': Özellik geçerli bir IP adresi olmalıdır.',
+  'json' => ': Özellik geçerli bir JSON dize olmalıdır.',
+  'max' => 
+  array (
+    'numeric' => 'sayısal',
+    'file' => 'dosya',
+    'string' => 'dizi',
+    'array' => 'dizi',
+  ),
+  'mimes' => ': Özellik türde bir dosya olması gerekir: değerleri.',
+  'min' => 
+  array (
+    'numeric' => 'sayısal',
+    'file' => 'dosya',
+    'string' => 'dizi',
+    'array' => 'dizi',
+  ),
+  'not_in' => 'Seçili: özniteliği geçersiz.',
+  'numeric' => ': Özellik bir sayı olmalıdır.',
+  'present' => ': Öznitelik alanı bulunması gerekir.',
+  'regex' => ': Özellik biçimi geçersiz.',
+  'required' => ': Özellik alanı gerekiyor.',
+  'required_if' => 'Diğer bir: öznitelik alanı zaman gereklidir değeri.',
+  'required_unless' => 'değerler: Diğer ise: sürece özellik alanı gerekiyor.',
+  'required_with' => ': Öznitelik alanı zaman gereklidir: Değerler mevcuttur.',
+  'required_with_all' => ': Öznitelik alanı zaman gereklidir: Değerler mevcuttur.',
+  'required_without' => 'değerleri mevcut değilse: zaman nitelik alanı gerekiyor.',
+  'required_without_all' => 'değerler mevcuttur: hiçbiri ne zaman nitelik alanı gerekiyor.',
+  'same' => ': Nitelik ve: diğer eşleşmesi gerekir.',
+  'size' => 
+  array (
+    'numeric' => 'sayısal',
+    'file' => 'dosya',
+    'string' => 'dizi',
+    'array' => 'dizi',
+  ),
+  'string' => ': Özellik bir dize olmalıdır.',
+  'timezone' => ': Özellik geçerli bir bölge olmalıdır.',
+  'unique' => ': Öznitelik zaten alınmıştır.',
+  'url' => ': Özellik biçimi geçersiz.',
+  'custom' => 
+  array (
+    'attribute-name' => 'özellik adı',
+  ),
+);

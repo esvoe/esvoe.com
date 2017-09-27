@@ -1,0 +1,450 @@
+
+.left-sidebar-brandimage
+{
+	img 
+	{
+		padding-top: 30px;
+		padding-left: 30px;
+		padding-bottom: 25px;
+	}
+}
+.left-sidebar-menu
+{
+	.badge 
+	{
+		background-image: linear-gradient(-1deg, #1991EB 2%, #2DA1F8 98%);
+		border-radius: 31px;
+	}
+}
+.sidebar-form
+{	
+	padding-left: 30px;
+	padding-right: 30px;
+	margin-bottom: 35px;
+	.form-control
+	{
+		background: #222C3C;
+		border: 1px solid #313D4F;
+		border-radius: 4px;
+		color : #7F8FA4;
+		border-right-width: 0px;
+		border-top-width: 0px;
+		background-color: transparent;
+		border-left-width: 0px;
+		border-radius: 0px;
+	}
+	.input-group-btn
+	{
+		.btn, a
+		{
+			background: #222C3C;
+			border-color: #313D4F !important;
+			color: #7F8FA4 !important;
+			border-left-width: 0px;
+			border-top-width: 0px;
+			background-color: transparent;
+			border-right-width: 0px;
+			border-radius: 0px;
+			padding-bottom: 7px;
+		}
+	}
+}
+.user-details-sidebar
+{	
+	padding-top: 35px;
+	padding-left: 30px;
+	padding-right: 30px;
+	.img-60                  
+	{
+		margin-bottom: 17px;
+	}
+	.user-name
+	{
+		font-family: @primary-font;
+		font-size: @primary-font-size;
+		color: #FFFFFF;
+		text-transform: capitalize;
+	}
+	.user-list-group
+	{	
+		margin-top: 10px;
+		.list-group-item
+		{
+			background-color: transparent;
+			border-width: 0px;
+			padding-left: 0px;
+			padding-right: 0px;
+			font-family: @primary-font;
+			font-weight: 600;
+			font-size: 12px;
+			color: @secondary-content-color;
+			text-transform: uppercase;
+			.pull-right
+			{
+				font-family: @primary-font;
+				font-weight: 600;
+				font-size: @primary-font-size;
+				color: #FFFFFF;
+			}
+		}
+	}
+	.btn 
+	{
+		margin-bottom: 8px;
+	}
+}
+.following-group
+{	
+	margin-top: 15px;
+	.group-heading
+	{
+		font-family: @primary-font;
+		font-weight: 600;
+		font-size: 12px;
+		color: #FFFFFF;
+		text-transform: uppercase;
+		.btn-setting
+		{
+			margin-top: 0px;
+		}
+	}
+	.list-group-item
+	{
+		background-color: transparent;
+		border-width: 0px;
+		padding-left: 30px;
+		padding-right: 30px;
+		padding-bottom: 18px;
+		.media 
+		{
+			.media-left
+			{
+				padding-right: 12px;
+			}
+			.media-body
+			{
+				.media-heading
+				{
+					font-family: @primary-font;
+					font-weight: 600;
+					font-size: @primary-font-size;
+					color: #FFFFFF;
+					text-transform: capitalize;
+					text-decoration: none;
+					margin-bottom: -2px;
+
+				}
+				.active-ago
+				{
+					font-family: @primary-font;
+					font-size: @primary-font-size;
+					color: @secondary-content-color;
+					vertical-align: middle;
+				}
+				.text-muted
+				{
+					font-family: @primary-font;
+					font-size: @primary-font-size;
+					font-weight: 400;
+					color: @secondary-content-color;
+				}
+			}
+		}
+	}
+}
+.chat-list
+{
+	position: fixed;
+	top: 60px;
+	right: 0px;
+	height: 100%;
+	background-color: #fafbfc;
+	border-left: 1px solid @panel-border-color;
+	z-index: 9;
+	@media (max-width: 1325px)
+	{
+		display: none;
+	}
+	.left-sidebar.socialite
+	{
+		width: 240px;
+		display: table;
+		@media (max-width: 1660px)
+		{
+			// width: 60px;
+			transition: all 0.3s ease !important;
+			margin-right: -183px;
+			.following-group
+			{
+				// width: 60px;
+				transition: all 0.3s ease !important;
+				// margin-right: -110px;
+			}
+			&:hover
+			{
+				// width: 240px;
+				transition: all 0.3s ease !important;
+				margin-right: 0px;
+				.following-group
+				{
+					// width: 100%;
+					transition: all 0.3s ease !important;
+
+				}
+			}
+		}
+		.following-group
+		{	
+			margin-top: 0px;
+			height: 1000px;
+			overflow-y: scroll;
+			overflow-x: hidden;
+			.list-group-item
+			{
+				padding: 0px;
+				a 
+				{	
+					padding: 10px 15px;
+					display: block;
+				}
+				a:hover
+				{
+					background-color: #EFF3F6;
+				}
+			}
+			.media-left
+			{
+				img 
+				{
+					width: 30px;
+					height: 30px;
+					border-radius: 4px;
+				}
+			}
+			.media-body
+			{
+				vertical-align: middle;
+				.active-ago
+				{
+					margin-top: 5px;
+				}
+			}
+			.media-heading
+			{
+				width: 120px;
+				overflow: hidden;
+				display: inline-block;
+				white-space: nowrap;
+				text-overflow: ellipsis;
+				color: @primary-content-color;
+			}
+			.group-heading
+			{
+				padding: 15px 15px;
+				padding-top: 26px;
+				color: @primary-content-color;
+				display: none;
+				a 
+				{
+					display: inline;
+					padding: 0px;
+					background-color: transparent;
+					&:hover
+					{
+						background-color: transparent;
+					}
+				}
+			}
+		}
+	}
+}
+.chat-box
+{
+	width: 260px;
+	// height: 325px; the actual height was it but camera functionality was not there so we do like this.
+	height: 304px;
+	position: fixed;
+	background-color:#fff;
+	z-index: 9;
+	bottom: 0px;
+	right: 255px;
+	border-radius: 4px 4px 0px 0px;
+	box-shadow: 0 10px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+	.chat-box-header
+	{
+		height: 28px;
+		background-color: #1991EB;
+		border-bottom: 1px solid @panel-border-color;
+		border-radius: 4px 4px 0px 0px;
+		&:hover
+		{
+			background-color: darken(#1991EB, 3%)
+		}
+		.side-left
+		{
+			text-transform: capitalize;
+			line-height: 28px;
+			padding-left: 10px;
+			a 
+			{
+				color: #fff;
+				text-decoration: none;
+			}
+		}
+		.list-inline
+		{	
+			margin-bottom: 0px;
+			padding-right: 5px;
+			li 
+			{	
+				a 
+				{
+					i 
+					{	
+						line-height: 28px;
+						color: #fff;
+					}
+				}
+			}
+		}
+	}
+	.chat-conversation
+	{
+		padding: 10px;
+		height: 235px;
+		overflow-y: scroll;
+		overflow-x: hidden;
+		border-left: 1px solid @panel-border-color;
+		border-right: 1px solid @panel-border-color;
+		.message-conversation
+		{	
+			padding-bottom: 18px;
+			.media 
+			{
+				position: relative;
+				.media-left
+				{	
+					img 
+					{
+						width: 28px;
+						height: 28px;
+						border-radius: 4px;
+					}
+					padding-right: 4px;
+				}
+				.media-body
+				{	
+					
+					.post-text
+					{
+						color: @primary-content-color;
+						font-size: 12px;
+						font-family: @primary-font;
+						font-weight: 400;
+						line-height: 15px;
+						border: 1px solid @panel-border-color;
+						padding: 5px 8px;
+						padding-right: 15px;
+						background-color: #fafbfc;
+						// border-radius: 0px 31px 8px 0px;
+						border-radius: 4px;
+						margin-bottom: 0px;
+						display: inline-block;
+					}
+				}
+			}
+		}
+		.message-conversation.current-user
+		{	
+			.media 
+			{
+				direction: rtl;
+				.media-left
+				{
+					padding-right: 0px;
+				}
+				.media-body
+				{
+					text-align: right;
+					.post-text
+					{
+						text-align: left;
+						padding-left: 15px;
+						margin-right: 4px;
+						// border-radius: 31px 0px 0px 8px;
+						padding-right: 4px;
+					}
+				}
+			}
+		}
+	}
+	.message-input
+	{	
+		border-top: 1px solid @panel-border-color;
+		margin-top: 5px;
+		border: 1px solid @panel-border-color;
+		.form-group
+		{
+			margin-bottom: 4px;
+			.form-control
+			{
+				border-width: 0px;
+				font-size: 12px;
+				font-family: @primary-font;
+				padding-top: 4px;
+			}
+		}
+		.list-inline
+		{
+			margin-left: 0px;
+			padding-left: 5px;
+			li 
+			{	
+				&:first-child
+				{
+					padding-left: 10px;
+				}
+				a 
+				{
+					i 
+					{
+						font-size: 16px;
+						color: #9FA9BA;
+					}
+				}
+			}
+		}
+	}
+	&:nth-child(2)
+	{
+		margin-right: 270px;
+	}
+	&:nth-child(3)
+	{
+		margin-right: 540px;
+	}
+	&:nth-child(4)
+	{
+		margin-right: 810px;
+	}
+	&:nth-child(5)
+	{
+		margin-right: 1080px;
+	}
+	&:nth-child(6)
+	{
+		margin-right: 1350px;
+	}
+}
+.chat-box-small
+{
+	height: 28px;
+	.chat-conversation
+	{
+		display: none;
+	}
+	.message-input
+	{
+		display: none;
+	}
+}

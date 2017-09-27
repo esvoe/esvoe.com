@@ -1,0 +1,101 @@
+.payment-modal .modal-content {
+    border-radius: 0;
+}
+.payment-modal .modal-body {
+    padding: 0;
+}
+.payment-modal-wrapper {
+    min-height: 200px;
+}
+.payment-modal-loading {
+    text-align: center;
+    line-height: 200px;
+}
+.payment-modal-message {
+    text-align: center;
+    font-size: 16px;
+    line-height: 30px;
+    padding: 85px 15px;
+}
+.payment-modal .data-payment {
+    display: block;
+    border-top: 1px solid #eaedf3;
+    padding: 16px;
+}
+.payment-modal .data-payment:first-child {
+    border-top: none;
+}
+.payment-modal .data-payment-title {
+    
+}
+.payment-modal .data-payment-value {
+    float: right;
+}
+.payment-modal .data-payment-value .jq-radio.checked .jq-radio__div {
+    margin: 2px 0 0 2px;
+}
+.payment-modal .data-payment-confirm {
+    display: block;
+    text-align: center;
+    font-size: 16px;
+    line-height: 30px;
+    padding: 57px 10px;
+    margin: 0;
+}
+.payment-modal .data-payment-confirm input {
+    display: inline-block;
+    text-align: center;
+    font-size: 16px;
+    margin: 20px 0 0 0;
+    height: 34px;
+    width: 120px;
+}
+
+.payment-modal-descr {
+    padding: 0 15px 15px 15px;
+}
+
+.payment-modal-descr p {
+    font-size: 14px;
+    line-height: 20px;
+    margin: 0;
+    padding: 0 0 10px 0;
+}
+
+.payment-modal-descr-title {
+    font-size: 18px;
+    line-height: 22px;
+    text-align: left;
+    margin: 0;
+    padding: 16px 0 10px 0;
+}
+
+.payment-modal-descr-pic {
+    float: left;
+}
+
+.payment-modal-descr-pic img {
+    display: block;
+    margin: 15px 15px 0 0;
+}
+
+#bootstrap-confirm-box-modal .title-setting-side .title {
+    display: inline;
+}
+
+body.open-confirm-modal #bootstrap-confirm-box-modal {
+    z-index: 1042;
+}
+
+body.open-confirm-modal #bootstrap-confirm-box-modal + .modal-backdrop {
+    z-index: 1040 !important;
+}
+
+.payment-modal-close {
+    cursor: pointer;
+}
+
+.btn-disabled {
+    opacity: .5;
+    pointer-events: none;
+}

@@ -1,0 +1,78 @@
+<?php
+
+return array (
+  'accepted' => 'El atributo: debe ser aceptada.',
+  'active_url' => 'El atributo: no es una URL válida.',
+  'after' => 'El atributo: debe ser una fecha posterior al: fecha.',
+  'alpha' => 'El: atributo sólo puede contener letras.',
+  'alpha_dash' => 'El: atributo sólo puede contener letras, números y guiones.',
+  'alpha_num' => 'El: atributo sólo puede contener letras y números.',
+  'array' => 'El atributo: debe ser una matriz.',
+  'before' => 'El atributo: debe ser una fecha antes: la fecha.',
+  'between' => 
+  array (
+    'numeric' => 'numérico',
+    'file' => 'archivo',
+    'string' => 'cuerda',
+    'array' => 'formación',
+  ),
+  'boolean' => 'El: campo de atributo debe ser verdadera o falsa.',
+  'confirmed' => 'El: confirmación de atributo no coincide.',
+  'date' => 'El atributo: no es una fecha válida.',
+  'date_format' => 'El atributo: no coincide con el formato: formato.',
+  'different' => 'El atributo: y: otros deben ser diferentes.',
+  'digits' => 'El: atributo debe ser: números dígitos.',
+  'digits_between' => 'El atributo: debe estar entre: dígitos máx: min y.',
+  'distinct' => 'El: campo de atributo tiene un valor duplicado.',
+  'email' => 'El atributo: Debe ser una dirección válida de correo electrónico.',
+  'exists' => 'El seleccionado: atributo no es válido.',
+  'filled' => 'Se requiere campo de atributos: el.',
+  'image' => 'El: atributo debe ser una imagen.',
+  'in' => 'El seleccionado: atributo no es válido.',
+  'in_array' => 'El: campo de atributo no existe en: otros.',
+  'integer' => 'El: atributo debe ser un número entero.',
+  'ip' => 'El atributo: Debe ser una dirección IP válida.',
+  'json' => 'El atributo: debe ser una cadena JSON válida.',
+  'max' => 
+  array (
+    'numeric' => 'numérico',
+    'file' => 'archivo',
+    'string' => 'cuerda',
+    'array' => 'formación',
+  ),
+  'mimes' => 'El atributo: debe ser un archivo de tipo:: valores.',
+  'min' => 
+  array (
+    'numeric' => 'numérico',
+    'file' => 'archivo',
+    'string' => 'cuerda',
+    'array' => 'formación',
+  ),
+  'not_in' => 'El seleccionado: atributo no es válido.',
+  'numeric' => 'El: atributo debe ser un número.',
+  'present' => 'El: campo de atributo debe estar presente.',
+  'regex' => 'El Formato de atributo no es válido.',
+  'required' => 'Se requiere campo de atributos: el.',
+  'required_if' => 'Se requiere campo de atributos cuando:: el otro es: valor.',
+  'required_unless' => 'Se requiere menos espacio de atributo:: el otro está en: valores.',
+  'required_with' => 'El: campo de atributo es necesario cuando: Los valores están presentes.',
+  'required_with_all' => 'El: campo de atributo es necesario cuando: Los valores están presentes.',
+  'required_without' => 'Se requiere campo de atributos cuando:: El valor no está presente.',
+  'required_without_all' => 'El: campo de atributo es necesario cuando ninguno de: Los valores están presentes.',
+  'same' => 'El atributo: y: otros deben coincidir.',
+  'size' => 
+  array (
+    'numeric' => 'numérico',
+    'file' => 'archivo',
+    'string' => 'cuerda',
+    'array' => 'formación',
+  ),
+  'string' => 'El atributo: debe ser una cadena.',
+  'timezone' => 'El atributo: debe ser una zona válida.',
+  'unique' => 'El atributo: ya ha sido tomada.',
+  'url' => 'El Formato de atributo no es válido.',
+  'custom' => 
+  array (
+    'attribute-name' => 'Nombre del Atributo',
+  ),
+);

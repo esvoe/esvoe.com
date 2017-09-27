@@ -1,0 +1,78 @@
+<?php
+
+return array (
+  'accepted' => 'L&#39;: attributo deve essere accettata.',
+  'active_url' => 'L&#39;: attributo non è un URL valido.',
+  'after' => 'L&#39;: attributo deve essere una data dopo: data.',
+  'alpha' => 'L&#39;: attributo può contenere solo lettere.',
+  'alpha_dash' => 'L&#39;: attributo può contenere solo lettere, numeri e trattini.',
+  'alpha_num' => 'L&#39;: attributo può contenere solo lettere e numeri.',
+  'array' => 'L&#39;: attributo deve essere un array.',
+  'before' => 'L&#39;: attributo deve essere una data prima: data.',
+  'between' => 
+  array (
+    'numeric' => 'numerico',
+    'file' => 'file',
+    'string' => 'corda',
+    'array' => 'schieramento',
+  ),
+  'boolean' => 'L&#39;: campo attributo deve essere vera o falsa.',
+  'confirmed' => 'L&#39;: conferma attributo non corrisponde.',
+  'date' => 'L&#39;: attributo non è una data valida.',
+  'date_format' => 'L&#39;: attributo non corrisponde al formato: Formato.',
+  'different' => 'L&#39;: attributi e: altri devono essere diversi.',
+  'digits' => 'L&#39;: attributo deve essere: cifre cifre.',
+  'digits_between' => 'L&#39;: attributo deve essere compresa tra: min e max: cifre.',
+  'distinct' => 'L&#39;: campo attributo ha un valore duplicato.',
+  'email' => 'L&#39;: attributo deve essere un indirizzo email valido.',
+  'exists' => 'Il selezionato: attributo è valido.',
+  'filled' => 'è richiesto Campi attributi: The.',
+  'image' => 'L&#39;: attributo deve essere un&#39;immagine.',
+  'in' => 'Il selezionato: attributo è valido.',
+  'in_array' => 'L&#39;: campo attributo non esiste in: altri.',
+  'integer' => 'L&#39;: attributo deve essere un numero intero.',
+  'ip' => 'L&#39;: attributo deve essere un indirizzo IP valido.',
+  'json' => 'L&#39;: attributo deve essere una stringa JSON valido.',
+  'max' => 
+  array (
+    'numeric' => 'numerico',
+    'file' => 'file',
+    'string' => 'corda',
+    'array' => 'schieramento',
+  ),
+  'mimes' => 'L&#39;: attributo deve essere un file di tipo:: i valori.',
+  'min' => 
+  array (
+    'numeric' => 'numerico',
+    'file' => 'file',
+    'string' => 'corda',
+    'array' => 'schieramento',
+  ),
+  'not_in' => 'Il selezionato: attributo è valido.',
+  'numeric' => 'L&#39;: attributo deve essere un numero.',
+  'present' => 'L&#39;: campo attributo deve essere presente.',
+  'regex' => 'L&#39;: formato dell&#39;attributo non è valido.',
+  'required' => 'è richiesto Campi attributi: The.',
+  'required_if' => 'L&#39;: campo attributo è necessaria quando: altro è: valore.',
+  'required_unless' => 'L&#39;: campo attributo è obbligatorio se non: altro è in: valori.',
+  'required_with' => 'L&#39;: campo attributo è necessaria quando: i valori è presente.',
+  'required_with_all' => 'L&#39;: campo attributo è necessaria quando: i valori è presente.',
+  'required_without' => 'L&#39;: campo attributo è necessaria quando: i valori non è presente.',
+  'required_without_all' => 'L&#39;: campo attributo è richiesto quando nessuno di: valori sono presenti.',
+  'same' => 'L&#39;: attributi e: altri devono corrispondere.',
+  'size' => 
+  array (
+    'numeric' => 'numerico',
+    'file' => 'file',
+    'string' => 'corda',
+    'array' => 'schieramento',
+  ),
+  'string' => 'L&#39;: attributo deve essere una stringa.',
+  'timezone' => 'L&#39;: attributo deve essere un orario valido.',
+  'unique' => 'L&#39;: l&#39;attributo è già stata presa.',
+  'url' => 'L&#39;: formato dell&#39;attributo non è valido.',
+  'custom' => 
+  array (
+    'attribute-name' => 'nome attributo',
+  ),
+);

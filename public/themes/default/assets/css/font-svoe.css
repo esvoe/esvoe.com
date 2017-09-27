@@ -1,0 +1,302 @@
+@font-face {
+    font-family: 'svoe';
+    src:  url('../fonts/svoe.eot?yomvrx');
+    src:  url('../fonts/svoe.eot?yomvrx#iefix') format('embedded-opentype'),
+    url('../fonts/svoe.ttf?yomvrx') format('truetype'),
+    url('../fonts/svoe.woff?yomvrx') format('woff'),
+    url('../fonts/svoe.svg?yomvrx#icomoon') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+[class^="svoe-icon"], [class*="svoe-icon"] {
+    /* use !important to prevent issues with browser extensions that change fonts */
+    font-family: 'svoe' !important;
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    /* Better Font Rendering =========== */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+.svoe-icon{
+    color: #afbfcf;
+    position: relative;
+    display: inline-block;
+}
+.svoe-lg{
+    font-size: 1.5em !important;
+}
+.svoe-1x{
+    font-size: 1.6em !important;
+}
+.svoe-2x{
+    font-size: 2em !important;
+}
+.svoe-4x{
+    font-size: 4em !important;
+}
+
+.sidebar > ul > li > a i {
+    font-size: 1.5em;
+}
+
+.svoe-sort {
+    font-size:26px
+}
+
+
+.icon-nalashtuvannia:before {
+    content: "\61";
+}
+.icon-audio:before {
+    content: "\62";
+}
+.icon-dodatky:before {
+    content: "\63";
+}
+.icon-dokumenty:before {
+    content: "\64";
+}
+.icon-grupy:before {
+    content: "\65";
+}
+.icon-gamanets:before {
+    content: "\66";
+}
+.icon-storinky:before {
+    content: "\67";
+}
+.icon-moi-vidpovidi:before {
+    content: "\68";
+}
+.icon-avto:before {
+    content: "\69";
+}
+.icon-novyny:before {
+    content: "\6a";
+}
+.icon-photo:before {
+    content: "\6b";
+}
+.icon-podii:before {
+    content: "\6c";
+}
+.icon-povidomlennia:before {
+    content: "\6d";
+}
+.icon-tovary:before {
+    content: "\6e";
+}
+.icon-video:before {
+    content: "\6f";
+}
+.icon-zakladky:before {
+    content: "\70";
+}
+.icon-dodaty-druzi:before {
+    content: "\71";
+}
+.icon-poskarzhytysya:before {
+    content: "\72";
+}
+.icon-zablokuvaty:before {
+    content: "\73";
+}
+.icon-vidpysatys:before {
+    content: "\74";
+}
+.icon-strilka:before {
+    content: "\77";
+}
+.icon-menyu:before {
+    content: "\78";
+}
+.icon-napysaty:before {
+    content: "\79";
+}
+.icon-pidpysatysya:before {
+    content: "\7a";
+}
+.icon-chekaty:before {
+    content: "\41";
+}
+.icon-prinyat:before {
+    content: "\42";
+}
+.icon-photoalbomy:before {
+    content: "\43";
+}
+.icon-informaciya:before {
+    content: "\44";
+}
+.icon-druzi:before {
+    content: "\45";
+}
+.icon-myzuka:before {
+    content: "\46";
+}
+.icon-spovischennya:before {
+    content: "\47";
+}
+.icon-nebachymo:before {
+    content: "\4a";
+}
+.icon-bachymo:before {
+    content: "\4b";
+}
+.icon-druzhyty:before {
+    content: "\4c";
+}
+.icon-vydalyty:before {
+    content: "\4d";
+}
+.icon-nove-povidomlennya:before {
+    content: "\4e";
+}
+.icon-sort-d:before {
+    content: "\75";
+}
+.icon-sort-c:before {
+    content: "\76";
+}
+.icon-sort-b:before {
+    content: "\48";
+}
+.icon-sort-a:before {
+    content: "\49";
+}
+.icon-shukaty:before {
+  content: "\4f";
+}
+.icon-zakrutu:before {
+    content: "\50";
+}
+.icon-wallet:before {
+    content: "\66";
+}
+.icon-moi_vidpovidi:before {
+    content: "\44";
+}
+.icon-igratu:before {
+    content: "\51";
+}
+.icon-nastypna:before {
+    content: "\52";
+}
+.icon-paysa:before {
+    content: "\53";
+}
+.icon-povtorutu:before {
+    content: "\54";
+}
+.icon-rozshurutu:before {
+    content: "\55";
+}
+.icon-zhornytu:before {
+    content: "\56";
+}
+.icon-zvyk:before {
+    content: "\57";
+}
+.icon-zvyk-off:before {
+    content: "\58";
+}
+.icon-filtr:before {
+  content: "\59";
+}
+.icon-filtr-a:before {
+  content: "\5a";
+}
+.icon-prisoidenitsa:before {
+    content: "\30";
+}
+.icon-pereytu:before {
+    content: "\31";
+}
+.icon-prykripyty:before {
+  content: "\32";
+}
+.icon-mistse:before {
+  content: "\33";
+}
+.icon-emotsiyi:before {
+  content: "\34";
+}
+.icon-korystuvach:before {
+  content: "\35";
+}
+.icon-plyus-chornyy:before {
+  content: "\36";
+}
+.icon-plyus:before {
+  content: "\37";
+}
+.icon-papka:before {
+  content: "\38";
+}
+.icon-nastroyky:before {
+  content: "\39";
+}.icon-prinyat-kolo:before {
+  content: "\21";
+}
+.icon-informaciya-kolo:before {
+  content: "\22";
+}
+.icon-istoriya:before {
+    content: "\23";
+}
+.icon-perekaz:before {
+    content: "\24";
+}
+.icon-ryka:before {
+    content: "\25";
+}
+.icon-vuvid:before {
+    content: "\26";
+}
+.icon-vuvid-email:before {
+    content: "\27";
+}
+.icon-comentyvatu:before {
+    content: "\28";
+}
+.icon-like:before {
+    content: "\29";
+}
+.icon-podilutus:before {
+    content: "\2a";
+}
+.icon-verifikaciya:before {
+    content: "\2b";
+}
+.icon-zakryto:before {
+  content: "\2c";
+}
+.icon-vidkryto:before {
+  content: "\2d";
+}
+.icon-igry:before {
+    content: "\2e";
+}
+.icon-sekret:before {
+  content: "\2f";
+}
+.icon-kvytky:before {
+  content: "\3a";
+}
+.icon-m-vidkryt:before {
+  content: "\3e";
+}
+.icon-m-zakryt:before {
+  content: "\3b";
+}
+.icon-m-rozgornut:before {
+  content: "\3c";
+}
+.icon-m-skryt:before {
+  content: "\3d";
+}

@@ -1,0 +1,60 @@
+@import 'variables.less';
+
+// ****************************************************************************
+// *                               MISCELLANEOUS                              *
+// *                         includes all extra styles                        *
+// ****************************************************************************
+
+.user-follow
+{
+    // margin-bottom: 
+    .btn
+    {
+        padding: 6px 15px;
+    }
+    .media-heading
+    {
+        font-size: 16px;
+        margin-bottom: 0px;
+        display: inline-block;
+      
+    }
+
+}
+.user-follow.socialite
+{   
+    .media-left
+    {
+        img 
+        {
+            width: 40px;
+            height: 40px;
+            border-radius: 4px;
+        }
+    }
+    .media-body
+    {
+        .media-heading
+        {
+            max-width: 130px;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            @media (max-width:398px)
+            {
+                max-width: 120px;
+            }
+            @media (max-width:350px)
+            {
+                max-width: 110px;
+            }
+        }
+        .btn.unfollow
+        {
+             @media (max-width:398px)
+            {
+                padding: 4px 7px;
+            }
+        }    
+    }
+}

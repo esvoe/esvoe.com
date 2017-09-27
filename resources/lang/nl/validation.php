@@ -1,0 +1,78 @@
+<?php
+
+return array (
+  'accepted' => 'The: attribuut moet worden aanvaard.',
+  'active_url' => 'The: attribuut is geen geldige URL.',
+  'after' => 'The: Datum: attribuut moet een datum na te zijn.',
+  'alpha' => 'The: attribuut mag alleen letters.',
+  'alpha_dash' => 'The: attribuut mag alleen letters, cijfers en streepjes.',
+  'alpha_num' => 'The: attribuut mag alleen letters en cijfers.',
+  'array' => 'The: attribuut moet een array zijn.',
+  'before' => 'The: Datum: attribuut moet een datum voor zijn.',
+  'between' => 
+  array (
+    'numeric' => 'numerieke',
+    'file' => 'het dossier',
+    'string' => 'draad',
+    'array' => 'reeks',
+  ),
+  'boolean' => 'The: veld attribuut moet waar of onwaar zijn.',
+  'confirmed' => 'The: bevestiging attribuut komt niet overeen.',
+  'date' => 'The: attribuut is geen geldige datum.',
+  'date_format' => 'The: attribuut komt niet overeen met het formaat: formaat.',
+  'different' => 'The: attribuut en: andere moeten verschillend zijn.',
+  'digits' => 'The: attribuut moet zijn: cijfers cijfers.',
+  'digits_between' => 'The: attribuut moet liggen tussen: min en: max cijfers.',
+  'distinct' => 'The: veld attribuut heeft een dubbele waarde.',
+  'email' => 'De: attribuut moet een geldig e-mailadres zijn.',
+  'exists' => 'De geselecteerde: attribuut is ongeldig.',
+  'filled' => 'The: veld kenmerk is vereist.',
+  'image' => 'The: attribuut moet een beeld zijn.',
+  'in' => 'De geselecteerde: attribuut is ongeldig.',
+  'in_array' => 'The: veld attribuut bestaat niet in: andere.',
+  'integer' => 'The: attribuut moet een integer zijn.',
+  'ip' => 'De: attribuut moet een geldig IP-adres zijn.',
+  'json' => 'De: attribuut moet een geldige JSON string.',
+  'max' => 
+  array (
+    'numeric' => 'numerieke',
+    'file' => 'het dossier',
+    'string' => 'draad',
+    'array' => 'reeks',
+  ),
+  'mimes' => 'De: attribuut moet een bestand van het type te zijn:: waarden.',
+  'min' => 
+  array (
+    'numeric' => 'numerieke',
+    'file' => 'het dossier',
+    'string' => 'draad',
+    'array' => 'reeks',
+  ),
+  'not_in' => 'De geselecteerde: attribuut is ongeldig.',
+  'numeric' => 'De: attribuut moet een getal zijn.',
+  'present' => 'The: veld attribuut moet aanwezig zijn.',
+  'regex' => 'The: attribuut formaat is ongeldig.',
+  'required' => 'The: veld kenmerk is vereist.',
+  'required_if' => 'The: veld attribuut is vereist wanneer: andere is: waarde.',
+  'required_unless' => 'The: veld kenmerk is vereist, tenzij: andere is in: waarden.',
+  'required_with' => 'The: veld attribuut is vereist wanneer: waarden aanwezig is.',
+  'required_with_all' => 'The: veld attribuut is vereist wanneer: waarden aanwezig is.',
+  'required_without' => 'The: veld attribuut is vereist wanneer: waarden niet aanwezig is.',
+  'required_without_all' => 'The: veld kenmerk is vereist als geen van: waarden aanwezig zijn.',
+  'same' => 'The: attribuut en: andere moeten overeenkomen.',
+  'size' => 
+  array (
+    'numeric' => 'numerieke',
+    'file' => 'het dossier',
+    'string' => 'draad',
+    'array' => 'reeks',
+  ),
+  'string' => 'De: attribuut moet een tekenreeks zijn.',
+  'timezone' => 'De: attribuut moet een geldige zone.',
+  'unique' => 'The: attribuut is al genomen.',
+  'url' => 'The: attribuut formaat is ongeldig.',
+  'custom' => 
+  array (
+    'attribute-name' => 'attribuut naam',
+  ),
+);

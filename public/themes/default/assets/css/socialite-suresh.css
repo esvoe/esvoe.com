@@ -1,0 +1,46 @@
+.panel-post .panel-heading {
+  padding: 14px 15px;
+  height: auto;
+}
+.panel-post .panel-heading .post-author .post-options {
+  float: right;
+  color: red !important;
+}
+.panel-post .panel-heading .post-author .user-avatar {
+  width: 40px;
+  height: 40px;
+  float: left;
+  margin-right: 10px;
+}
+.panel-post .panel-heading .post-author .user-avatar img {
+  width: 100%;
+  height: 100%;
+  border-radius: 4px;
+}
+.panel-post .panel-heading .post-author .user-post-details {
+  line-height: 21px;
+}
+.panel-post .panel-heading .post-author .user-post-details li {
+  color: red !important;
+  font-size: 16px;
+  font-weight: 400;
+}
+.panel-post .panel-heading .post-author .user-post-details li .user {
+  text-transform: capitalize;
+}
+.panel-post .panel-heading .post-author .user-post-details li .post-time {
+  color: #5B6B81;
+  font-size: 12px;
+  letter-spacing: 0px;
+  margin-right: 3px;
+}
+.panel-post .panel-heading .post-author .user-post-details li:last-child {
+  font-size: 14px;
+}
+.panel-post .panel-heading .post-author .user-post-details li:last-child i {
+  margin-left: 6px;
+  margin-right: 2px;
+}
+.panel-post .panel-heading .post-author .user-post-details li:last-child .post-place {
+  text-transform: capitalize;
+}
