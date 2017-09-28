@@ -1,0 +1,7 @@
+.emoji {
+  width: 1.5em !important;
+  height: 1.5em !important;
+  display: inline-block;
+  margin-bottom: -0.25em;
+  background-size: contain;
+}

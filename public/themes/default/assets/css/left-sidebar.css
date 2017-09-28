@@ -1,0 +1,9 @@
+.left-sidebar {
+  width: 250px;
+  height: 100px;
+  position: absolute;
+  display: block;
+  background: #273142;
+  border: 1px solid #313D4F;
+  box-shadow: inset -1px 0px 0px 0px #313D4F;
+}

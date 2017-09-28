@@ -1,0 +1,344 @@
+
+.terms-modal .modal-content {
+  border-radius: 0;
+}
+
+.terms-modal .modal-body {
+  padding: 0;
+}
+
+.terms-modal .wrap-checker-sett {
+  position: static;
+}
+
+.terms-modal .login-bottom .btn-success {
+  width: 100%;
+  max-width: 130px;
+  max-width: 250px;
+}
+
+.terms-wrapper {
+  max-height: 498px;
+  overflow: hidden;
+  overflow-y: auto;
+  padding: 15px
+}
+
+.terms-text p {
+  font-size: 15px;
+  margin: 0 0 16px 0;
+  padding: 0;
+}
+
+.login-block .form-group {
+  position: relative;
+}
+
+.form-sign {
+  display: block;
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 34px;
+  height: 34px;
+  line-height: 34px;
+  text-align: center;
+}
+
+.form-sign:hover {
+  z-index: 10;
+}
+
+form.signup-form .form-control {
+  color: #000 !important;
+}
+
+.form-sign-tooltip {
+  display: block;
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  background: #1c94f0;
+  color: #fff;
+  width: 286px;
+  margin: 0 0 0 -143px;
+  padding: 10px;
+  font-family: "OpenSans Regular";
+  font-size: 13px;
+  line-height: 15px;
+  text-align: left;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.2s, 0.2s visibility;
+  -webkit-transition: opacity 0.2s, 0.2s visibility;
+}
+
+.form-sign:hover .form-sign-tooltip,
+.form-sign.open .form-sign-tooltip {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.2s;
+  -webkit-transition: opacity 0.2s;
+}
+
+.form-sign-tooltip:after {
+  content: '';
+  display: block;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 8px 8px 0 8px;
+  border-color: #1c94f0 transparent transparent transparent;
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  margin: 0 0 0 -8px;
+}
+
+.form-sign .svoe-icon {
+  color: #c6ced4;
+  line-height: inherit;
+  transition: color 0.2s;
+  -webkit-transition: color 0.2s;
+}
+
+.form-sign_info .svoe-icon {
+  color: #c6ced4;
+}
+
+.form-sign_info:hover .svoe-icon {
+  color: #1c94f0;
+}
+
+.form-sign_accept .svoe-icon {
+  color: #1c94f0;
+}
+
+.form-sign_error .svoe-icon {
+  color: #be0a0a;
+}
+
+.form-sign_error .form-sign-tooltip {
+  background: #be0a0a;
+}
+
+.form-sign_error .form-sign-tooltip:after {
+  border-color: #be0a0a transparent transparent transparent;
+}
+
+.form-sign.top-center {
+  cursor: pointer;
+}
+
+.form-sign.top-left {
+  cursor: pointer;
+}
+
+.form-sign.top-left .form-sign-tooltip {
+  bottom: 50%;
+  left: auto;
+  right: 100%;
+  margin: 0;
+  width: auto;
+  min-width: 220px;
+}
+
+.form-sign.top-left .form-sign-tooltip:after {
+  border-width: 9px 0 0 9px;
+  border-color: transparent transparent transparent #1c94f0;
+  bottom: 0;
+  left: 100%;
+  margin: 0;
+}
+
+.form-sign.top-left.form-sign_error .form-sign-tooltip:after {
+  border-color: transparent transparent transparent #be0a0a;
+}
+
+.form-sign.top-center.form-sign_error .form-sign-tooltip:after {
+  border-color: #be0a0a transparent transparent transparent;
+}
+
+.form-sign_showpass {
+  display: none;
+  right: auto;
+  left: 0;
+  cursor: pointer;
+}
+
+.form-control[name="password"] {
+  transition: all 0.2s;
+  -webkit-transition: all 0.2s;
+}
+
+.form-control.showpass {
+  padding-left: 34px;
+}
+
+.form-sign_showpass.active .svoe-icon {
+  color: #1c94f0;  
+}
+
+.form-control.showpass + .form-sign_showpass,
+.form-control.showpass + .form-sign_info + .form-sign_accept + .form-sign_error + .form-sign_showpass {
+  display: block;
+}
+
+.login-bottom .form-group.has-error .form-control {
+  border-color: #be0a0a;
+}
+
+.login-bottom .form-group.valid .form-control {
+  border-color: #1c94f0;
+}
+
+.form-sign_error,
+.form-sign_accept {
+  display: none;
+}
+
+.form-sign_info {
+  display: block;
+}
+
+.form-group.has-error .form-sign_info,
+.form-group.valid .form-sign_info {
+  display: none;
+}
+
+.form-group.valid .form-sign_accept,
+.form-group.has-error .form-sign_error {
+  display: block;  
+}
+
+.signup-form .btn-success {
+  display: inline-block;
+  padding: 0 !important;
+  height: 30px;
+  line-height: 30px;
+  max-width: 216px;
+  font-size: 13px;
+}
+
+.signup-form .btn-success[disabled] {
+  background: #868686;
+  opacity: 1;
+}
+
+.signup-form .form-group-terms {
+  text-align: center;
+  margin: -4px 0 5px 0;
+}
+
+.signup-form .form-group-terms .wrap-checker-sett {
+  position: static;
+}
+
+.signup-form .form-group-terms .wrap-checker-sett .jq-checkbox {
+  width: 14px;
+  height: 14px;
+  border: 1px solid #1f94ed;
+  position: relative;
+}
+
+.signup-form .form-group-terms .wrap-checker-sett .jq-checkbox.checked .jq-checkbox__div {
+  position: absolute;
+  top: 1px;
+  left: 6px;
+  margin: 0;
+}
+
+.signup-form .form-group-terms .wrap-checker-sett .jq-checkbox.checked .jq-checkbox__div:after {
+  top: 1px;
+  left: 0;
+}
+
+.signup-form .form-group-terms .wrap-checker-sett .jq-checkbox input {
+  appearance: checkbox;
+  -webkit-appearance: checkbox;
+  -moz-appearance: checkbox;
+}
+
+.signup-form .form-group-terms .terms-link {
+  display: inline;
+  font-size: 12px;
+  line-height: 16px;
+  color: #4267b2;
+  text-decoration: underline;
+  outline: none !important;
+}
+
+.signup-form .form-group-terms .terms-link:hover {
+  color: #4267b2;
+  text-decoration: none;
+}
+
+.form-control#date-field {
+  cursor: pointer !important;
+}
+
+.form-group.wait {
+  pointer-events: none;
+}
+
+.signup-form .g-recaptcha {
+  position: relative;
+  border: 1px solid #e2e6e9;
+  padding: 0 0 3px 0;
+  margin: 14px auto;
+  overflow: hidden;
+}
+
+.signup-form .g-recaptcha:before,
+.signup-form .g-recaptcha:after {
+  content: '';
+  display: block;
+  width: 100%;
+  height: 10px;
+  background: #f9f9f9;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.signup-form .g-recaptcha:after {
+  top: auto;
+  bottom: 0;
+}
+
+.signup-form .g-recaptcha > div:before,
+.signup-form .g-recaptcha > div:after {
+  content: '';
+  display: block;
+  width: 10px;
+  height: 100%;
+  background: #f9f9f9;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.signup-form .g-recaptcha > div:after {
+  left: auto;
+  right: 0;
+}
+
+.signup-form .g-recaptcha > div {
+  width: 100% !important;
+}
+
+@media (max-width: 767px) {
+
+  .wrap-login-page .login-bottom {
+    padding: 15px !important;
+  }
+
+  .signup-form .g-recaptcha {
+    width: 304px;
+  }
+
+  .signup-form .g-recaptcha > div {
+    width: 304px !important;
+  }
+
+}

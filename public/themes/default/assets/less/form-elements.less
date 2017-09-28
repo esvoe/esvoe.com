@@ -1,0 +1,286 @@
+@import 'variables.less';
+
+// ****************************************************************************
+// *                               FORM ELEMENTS                              *
+// *      .form-group, label. .control-label, .text-muted, .form-control      *
+// *                                 buttons                                  *
+// ****************************************************************************
+.form-group 
+{
+	margin-bottom: 18px;
+}
+.input-group
+{
+	margin-bottom: 10px;	
+}
+
+// ****************************************************************************
+// *                               FORM LABEL                                 *
+// *                   input labels with class .control-label                 *
+// ****************************************************************************
+label, .conrol-label
+{
+	font-family: @primary-font;
+	font-size: 12px;
+	letter-spacing: 0.3px;
+	color: @input-label-color;
+	font-weight: 600;
+	text-transform: uppercase;
+	margin-bottom: 6px;
+	line-height: 15px;
+}
+.radio
+{
+	&.disabled
+	{
+		color: @input-label-color;
+		opacity: 0.6;
+	}
+
+}
+.text-muted
+{
+	color: @input-label-color;
+	font-size: 12px;
+}
+
+.input-group 
+{
+	.input-group-addon
+	{
+		.gradient(@default-from-color, @default-to-color);
+		border-color: @input-border-color;
+		color: @secondary-content-color;
+	}
+	&.facebook-input-group
+	{
+		.input-group-addon
+		{
+			background-image: -webkit-linear-gradient(271deg, #137ECE 2%, #288BD5 98%);
+			background-image: -o-linear-gradient(271deg, #137ECE 2%, #288BD5 98%);
+			background-image: linear-gradient(1deg, #137ECE 2%, #288BD5 98%);	
+			color: white;
+			border-color: #137ECE; 
+		}
+		.form-control:focus
+		{
+			border-left-color:transparent;
+		}
+		
+	}
+	&.twitter-input-group
+	{
+		.input-group-addon
+		{
+			background-image: -webkit-linear-gradient(#2EA1F8 0%, #1A91EC 98%);
+			background-image: -o-linear-gradient(#2EA1F8 0%, #1A91EC 98%);
+			background-image: linear-gradient(#2EA1F8 0%, #1A91EC 98%);	
+			border-color: #2EA1F8; 
+			color: white;
+		}
+	}
+}
+
+// ****************************************************************************
+// *                               FORM CONTROL                               *
+// *                    Input text with class .form-control                   *
+// ****************************************************************************
+.form-control, textarea
+{
+	border: 1px solid @input-border-color;
+	border-radius: 4px;
+	background: #FFFFFF;
+	font-family: @primary-font;
+	font-size: 14px;
+	color: @input-text-color;
+	line-height: 19px;
+	-webkit-box-shadow: none !important;
+	box-shadow: none !important;
+	padding-left: 12px;
+	padding-right: 12px;
+
+	&:focus
+	{
+		border-color:  @input-selected-border-color;
+		outline: 0;
+		color: @input-focus-text-color;
+		-webkit-box-shadow: none !important;
+		box-shadow: none !important;
+	}
+
+	&::-webkit-input-placeholder 
+	{
+	   color: lighten(@input-text-color, 15%);
+	}
+
+	&:-moz-placeholder 
+	{ /* Firefox 18- */
+	   color: lighten(@input-text-color, 15%);  
+	}
+
+	&::-moz-placeholder 
+	{  /* Firefox 19+ */
+	   color: lighten(@input-text-color, 15%);  
+	}
+
+	&:-ms-input-placeholder 
+	{  
+	   color: lighten(@input-text-color, 15%);  
+	}
+}
+
+// *******************************************************************************
+// *                            	CONTEXTUAL CLASSES                           *
+// *                	success input form group with .has-success               *
+// *******************************************************************************
+&.has-success
+{
+	.form-control
+	{
+		border-color: @success-color; 
+		color: @input-focus-text-color;
+		background: url(../images/icons/check.png);
+		background-repeat: no-repeat;
+		background-position: right 12px center;
+	    background-size: 18px;
+	    &:focus
+		{
+			border-color:  @success-color;
+			color: @input-focus-text-color;
+		}
+	}
+}
+
+&.has-error
+{
+	.form-control
+	{
+		border-color: @danger-color; 
+		color: @input-focus-text-color;
+		background: url(../images/icons/cross.png);
+		background-repeat: no-repeat;
+		background-position: right 12px center;
+	    background-size: 18px;
+	    &:focus
+		{
+			border-color:  @danger-color;
+			color: @input-focus-text-color;
+		}
+	}
+}
+
+&.has-warning
+{
+	.form-control
+	{
+		border-color: @warning-color; 
+		color: @input-focus-text-color;
+		background: url(../images/icons/warning.png);
+		background-repeat: no-repeat;
+		background-position: right 12px center;
+	    background-size: 18px;
+	    &:focus
+		{
+			border-color:  @warning-color;
+			color: @input-focus-text-color;
+		}
+	}
+}
+
+select.form-control
+{
+	-webkit-appearance:none;
+    -moz-appearance:none;
+	.gradient(@default-from-color, @default-to-color);
+	border: 1px solid @input-border-color;
+	border-radius: 4px;
+}
+
+textarea.form-control
+{
+	padding-top: 10px;
+	resize : none;
+}
+
+
+
+
+// ****************************************************************************
+// *                                  BUTTONS                                 *
+// *                    all buttons are prefixed with .btn                    *
+// ****************************************************************************
+.btn
+{
+	font-family: @primary-font;
+	font-size: 14px;
+	text-transform: capitalize;
+	outline: none !important;
+	border-radius: 4px;
+	img
+	{
+		width: 16px;
+		height: 16px;
+		margin-right: 4px;
+	}
+}
+.btn-success
+{
+	.btn-variant(@success-from-color,@success-to-color);
+}
+.btn-default
+{
+	.btn-variant(@default-from-color,@default-to-color);
+
+	// the following overwrites the default btn variant mixin
+	color: @secondary-content-color;
+	border-color: #CED0DA;
+	&:hover
+	{
+		color: @secondary-content-color;
+		border-color: darken(#CED0DA, 5%);
+	}
+	span
+	{
+		color: lighten(@secondary-content-color, 20%);
+	}
+}
+.btn-primary
+{
+	.btn-variant(@primary-from-color,@primary-to-color);
+	border-color: darken(@primary-color, 10%);
+}
+.btn-info
+{
+	.btn-variant(@info-from-color,@info-to-color);
+}
+.btn-danger
+{
+	.btn-variant(@danger-from-color,@danger-to-color);
+}
+.btn-warning
+{
+	.btn-variant(@warning-from-color,@warning-to-color);
+}
+
+// ****************************************************************************
+// *                                  BADGES                                  *
+// *                                  .badge                                  *
+// ****************************************************************************
+.badge
+{
+	min-width: 22px;
+	border-radius: 31px;
+	font-family: @primary-font;
+	font-weight: 500;
+	padding: 5px 8px;
+	font-size: 13px;
+	color: #FFFFFF;
+	&.badge-primary
+	{
+		.gradient(#1991EB, #2DA1F8)
+	}
+	&.badge-danger
+	{
+		.gradient(#C8270C, #F45438)
+	}
+}

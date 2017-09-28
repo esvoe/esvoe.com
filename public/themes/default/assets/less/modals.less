@@ -1,0 +1,4397 @@
+@import 'variables.less';
+
+// ****************************************************************************
+// *                                  MODALS                                  *
+// *             this styles contains all the custom modals/popups            *
+// ****************************************************************************
+
+.modal-content
+{
+	margin-top: 170px;
+}
+
+.modal-backdrop 
+{
+    background-color: #131820;
+    position: fixed !important;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 1039 !important;
+}
+.modal-backdrop.in {
+    opacity: 0.9;
+    filter: alpha(opacity=90);
+}
+
+
+.modal-body
+{
+	label, select
+	{
+		color: @primary-content-color;
+		text-transform: capitalize;
+	}
+	.seperator
+	{
+		background: @panel-border-color;
+		height: 1px;
+		margin-bottom: 16px;
+	}
+
+}
+.modal-footer
+{
+	background: #F0F3F8;
+	border-bottom-right-radius: 4px;
+	border-bottom-left-radius: 4px;
+	padding-left: 20px;
+	padding-right: 20px;
+}
+
+.user-successfully-added
+{
+	.modal-body
+	{
+		padding: 0px;
+		.user-info
+		{
+			.close-modal i 
+			{
+				color: #70BBFB;
+				position: absolute;
+				top: 30px;
+				right: 30px;
+			}
+			border-top-right-radius: 4px !important;
+			border-top-left-radius: 4px !important;
+			height: 280px;
+			display: block;
+			width: 100%;
+			color: white;
+			padding-top: 53px;
+			text-align: center;
+			background-image: -webkit-linear-gradient(271deg, #2EA1F8 2%, #1990EA 100%);
+			background-image: -o-linear-gradient(271deg, #2EA1F8 2%, #1990EA 100%);
+			background-image: linear-gradient(1deg, #2EA1F8 2%, #1990EA 100%);
+			img.user-avatar
+			{
+				width: 120px;
+				height: 120px;
+				margin: 0px auto;
+				display: block;
+				margin-bottom: 18px;
+			}
+			.user-name
+			{
+				font-size: 18px;
+				color: @default-to-color;
+				font-weight: 600;
+				text-transform: capitalize;
+			}
+			.user-designation
+			{
+				font-size: @primary-font-size;
+				color: #D1DDED;
+				font-weight: 300;
+			}
+		}	
+		.user-message
+		{
+			padding: 25px 50px;
+			text-align: center;
+			h3
+			{
+				font-size: 18px;
+				color: @secondary-content-color;
+				font-weight: 600;
+			}
+			.user-message-description
+			{
+				font-size: @primary-font-size;
+				color: @primary-content-color;
+				line-height: 20px;
+				font-weight: 300;
+			}
+		}	
+	}
+}
+
+
+// ****************************************************************************
+// *                              Feedback modal                              *
+// * this modal lets you choose the rating and then give the personal feedback*
+// ****************************************************************************
+.feedback-modal
+{
+	.modal-body
+	{
+		padding: 0px;
+		.user-info
+		{
+			text-align: center;
+			background-image: -webkit-linear-gradient(#2EA1F8 0%, #1990EA 99%);
+			background-image: -o-linear-gradient(#2EA1F8 0%, #1990EA 99%);
+			background-image: linear-gradient(#2EA1F8 0%, #1990EA 99%);
+			border-top-right-radius: 4px !important;
+			border-top-left-radius: 4px !important;
+
+			height: 110px;
+			font-weight: 600;
+			.user-avatar
+			{
+				width: 90px;
+				height: 90px;
+				border:3px solid white;
+				border-radius: 50%;
+				margin: 0px auto;
+				display: block;
+				margin-top: -55px;
+				position: absolute;
+				left: 0;
+				right: 0;
+			}
+			.support-heading
+			{
+				padding-top: 50px;
+				font-size: 18px;
+				color: @default-to-color;
+				text-transform: capitalize;
+				.close-modal
+				{
+					position: absolute;
+					top: 17px;
+					right: 17px;
+					color: #70BBFB;
+				}
+			}
+			.user-with
+			{
+				opacity: 0.8;
+				font-size: @primary-font-size;
+				color: @default-to-color;
+			}
+		}
+
+		.feedback-form
+		{
+			padding: 20px;
+			i.fa-info-circle
+			{
+				margin-left: 10px;
+				font-size: 16px;
+				color: #D7D7D7;
+			}
+
+			.form-heading
+			{
+				display: block;
+				text-align: center;
+				font-size: @primary-font-size;
+				color: #414F64;
+				font-weight: 600;
+				margin-bottom: 15px;
+			}
+			.feedback-rate
+			{
+				text-align: center;
+				margin-bottom: 20px;
+				li
+				{
+					margin-right: 15px;
+					a
+					{
+						font-size: @primary-font-size;
+						color: #8E939D;
+						font-weight: 600;
+						text-decoration: none;
+						width: 35px;
+						display: inline-block;
+						height: 35px;
+						text-align: center;
+						border: 2px solid #D7D7D7;
+						border-radius: 50%;
+						line-height: 31px;
+
+					}
+					&.active, &:hover
+					{
+						a
+						{
+							color: white;
+							background: #36AF47;
+							border-color: transparent;
+						}
+					}
+				}
+			}
+			textarea
+			{
+				font-size: @primary-font-size;
+				color: @primary-content-color;
+				letter-spacing: 0.3px;
+				font-weight: 600;
+				line-height: 19px;
+			}
+		}
+	}
+	.modal-footer
+	{
+		a
+		{
+			font-size: @primary-font-size;
+			color: @secondary-content-color;
+			font-weight: 600;
+		}
+	}
+}
+
+// ****************************************************************************
+// *                               BILLING MODAL                              *
+// *               this modal has expiration and settings module              *
+// ****************************************************************************
+.billing-modal
+{
+	.modal-body
+	{
+		padding: 0px;
+
+		.tab-navigation
+		{
+			background-image: -webkit-linear-gradient(271deg, #2EA1F8 2%, #1990EA 100%);
+			background-image: -o-linear-gradient(271deg, #2EA1F8 2%, #1990EA 100%);
+			background-image: linear-gradient(1deg, #2EA1F8 2%, #1990EA 100%);
+			height: 96px;
+			border-top-left-radius: 4px;
+			border-top-right-radius: 4px;
+			.list-inline
+			{
+				margin: 0px;
+				li
+				{
+					height: 96px;
+					width: 25%;
+					float: left;
+					text-align: center;
+					margin: 0px !important;
+					a
+					{
+						margin: 0px !important;
+						color: #B5D7F0;
+						font-weight: 400;
+						font-size: @primary-font-size;
+						text-transform: capitalize;
+						text-decoration: none;
+						i
+						{
+							font-size: 40px;
+							margin-top: 15px;
+							margin-bottom: 10px;
+						}
+					}
+					&.active, &:hover
+					{
+						background-color: #1D8CE0;
+						a
+						{
+							color: white;
+						}
+					}
+
+				}
+			}
+		}
+		.billing-content
+		{
+			.mentions-holder
+			{
+				padding: 20px;
+			}
+
+			h5
+			{
+				text-transform: capitalize;
+				margin-bottom: 0px;
+			}
+			p
+			{
+				font-size: 12px;
+				color: @secondary-content-color;
+			}
+			.limit-stats
+			{
+				span
+				{
+					color: @primary-color !important;
+				}
+			}
+			.progress-stats
+			{
+				margin-top: 10px;
+			}
+			.change-plan
+			{
+				margin-top: 15px;
+			}
+
+			.payment-card
+			{
+				padding-left: 20px;
+				padding-right: 20px;
+				padding-bottom: 20px;
+				i.fa-warning
+				{
+					color: @danger-color;
+					margin-left: 5px;
+				}
+				img
+				{
+					width: 28px;
+					height: auto;
+					margin-right: 5px;
+				}
+			}
+
+			.subscription-cancel
+			{
+				padding-left: 20px;
+				padding-right: 20px;
+				.expiring-notes, .cancel-notes
+				{
+					padding: 15px;
+					padding-bottom: 5px;
+					margin-bottom: 20px;
+					a
+					{
+						text-decoration: none !important;
+					}
+				}
+				.expiring-notes
+				{
+					background: #FFFDFD;
+					border: 1px solid #DF0C0C;
+					border-radius: 4px;
+				}
+				.cancel-notes
+				{
+					background: #F0F3F8;
+					border: 1px solid #DCE1EA;
+					border-radius: 4px;
+				}
+				.subject
+				{
+					font-size: @primary-font-size;
+					color: @primary-content-color;
+					line-height: 19px;
+					font-weight: 600;
+				}
+				p
+				{
+					opacity: 0.59;
+					font-family: SourceSansPro-Regular;
+					font-size: @primary-font-size;
+					color: #414F64;
+					line-height: 19px;
+				}
+			}
+		}
+	}
+}
+// ****************************************************************************
+// *                              Settings modal                              *
+// * 				this modal lets you choose your own settings 			  *
+// ****************************************************************************
+
+.setting-modal
+{
+	.modal-dialog
+	{
+		width: 630px;
+	}
+	.modal-body 
+	{
+		padding: 0px;
+
+		.settings-block
+		{
+			text-transform: capitalize;
+			background: #2EA1F8;
+			padding: 20px 30px;
+			font-size: 18px;
+			color: @default-to-color ;
+			font-family: @primary-font;
+			font-weight: 400;
+			letter-spacing: 0.4px;
+			.close-modal i 
+			{
+				color: #70BBFB;
+			}
+		}
+		.settings-list
+		{
+			background-color: #222C3C;
+    		margin-left: 0px;
+			margin-bottom: 0px;
+			display: flex;
+    		justify-content: space-between;
+			li 
+			{
+				margin-left: 30px;
+				margin-right: 30px;
+				text-transform: capitalize;
+				padding-left: 0px;
+				padding-right: 0px;
+				border-bottom:3px solid transparent;
+				&:first-child 
+				{
+					margin-left: 10px;
+				}
+				&:last-child
+				{
+					margin-right: 7px;
+				}
+				a 
+				{
+					color: #848C98;
+					padding: 0px;
+					border-radius: 0px;
+					padding-top: @primary-font-size;
+					padding-bottom: 11px;
+					font-size: @primary-font-size;
+					font-family: @primary-font;
+					text-transform: capitalize;
+					text-decoration: none;
+					font-weight: 400;
+
+					
+				}
+			}
+			li.active 
+			{
+				border-bottom: 3px solid #2EA1F8;
+				a 
+				{
+					border-radius: 0px;
+					color: @default-to-color;
+					
+				}
+			}
+		}
+		.settings-content
+		{
+			padding: 0px;
+			margin-bottom: 0px;
+			border:0px;
+		}
+		.list-group 
+		{
+			margin-bottom: 0px;
+
+			.list-group-item 
+			{
+				border:1px solid #F2F3F5;
+				padding: 16px 30px;
+				cursor: pointer;
+				font-size: @primary-font-size;
+				color: @primary-content-color;
+				border-left: 0px;
+				border-right:0px;
+				.text-toggle 
+				{
+					opacity: 0.6;
+				}	
+				
+				&:hover 
+				{
+					color: @primary-content-color!important;
+				}
+				
+				
+			}
+
+		}
+
+	}
+	.settings-footer
+	{
+		padding: 12px 30px;
+		.btn-send
+		{
+			background-image: linear-gradient(-180deg, #39B54A 0%, #34AA44 98%);
+			border: 1px solid #249533;
+			border-radius: 4px;
+			color: @default-to-color;
+			font-size: @primary-font-size;
+			font-family: @primary-font;
+		}
+	}
+}
+/* ============================================================
+  COMMON
+============================================================ */
+.cmn-toggle {
+  position: absolute;
+  margin-left: -9999px;
+  visibility: hidden;
+}
+.cmn-toggle + label {
+  display: block;
+  position: relative;
+  cursor: pointer;
+  outline: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* ============================================================
+  SWITCH 1 - ROUND
+============================================================ */
+input.cmn-toggle-round + label {
+  padding: 2px;
+  width: 48px;
+  height: 24px;
+  background-color: #dddddd;
+  -webkit-border-radius: 24px;
+  -moz-border-radius: 24px;
+  -ms-border-radius: 24px;
+  -o-border-radius: 24px;
+  border-radius: 24px;
+}
+input.cmn-toggle-round + label:before, input.cmn-toggle-round + label:after {
+  display: block;
+  position: absolute;
+  top: 1px;
+  left: 1px;
+  bottom: 1px;
+  content: "";
+}
+input.cmn-toggle-round + label:before {
+  right: 1px;
+  background-color: #f1f1f1;
+  -webkit-border-radius: 24px;
+  -moz-border-radius: 24px;
+  -ms-border-radius: 24px;
+  -o-border-radius: 24px;
+  border-radius: 24px;
+  -webkit-transition: background 0.4s;
+  -moz-transition: background 0.4s;
+  -o-transition: background 0.4s;
+  transition: background 0.4s;
+}
+input.cmn-toggle-round + label:after {
+  width: 24px;
+  background-color: #fff;
+  -webkit-border-radius: 100%;
+  -moz-border-radius: 100%;
+  -ms-border-radius: 100%;
+  -o-border-radius: 100%;
+  border-radius: 100%;
+  -webkit-box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  -webkit-transition: margin 0.4s;
+  -moz-transition: margin 0.4s;
+  -o-transition: margin 0.4s;
+  transition: margin 0.4s;
+}
+input.cmn-toggle-round:checked + label:before {
+  background-color: #36AF47;
+}
+input.cmn-toggle-round:checked + label:after {
+  margin-left: 20px;
+}
+
+/* ============================================================
+  SWITCH 2 - ROUND FLAT
+============================================================ */
+input.cmn-toggle-round-flat + label {
+  padding: 2px;
+  width: 48px;
+  height: 24px;
+  background-color: #dddddd;
+  -webkit-border-radius: 24px;
+  -moz-border-radius: 24px;
+  -ms-border-radius: 24px;
+  -o-border-radius: 24px;
+  border-radius: 24px;
+  -webkit-transition: background 0.4s;
+  -moz-transition: background 0.4s;
+  -o-transition: background 0.4s;
+  transition: background 0.4s;
+}
+input.cmn-toggle-round-flat + label:before, input.cmn-toggle-round-flat + label:after {
+  display: block;
+  position: absolute;
+  content: "";
+}
+input.cmn-toggle-round-flat + label:before {
+  top: 2px;
+  left: 2px;
+  bottom: 2px;
+  right: 2px;
+  background-color: #fff;
+  -webkit-border-radius: 24px;
+  -moz-border-radius: 24px;
+  -ms-border-radius: 24px;
+  -o-border-radius: 24px;
+  border-radius: 24px;
+  -webkit-transition: background 0.4s;
+  -moz-transition: background 0.4s;
+  -o-transition: background 0.4s;
+  transition: background 0.4s;
+}
+input.cmn-toggle-round-flat + label:after {
+  top: 4px;
+  left: 4px;
+  bottom: 4px;
+  width: 15px;
+  background-color: #dddddd;
+  -webkit-border-radius: 15px;
+  -moz-border-radius: 15px;
+  -ms-border-radius: 15px;
+  -o-border-radius: 15px;
+  border-radius: 15px;
+  -webkit-transition: margin 0.4s, background 0.4s;
+  -moz-transition: margin 0.4s, background 0.4s;
+  -o-transition: margin 0.4s, background 0.4s;
+  transition: margin 0.4s, background 0.4s;
+}
+input.cmn-toggle-round-flat:checked + label {
+  background-color: #36AF47;
+}
+input.cmn-toggle-round-flat:checked + label:after {
+  margin-left: 20px;
+  background-color: #36AF47;
+}
+
+/* ============================================================
+  SWITCH 3 - YES NO
+============================================================ */
+input.cmn-toggle-yes-no + label {
+  padding: 2px;
+  width: 48px;
+  height: 24px;
+}
+input.cmn-toggle-yes-no + label:before, input.cmn-toggle-yes-no + label:after {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  color: #fff;
+  font-family: "Roboto Slab", serif;
+  font-size: 20px;
+  text-align: center;
+  line-height: 20px;
+}
+input.cmn-toggle-yes-no + label:before {
+  background-color: red;
+  content: attr(data-off);
+  -webkit-transition: -webkit-transform 0.5s;
+  -moz-transition: -moz-transform 0.5s;
+  -o-transition: -o-transform 0.5s;
+  transition: transform 0.5s;
+  -webkit-backface-visibility: hidden;
+  -moz-backface-visibility: hidden;
+  -ms-backface-visibility: hidden;
+  -o-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+input.cmn-toggle-yes-no + label:after {
+  background-color: #36AF47;
+  content: attr(data-on);
+  -webkit-transition: -webkit-transform 0.5s;
+  -moz-transition: -moz-transform 0.5s;
+  -o-transition: -o-transform 0.5s;
+  transition: transform 0.5s;
+  -webkit-transform: rotateY(180deg);
+  -moz-transform: rotateY(180deg);
+  -ms-transform: rotateY(180deg);
+  -o-transform: rotateY(180deg);
+  transform: rotateY(180deg);
+  -webkit-backface-visibility: hidden;
+  -moz-backface-visibility: hidden;
+  -ms-backface-visibility: hidden;
+  -o-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+input.cmn-toggle-yes-no:checked + label:before {
+  -webkit-transform: rotateY(180deg);
+  -moz-transform: rotateY(180deg);
+  -ms-transform: rotateY(180deg);
+  -o-transform: rotateY(180deg);
+  transform: rotateY(180deg);
+}
+input.cmn-toggle-yes-no:checked + label:after {
+  -webkit-transform: rotateY(0);
+  -moz-transform: rotateY(0);
+  -ms-transform: rotateY(0);
+  -o-transform: rotateY(0);
+  transform: rotateY(0);
+}
+
+// ****************************************************************************
+// *                              Assign modal                                *
+// * 	 this modal lets you to assign work to selected team members 	      *
+// ****************************************************************************
+
+.assign-modal
+{
+	.modal-dialog
+	{
+		width: 960px;
+	}
+	.modal-body 
+	{
+		padding: 0px;
+		
+		.assign-header
+		{
+			background: #2EA1F8;
+			text-transform: capitalize;
+			padding: 20px 30px;
+			font-size: 18px;
+			color: @default-to-color ;
+			font-family: @primary-font;
+			font-weight: 400;
+			letter-spacing: 0.4px;
+			.close-modal i 
+			{
+				color: #70BBFB;
+			}
+		}
+		.table > thead > tr > th:first-child
+		{
+			padding-left: 30px;
+		}
+		.table > tbody > tr > td:first-child
+		{
+			padding-left: 30px;
+		}
+		.team-members-table
+		{
+			margin-bottom: 0px;
+
+			thead 
+			{
+				.table-heading
+				{
+					color: @secondary-content-color;
+					font-size: @primary-font-size;
+					font-family: @primary-font;
+					background-color: #F0F3F8;
+
+					th 
+					{
+						font-weight: 400;
+					}
+				}
+			}
+			tbody 
+			{
+				.members-progress
+				{
+					cursor: pointer;
+					&:hover
+					{
+						background-color: #1A91EB;
+						color: @default-to-color;
+						.progress
+						{
+							background: #2573A7;
+							.progress-bar 
+							{
+								background: @default-to-color;
+							}
+						}
+						.user-image 
+						{
+							.user-name 
+							{
+								color: @default-to-color;
+							}
+						}
+						span 
+						{
+							color: @default-to-color;
+							a 
+							{
+								color: @default-to-color;
+							}
+						}
+						.last-activity 
+						{
+							color: @default-to-color;
+						}
+
+					}
+					.user-image 
+					{
+						width: 40px;
+						height: 40px;
+
+						img 
+						{
+							width: 40px;
+							height: 40px;
+						}
+						.user-name 
+						{
+							font-size: @primary-font-size;
+							font-family: @primary-font;
+							color: @primary-content-color;
+							font-weight: 400;
+							margin-left: 10px;
+						}
+					}
+					.progress
+					{
+						margin-bottom: 0px;
+						margin-top: 9px;
+						width: 50%;
+						float: left;
+						height: 4px;
+						background: #F0F3F8;
+						border-radius: 4px;
+						margin-right: 10px;
+						.user1-progress 
+						{
+							background: #FF7800;
+						}
+						.user2-progress
+						{
+							background: #2FABC1;
+						}
+						.user3-progress 
+						{
+							background: #FF7800;
+						}
+						.user4-progress
+						{
+							background: #39B54A
+						}
+						.user5-progress 
+						{
+							background: #FF7800;
+						}
+						.user6-progress
+						{
+							background: #2FABC1;
+						}
+					}
+					span 
+					{
+						font-size: @primary-font-size;
+						font-family: @primary-font;
+						color: @primary-content-color;
+						font-weight: 400;
+						a 
+						{
+							text-decoration: none;
+						}
+					}
+					.last-activity
+					{
+						color: @secondary-content-color ;
+						font-size: @primary-font-size;
+						font-family: @primary-font;
+						font-weight: 400;
+					}
+					
+				}
+			}
+		}
+	}
+}			
+
+// ****************************************************************************
+// *                              Achievements modal                          *
+// * 	 this modal gives you the information about awards and rewards	      *
+// ****************************************************************************
+
+.achievement-modal
+{
+	.modal-body 
+	{
+		padding: 0px;
+		.achievement-header
+		{
+			background: #2EA1F8;
+			text-transform: capitalize;
+			padding: 20px 30px;
+			font-size: 18px;
+			color: @default-to-color ;
+			font-family: @primary-font;
+			font-weight: 400;
+			letter-spacing: 0.4px;
+			.close-modal i 
+			{
+				color: #70BBFB;
+			}
+		}
+		.awards
+		{
+			background-color: #222C3C;
+			padding:25px 30px 20px 30px;
+			font-size: @primary-font-size;
+			font-family: @primary-font;
+			font-weight: 400;
+			color: @default-to-color;
+		}
+		.table > tbody > tr > td 
+		{
+			padding-left: 30px;
+			padding-top: 23px;
+			padding-bottom: 22px;
+		}
+		.achievements
+		{
+			max-height: 485px;
+		}
+		.achievements-table
+		{
+			margin-bottom: 0px;
+			.achievements-list 
+			{
+				padding: 23px 30px;
+				
+				.medal 
+				{
+					width: 50px;
+					height: 50px;
+				}
+				.medal-title 
+				{
+					text-transform: uppercase;
+					color: #9299A7;
+					font-size: @primary-font-size;
+					font-family: @primary-font;
+					font-weight: 400;
+					padding-left: 20px;
+					.text-muted
+					{
+						color: @primary-content-color;
+						font-size: @primary-font-size;
+						font-family: @primary-font;
+						font-weight: 400;
+						text-transform: none;
+					}
+				}
+				.share-progress 
+				{
+					.btn-share
+					{
+						background-image: linear-gradient(-1deg, #1991EB 2%, #2DA1F8 98%);
+						border: 1px solid #1585D8;
+						border-radius: 4px;
+						color: @default-to-color;
+						font-size: @primary-font-size;
+						font-family: @primary-font;
+						padding: 7px 27px;
+					}
+					.help-text
+					{
+						text-transform: uppercase;
+						font-size: 12px;
+						color: #9299A7;
+						font-family: @primary-font;
+						font-weight: 400;
+					}
+					.progress
+					{
+						background: #F0F3F8;
+						border-radius: 4px;
+						height: 6px;
+						width: 92px;
+						margin: 0px;
+						.progress-bar
+						{
+							background: #FF7800;
+							border-radius: 4px;
+						}
+					}
+				}
+			}
+		}
+	}	
+}
+// ****************************************************************************
+// *                              Onboarding modal                          *
+// * 	 this modal gives you the information about awards and rewards	      *
+// ****************************************************************************
+.onboarding-modal
+{
+	.modal-dialog
+	{
+		width: 770px;
+	}
+	.modal-body 
+	{
+		padding: 0px;
+		.onboard-header
+		{
+			background: #2EA1F8;
+			text-transform: capitalize;
+			padding: 20px 30px;
+			font-size: 18px;
+			color: @default-to-color ;
+			font-family: @primary-font;
+			font-weight: 400;
+			letter-spacing: 0.4px;
+			.close-modal i 
+			{
+				color: #70BBFB;
+			}
+		}
+		.app-process 
+		{
+    		background: #222C3C;
+    		margin-bottom: 0px;
+    		margin-left: 0px;
+    		.no-style
+    		{
+    			color: @default-to-color;
+    			font-size: @primary-font-size;
+    			font-family: @primary-font;
+    			padding-left: 32px;
+    			padding-right: 6px;
+    			line-height: 60px;
+    		}
+    		li  
+    		{
+    			cursor: pointer;
+    			a 
+    			{
+    				padding: 16px 15px;
+    			}
+    			.steps
+    			{
+    				font-size: @primary-font-size;
+					color: @default-to-color;
+					font-weight: 400;
+					background: #313C4D;
+					text-decoration: none;
+					width: 28px;
+					display: inline-block;
+					height: 28px;
+					text-align: center;
+					border: 1px solid #313C4D;
+					border-radius: 50%;
+					margin-right: 10px;
+					line-height: 28px;
+    			}
+    			.completed
+    			{
+    				color: #848C98;
+    			}
+    			span 
+    			{
+    				color: #848C98;
+    				cursor: pointer;
+    			}
+    		}
+    		li.active 
+    		{
+    			.steps 
+    			{
+    				color: @default-to-color;
+					background-color: #1991EB;
+					border:0px solid transparent;
+					border-top: 1px solid transparent !important;
+				    border-left: 1px solid transparent !important;
+				    border-right: 1px solid transparent !important;
+				    background-image: none;
+    			}
+    			span 
+    			{
+    				color: @default-to-color;
+
+    			}
+    			.app-list
+				{
+					color: @default-to-color;
+					cursor: pointer;
+				}
+    		}
+		}
+		.app-structure
+		{
+			padding-top: 37px;
+			padding-left: 30px;
+			padding-right: 30px;
+			padding-bottom: 0px;
+			margin-bottom: 0px;
+			border:0px solid transparent;
+
+			.app-heading
+			{
+				color: @primary-content-color;
+				font-size: 18px;
+				font-weight: 400;
+				font-family: @primary-font;
+			}
+			.app-content
+			{
+				font-size: @primary-font-size;
+				color: @secondary-content-color;
+				font-family: @primary-font;
+				font-weight: 400;
+				margin: 0px auto;
+				margin-top: @primary-font-size;
+				padding-left: 78px;
+				padding-right: 40px;
+			}
+			
+
+			.screen-image
+			{
+				margin-top: 33px;
+			}
+			.skip-next
+			{
+				.skip  
+				{
+					margin-top: -40px;
+					a 
+					{
+						color: #7383A1;
+						font-size: @primary-font-size;
+						font-family: @primary-font;
+						font-weight: 400;
+						text-decoration: none;
+					}
+
+				}
+				.btn-next
+				{
+					margin-top: -45px;
+					margin-right: -10px;
+				}
+			}
+		}
+	}
+}	
+
+// css for magnifying an image 
+
+.magnify {
+	z-index: 20;
+	border: 3px solid #999;
+	position: relative;
+	width:900px;
+  height:640px;
+	margin:0px auto;
+	overflow: hidden;
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+}
+.magnify img {
+	display:block;
+}
+.element_to_magnify {
+	position: relative;
+	width:900px;
+  	height:640px;
+  	overflow: hidden;
+}
+.element_to_magnify a {
+  display:block;
+  position:absolute;
+  top:80px;
+  right:80px;
+  background-color:rgba(200, 200, 200, .25);
+  padding:4px;
+  font-size:18px;
+  color:#fff;
+}
+.element_to_magnify img{
+	width: 100%;
+	height: auto;
+}
+.magnified_element {
+	
+}
+.magnify_glass {
+	z-index: 300;
+	position: absolute;
+	width: 200px;
+	height: 200px;
+	cursor: move;
+}
+.mg_ring {
+	pointer-events: none;
+	background:none;
+	position: absolute;
+	-moz-box-shadow:    inset 0 0 10px #000000;
+   -webkit-box-shadow: inset 0 0 10px #000000;
+   -ms-box-shadow: inset 0 0 10px #000000;
+   box-shadow:         inset 0 0 10px #000000;
+	border: 4px solid #CCC;
+	border-radius: 50%;
+	width: 100%;
+	height: 100%;
+	z-index: 20;
+
+}
+.mg_zone {
+	position: absolute;
+	border-radius: 50%;
+	top:0px;
+	left: 0px;
+	width: 100%;
+	height: 100%;
+	z-index: 10;
+	overflow:hidden;
+}
+
+.pm_btn {
+	border: 4px solid #CCC;	
+	z-index: 30;
+	color: #333;
+	position: absolute;
+	width: 40px;
+	height: 40px;
+	background-color: #fff;
+	border-radius: 50%;
+	
+}
+.pm_btn h2{
+	text-align: center;
+	user-select: none;
+	cursor: pointer;
+}
+.minus {
+	right:-24px;
+	bottom:30px;
+}
+.plus {
+	right:0px;
+	bottom:-5px;
+}
+
+.button {
+	width:30px;
+	height: 30px;
+	padding-top: 5px;
+	overflow: hidden;
+	border-radius: 50%;
+	background-color: rgba(50, 50, 50, .5);
+	position: absolute;
+	text-indent: -999em;
+	border:solid black 1px;
+}
+
+
+
+// ****************************************************************************
+// *                            Connect New Service kit                       *
+// * 	 this modal let you connect to your required service                  *
+// ****************************************************************************
+
+.connectnewservice-modal
+{
+	.modal-body 
+	{
+		padding: 0px;
+		.service-header
+		{
+			background: #2EA1F8;
+			text-transform: capitalize;
+			padding: 20px 30px;
+			font-size: 18px;
+			color: @default-to-color ;
+			font-family: @primary-font;
+			font-weight: 400;
+			letter-spacing: 0.4px;
+			.close-modal i 
+			{
+				color: #70BBFB;
+			}
+		}
+		.authentication
+		{
+			padding: 30px;
+			.authenticate 
+			{
+				color:@secondary-content-color;
+				font-size: @primary-font-size;
+				font-weight:400;
+				text-transform: capitalize;
+				.authentication-form
+				{
+					background: @default-to-color;
+					border: 1px solid #DFE3E9;
+					border-radius: 4px;
+					font-size: @primary-font-size;
+					color: @primary-content-color;
+				}
+			}
+			.connect-through
+			{
+				.btn-payment
+				{
+					border-top-right-radius:0px;
+					border-bottom-right-radius: 0px;
+					background-image: linear-gradient(0deg, #F2F4F7 0%, @default-to-color 100%);
+				}
+				.payment-form
+				{
+					background-image: linear-gradient(0deg, #F2F4F7 0%, @default-to-color 100%);
+					border: 1px solid #CED0DA;
+					border-top-left-radius: 0px;
+					border-bottom-left-radius: 0px;
+				    border-left: 0px;
+				    box-shadow: none;
+				}
+				
+			}
+			.account-info 
+			{
+				padding: 20px;
+				margin-top: 25px;
+				background: #F8FAFC;
+				border: 1px solid #DFE3E9;
+				border-radius: 4px;
+				margin-bottom: 20px;
+				.info 
+				{
+					color: #333C48;
+					font-size: @primary-font-size;
+					font-weight:400;
+					line-height: 19px;
+				}
+			}
+		}
+	}	
+}
+
+// ****************************************************************************
+// *                            Top Bar Settings kit                          *
+// *    this modal lets you choose your own settings in the top bar  		  *
+// ****************************************************************************
+
+.topbarsettings-modal
+{
+	.modal-dialog 
+	{
+		width: 770px;
+	}
+	.modal-body 
+	{
+		padding: 0px;
+		.topbar-header
+		{
+			padding: 20px 30px;
+			background-color: #2EA1F8;
+			.top-settings 
+			{
+    			margin-bottom: 0px;
+    			li  
+	    		{
+	    			text-align: center;
+	    			padding-left: 25px;
+	    			padding-right: 25px;
+	    			&:first-child
+	    			{
+	    				padding-left: 0px;
+	    			}
+	    			&:last-child
+	    			{
+	    				padding-right: 0px;
+	    			}
+	    			a 
+	    			{
+	    				padding: 0px;
+	    				font-size: 16px;
+						color: @default-to-color;
+						font-weight: 400;
+						text-decoration: none;
+						width: 40px;
+						display: inline-block;
+						height: 40px;
+						text-align: center;
+						border: 2px solid #1D8CE0;
+						border-radius: 50%;
+						line-height: 35px;
+						margin-right: 0px;
+						background: #1D8CE0;
+	    			}
+	    			.settings 
+					{
+						font-size: @primary-font-size;
+						margin-top: 10px;
+						color: @default-to-color;
+						text-transform: capitalize;
+						cursor: pointer;
+					}
+	    			&:hover 
+	    			{
+	    				a 
+	    				{
+	    					background: @default-to-color;
+	    					color: #2EA1F8;
+	    					border:2px solid #2EA1F8;
+	    					.settings 
+	    					{
+	    						color: @default-to-color;
+	    					}
+	    				}
+	    			}
+	    		}
+	    		li.active
+	    		{
+	    			a 
+    				{
+    					background: @default-to-color;
+    					color: #2EA1F8;
+    					border:2px solid #2EA1F8;
+    					.settings 
+    					{
+    						color: @default-to-color;
+    					}
+    				}
+	    		}
+			}
+		}
+		.top-settings-content
+		{
+			padding: 0px;
+			margin-bottom: 0px;
+			border:0px;
+		}
+		.toggle-settings-list
+		{
+			margin-bottom: 0px;
+			.text-toggle
+			{
+				// opacity: 0.6;
+			}
+			.list-group-item
+			{
+				&:first-child
+				{
+					border-top-right-radius: 0px;
+    				border-top-left-radius: 0px;
+				}
+				border:1px solid #F2F3F5;
+				padding: 19px 30px;
+				font-size: @primary-font-size;
+				color: @primary-content-color;
+				border-left: 0px;
+				border-right:0px;
+					
+				// input[type=checkbox] + .text-toggle {
+				//   color: red;
+				  
+				// } 
+				// input[type=checkbox]:checked + .text-toggle {
+				//   color: red;
+				 
+				// } 
+			}
+		}
+	}
+}	
+
+// ****************************************************************************
+// *                            Dark message kit                              *
+// *           this modal gives modal messages with dark background 		  *
+// ****************************************************************************	
+.darkmessage-modal
+{
+	font-family: @primary-font;
+	.dark-body 
+	{
+		background: #222C3C;
+		padding: 30px 30px 17px 30px;
+		.media 
+		{
+			.media-left
+			{
+				width: 60px;
+				height: 60px;
+			}
+			.media-body 
+			{
+				padding-left: 10px;
+				padding-top: 6px;
+				.media-heading
+				{
+					font-size: 24px;
+					color: @default-to-color;
+					font-weight: 400;
+				}
+				font-size: @primary-font-size;
+				color: @default-to-color;
+				font-weight: 400;
+				margin-left: 15px;
+				.dark-close 
+				{
+					margin-top: -34px;
+					color: #636E7D;
+				}
+				.circle 
+				{
+					width: 12px;
+					height: 12px;
+					border:2px solid #1A91EB;
+					border-radius: 50%;
+					float: left;
+					margin-top: 5px;
+					margin-right: 10px;
+				}
+			}
+		}
+		.select
+		{
+			margin-top: 25px;
+			margin-left: -30px;
+			margin-right: -30px;
+			padding-left: 15px;
+			padding-right: 15px;
+			border-bottom: 1px solid #273142;
+			.selection 
+			{
+				border: 1px solid #313D4F;
+				border-radius: 4px;
+				background: #273142;
+				color: #FFFFFF;
+				font-size: 14px;
+				font-weight: 400;
+			}
+		}
+		.hello 
+		{
+			border: 1px solid #313D4F;
+			border-radius: 4px;
+			background: #273142;
+			margin-top: 15px;
+			color: #FFFFFF;
+			font-size: @primary-font-size;
+			font-weight: 400;
+			&::-webkit-input-placeholder 
+			{
+			   color: #7C8CA5;
+			}
+			&:-moz-placeholder 
+			{ /* Firefox 18- */
+			   color: #7C8CA5;  
+			}
+
+			&::-moz-placeholder 
+			{  /* Firefox 19+ */
+			   color: #7C8CA5;  
+			}
+
+			&:-ms-input-placeholder 
+			{  
+			   color: #7C8CA5;  
+			}
+		}
+
+		.message-box 
+		{
+			border: 1px solid #313D4F;
+			border-radius: 4px;
+			background: #273142;
+			margin-top: @primary-font-size;
+			color: #FFFFFF;
+			font-size: @primary-font-size;
+			font-weight: 400;
+			&::-webkit-input-placeholder 
+			{
+			   color: #7C8CA5;
+			}
+			&:-moz-placeholder 
+			{ /* Firefox 18- */
+			   color: #7C8CA5;  
+			}
+
+			&::-moz-placeholder 
+			{  /* Firefox 19+ */
+			   color: #7C8CA5;  
+			}
+
+			&:-ms-input-placeholder 
+			{  
+			   color: #7C8CA5;  
+			}
+		}
+	}
+	.dark-footer
+	{
+		background: #273142;
+		border-radius: 4px;
+		padding-left: 30px;
+		padding-right: 30px;
+		margin-top: -4px;
+		.message 
+		{
+			font-size: @primary-font-size;
+			color: @default-to-color;
+			font-weight: 400;
+		}
+		.btn-send 
+		{
+			background-image: linear-gradient(-1deg, #1991EB 2%, #2DA1F8 98%);
+			font-size: @primary-font-size;
+			color: @default-to-color;
+			border-radius: 4px;
+			margin-top: 4px;
+			font-size: @primary-font-size;
+			font-weight: 400;
+			text-transform: capitalize;
+		}
+		.check-message 
+		{
+			line-height: 20px;
+			color: @default-to-color;
+			font-size: @primary-font-size;
+			font-weight: 400;
+			text-transform: none;
+			input[type="checkbox"]
+			{
+				position: inherit;
+				margin-right: 10px;
+			}
+		}
+	}
+}			
+
+// ****************************************************************************
+// *                           Create New kit                                 *
+// *           this modal gives the details of the new Creative Set 		  *
+// ****************************************************************************	
+.createnew-modal
+{
+	.dark-body 
+	{
+		font-family: @primary-font;
+		background: #222C3C;
+		padding: 30px 30px 20px 30px;
+		.body-title 
+		{
+			font-size: 24px;
+			color: @default-to-color;
+			font-weight: 400;
+			margin-top: 0px;
+			font-family: @primary-font;
+			margin-bottom: 25px;
+		}
+		.dark-close
+		{
+			color: #636E7D;
+			font-size: 12px;
+			margin-top: 5px;
+		}
+		.create 
+		{
+			font-size: @primary-font-size;
+			color: @default-to-color;
+			font-weight: 400;
+			font-family: @primary-font;
+		}
+		.create-form 
+		{
+			border: 1px solid #313D4F;
+			border-radius: 4px;
+			background: #273142;
+			color: #FFFFFF;
+			&::-webkit-input-placeholder 
+			{
+			   color: #7C8CA5;
+			}
+			&:-moz-placeholder 
+			{ /* Firefox 18- */
+			   color: #7C8CA5;  
+			}
+
+			&::-moz-placeholder 
+			{  /* Firefox 19+ */
+			   color: #7C8CA5;  
+			}
+
+			&:-ms-input-placeholder 
+			{  
+			   color: #7C8CA5;  
+			}
+
+		}
+		.rotate 
+		{
+			.potrait 
+			{
+				border: 1px solid #313D4F;
+				height: 146px;
+				background: #273142;
+				border-radius: 4px;
+				text-align: center;
+				line-height: 123px;
+				cursor: pointer;
+				.selected 
+				{
+					display: none;
+					position: absolute;
+					right: 25px;
+					top: -43px;
+					i 
+					{
+						width: 18px;
+						height: 18px;
+						border-radius: 50%;
+						border:1px solid @default-to-color;
+						background: @default-to-color;
+						color: #1BB934;
+						font-size: 12px;
+						line-height: 18px;
+					}
+				}
+				.image-text 
+				{
+					font-size: @primary-font-size;
+					color: @default-to-color;
+					font-weight: 400;
+					line-height: 0px;
+					// margin-top: -10px;
+					font-family: @primary-font;
+				}
+				// &:hover 
+				// {
+				// 	background: #1BB934;
+				// 	border:1px solid #1BB934;
+				// 	border-radius: 4px;
+				// }
+			}
+			.check-potrait
+			{
+				position: absolute;
+			}
+			.potrait.active 
+			{
+				background: #1BB934;
+				border:1px solid #1BB934;
+				border-radius: 4px;
+				.selected
+				{
+					display: block;
+				}
+			}
+		}
+	}
+	.create-footer
+	{
+		text-align: center;
+		background: #273142;
+		margin-top: -4px;
+		padding: 18px 30px;
+		.btn-finish 
+		{
+			background-image: linear-gradient(-1deg, #1991EB 2%, #2DA1F8 98%);
+			border-radius: 4px;
+			font-size: @primary-font-size;
+			color: @default-to-color;
+			font-weight: 400;
+		}
+	}
+}		
+// ****************************************************************************
+// *                           Dark Sharing kit                               *
+// *           this modal lets you share your project through email 		  *
+// ****************************************************************************	
+.darksharing-modal
+{
+	.modal-body 
+	{
+		font-family: @primary-font;
+		padding: 0px;
+		.share-header
+		{
+			background-color: #2EA1F8;
+			.share-list
+			{
+    			margin-left: 0px;
+    			margin-bottom: 0px;
+    			li 
+    			{
+    				padding-left: 35px;
+    				padding-right: 35px;
+    				text-align: center;
+    				
+    				border:2px solid transparent;
+    				&:first-child
+    				{
+    					padding-left: 35px;
+    					margin-left: 10px;
+    				}
+    				a 
+    				{
+    					font-size: 40px;
+	    				text-decoration: none;
+	    				color: #B5D7F0;
+
+	    				.share-icon 
+	    				{
+	    					font-size: @primary-font-size;
+	    					color: #B5D7F0;
+	    					text-align: center;
+	    					text-transform: uppercase;
+	    				}
+    				}
+    			}
+    			li.active 
+    			{
+    				border-bottom: 2px solid @default-to-color;
+    				a 
+    				{
+    					color: @default-to-color;
+    					.share-icon 
+	    				{
+	    					color: @default-to-color;
+	    				}
+    				}
+    			}
+			}
+
+		}
+		.sharing-content
+		{
+			padding: 0px;
+			margin-bottom: 0px;
+			border:0px;
+			background: #222C3C;
+			border-radius: 0px;
+		}
+		.sharing-details
+		{
+			// background: #222C3C;
+			padding: 30px 30px 25px 30px;
+			.share-title
+			{
+				font-size: 21px;
+				color: @default-to-color;
+				font-family: @primary-font;
+				font-weight: 400;
+				margin-top: 0px;
+			}
+			.share-link 
+			{
+				margin-top: 22px;
+				.share 
+				{
+					font-size: @primary-font-size;
+					color: #7C8CA5;
+					font-weight: 400;
+					font-family: @primary-font;
+				}
+				.more a  
+				{
+					font-size: @primary-font-size;
+					color: #1A91EB;
+					font-size: 400;
+					font-family: @primary-font;
+					text-decoration: none;
+				}
+			}
+			.address-group
+			{
+				margin-top: 5px;
+				margin-bottom: 0px;
+				border-bottom-left-radius:0px;
+				border-bottom-right-radius: 0px;
+				border-bottom: 0px;
+				.share-address,.btn-cpy 
+				{
+					background: #222C3C;
+					border: 1px solid #313D4F;
+					height: 46px;
+					color: @default-to-color;
+					font-size: @primary-font-size;
+					font-weight: 400;
+					border-bottom: 0px;	
+					border-top-right-radius: 0px;
+					border-radius: 4px 0px 0px 0px;
+				}
+				.btn-cpy
+				{
+					width: 108px;
+					border-top-right-radius: 4px;
+					border-bottom-left-radius: 0px;
+					border-top-left-radius: 0px;
+				}
+			}
+			.url-bar
+			{
+				background: #273142;
+				height: 46px;
+				font-size: @primary-font-size;
+				font-weight: 400;
+				color: @default-to-color;
+				border: 1px solid #313D4F;
+				border-top-right-radius: 0px;
+				border-top-left-radius: 0px;
+				margin-bottom: 25px;
+				&::-webkit-input-placeholder 
+				{
+				   color: #7C8CA5;
+				}
+				&:-moz-placeholder 
+				{ /* Firefox 18- */
+				   color: #7C8CA5;  
+				}
+
+				&::-moz-placeholder 
+				{  /* Firefox 19+ */
+				   color: #7C8CA5;  
+				}
+
+				&:-ms-input-placeholder 
+				{  
+				   color: #7C8CA5;  
+				}
+			}
+			.control-group 
+			{
+				margin-bottom: 0px;
+				.mail-header
+				{
+					font-size: @primary-font-size;
+					color: #7C8CA5;
+					font-weight: 400;
+					font-family: @primary-font;
+				}
+				.selectize-input 
+				{
+					font-size: @primary-font-size;
+					color: #FFFFFF;
+					font-weight: 400;
+					font-family: @primary-font;
+					placeholder 
+					&::-webkit-input-placeholder 
+					{
+					   color: #7C8CA5;
+					}
+					&:-moz-placeholder 
+					{ /* Firefox 18- */
+					   color: #7C8CA5;  
+					}
+
+					&::-moz-placeholder 
+					{  /* Firefox 19+ */
+					   color: #7C8CA5;  
+					}
+
+					&:-ms-input-placeholder 
+					{  
+					   color: #7C8CA5;  
+					}
+				}
+				.edit-button 
+				{
+					background: #222C3C;
+					 border:1px solid transparent;
+					padding: 0px;
+					padding-left: 10px;
+					.btn-edit 
+					{
+						background: #273142;
+						border: 1px solid #313D4F;
+						border-radius: 4px;
+						height: 46px;
+						margin-top: 19px;
+						color: @default-to-color;
+						font-size: @primary-font-size;
+						font-weight: 400;
+					}
+					.edit-dropdown 
+					{
+						right: 0px;
+						left: auto;
+					}
+				}
+			}
+			
+		}
+	}
+	
+	.share-footer
+	{
+		
+		background: #273142;
+		border-radius: 4px;
+		margin-top: -4px;
+		padding: 17px 30px;
+		a 
+		{
+			font-size: @primary-font-size;
+			color: @secondary-content-color;
+			line-height: 34px;
+			font-family: @primary-font;
+			
+		}
+		.btn-share 
+		{
+			background-image: linear-gradient(-1deg, #1991EB 2%, #2DA1F8 98%);
+			border-radius: 4px;
+			height: 36px;
+		}
+	}
+}		
+// ****************************************************************************
+// *                           Dark Filter kit                               *
+// *           this modal lets you to filter the results 		  			 *
+// ****************************************************************************		
+.darkfilter-modal
+{
+	.filter-panel
+	{
+		font-family: @primary-font;
+		padding: 30px;
+		background: #222C3C;
+		.filter-title 
+		{
+			.filter-header
+			{
+				margin:0px;
+				font-size: 24px;
+				color: @default-to-color;
+				font-weight: 400;
+				margin-top: -5px;
+				font-family: @primary-font;
+			}
+			.close-modal 
+			{
+				margin-top: -6px;
+				color: #636E7D;
+			}
+		}
+		.filter-type 
+		{
+			margin-top: 28px;
+			font-family: @primary-font;
+			label 
+			{
+				font-size: @primary-font-size;
+				color: @default-to-color;
+				font-weight: 400;
+				padding-bottom: 3px;
+			}
+			.form-control 
+			{
+				background: #273142;
+				border: 1px solid #313D4F;
+				border-radius: 4px;
+				color: @secondary-content-color;
+				height: 36px;
+				font-size: @primary-font-size;
+			}
+		}
+	}
+	.filter-footer
+	{
+		
+		background: #273142;
+		border-radius: 4px;
+		margin-top: -4px;
+		padding: 20px 30px;
+		a 
+		{
+			font-size: @primary-font-size;
+			color: @secondary-content-color;
+			line-height: 30px;
+			font-family: @primary-font;
+			
+		}
+		.btn-filter 
+		{
+			background-image: linear-gradient(-1deg, #1991EB 2%, #2DA1F8 98%);
+			border-radius: 4px;
+		}
+	}
+}	
+
+// ****************************************************************************
+// *                           Filter Data kit                               *
+// *           this modal lets you to filter the results 		  			 *
+// ****************************************************************************		
+
+.filterdata-modal
+{
+	.filter-data
+	{
+		padding: 0px;
+		font-family: @primary-font;
+		.filter-header 
+		{
+			background: #2EA1F8;
+			text-transform: capitalize;
+			padding: 20px 30px;
+			font-size: 18px;
+			color: @default-to-color ;
+			font-weight: 400;
+			letter-spacing: 0.4px;
+			.close-modal i 
+			{
+				color: #70BBFB;
+			}
+		}
+		.filter-data 
+		{
+			padding: 30px;
+			.data-type 
+			{
+				margin-bottom: 20px;
+			}
+			.filter-type 
+			{
+				font-family: @primary-font;
+				label 
+				{
+					font-size: @primary-font-size;
+					color: @secondary-content-color;
+					font-weight: 400;
+					padding-bottom: 3px;
+				}
+				.form-control 
+				{
+					background-image: linear-gradient(0deg, #F2F4F7 0%, @default-to-color 100%);
+					border: 1px solid #CED0DA;
+					border-radius: 4px;
+					color: @primary-content-color;
+					height: 36px;
+					font-size: @primary-font-size;
+				}
+			}
+		}
+	}
+	.filter-data-footer
+	{
+		
+		background: #F0F3F8;
+		border-radius: 4px;
+		border-color: #F0F3F8;
+		padding: 13px 30px;
+		a 
+		{
+			font-size: @primary-font-size;
+			color: @secondary-content-color;
+			line-height: 30px;
+			font-family: @primary-font;
+			text-decoration: none;
+		}
+		.btn-filter 
+		{
+			background-image: linear-gradient(-180deg, #39B54A 0%, #34AA44 98%);
+			border: 1px solid #249533;
+			border-radius: 4px;
+		}
+	}
+}
+// ****************************************************************************
+// *                           New Image Set  kit                             *
+// *       this modal lets you to create new image and add to the project	  *
+// ****************************************************************************		
+.darknewimage-modal
+{
+	.dark-image
+	{
+		font-family: @primary-font;
+		padding: 30px;
+		background: #222C3C;
+		.image-title 
+		{
+			.image-header
+			{
+				margin:0px;
+				font-size: 24px;
+				color: @default-to-color;
+				font-weight: 400;
+				margin-top: -5px;
+				font-family: @primary-font;
+			}
+			.close-modal 
+			{
+				margin-top: -6px;
+				color: #636E7D;
+			}
+		}
+		.add-to
+		{
+			padding-top: 28px;
+			font-family: @primary-font;
+			label 
+			{
+				font-size: @primary-font-size;
+				color: @default-to-color;
+				font-weight: 400;
+				padding-bottom: 3px;
+			} 
+			.help-text 
+			{
+				a 
+				{
+					color: @secondary-content-color;
+					text-decoration: none;
+					font-size: @primary-font-size;
+					font-weight: 400;
+				}
+			}
+			.form-control 
+			{
+				background: #273142;
+				border: 1px solid #313D4F;
+				border-radius: 4px;
+				color: #FFFFFF;
+				height: 36px;
+				font-size: @primary-font-size;
+				&::-webkit-input-placeholder 
+				{
+				   color: #7C8CA5;
+				}
+				&:-moz-placeholder 
+				{ /* Firefox 18- */
+				   color: #7C8CA5;  
+				}
+
+				&::-moz-placeholder 
+				{  /* Firefox 19+ */
+				   color: #7C8CA5;  
+				}
+
+				&:-ms-input-placeholder 
+				{  
+				   color: #7C8CA5;  
+				}
+			}
+			.btn-group-justified
+			{
+				background: #273142;
+				border: 1px solid #313D4F;
+				border-radius: 4px;
+				.btn-grp 
+				{
+					background: #273142;
+					border: 1px solid transparent;
+					border-radius: 4px;
+					border:0px;
+					color: @default-to-color;
+				}
+			}
+			.btn-grp.active
+			{
+				background-image: linear-gradient(-1deg, #1991EB 2%, #2DA1F8 98%);
+				border: 1px solid #1A91EB;
+				border-radius: 4px 0px 0px 4px;
+			}
+		}
+	}
+	.select-image 
+	{
+		padding: 20px 25px 0px 25px;
+		margin-top: 20px;
+		border-top: 1px solid #273142;
+		margin-left: -30px;
+		margin-right: -30px;
+		.add-image 
+		{
+			padding-right: 5px;
+			padding-left: 5px;
+		}
+		img 
+		{
+			width: 100%;
+		}
+
+	}
+	.image-footer 
+	{
+		background: #273142;
+		border-radius: 4px;
+		margin-top: -4px;
+		border-top-right-radius: 0px;
+		border-top-left-radius: 0px;
+		padding: 18px 30px;
+		a 
+		{
+			font-size: @primary-font-size;
+			color: @secondary-content-color;
+			line-height: 30px;
+			line-height: 34px;
+			font-family: @primary-font;
+			text-decoration: none;
+		}
+		.btn-publish 
+		{
+			background-image: linear-gradient(-1deg, #1991EB 2%, #2DA1F8 98%);
+			border-radius: 4px;
+		}
+	}
+}
+// ****************************************************************************
+// *                           Dark Flight Form  kit                          *
+// *       this modal lets you to book flight tickets to your destination	  *
+// ****************************************************************************			
+.darkflightform-modal
+{
+	.darkflight
+	{
+		font-family: @primary-font;
+		padding: 30px 30px 15px 30px;
+		background: #222C3C;
+		.flight-title 
+		{
+			.flight-header
+			{
+				margin:0px;
+				font-size: 24px;
+				color: @default-to-color;
+				font-weight: 400;
+				margin-top: -5px;
+				font-family: @primary-font;
+				margin-right: 25px;
+			}
+			.arrival 
+			{
+				.journey 
+				{
+					margin-top: 0px;
+					float: left;
+					color: @default-to-color;
+					.check 
+					{
+						margin-right: 15px;
+						color: @secondary-content-color;
+						cursor: pointer;
+						.select 
+						{
+							margin-right: 5px;
+						}
+					}
+				}
+			}
+			.close-modal 
+			{
+				margin-top: -6px;
+				color: #636E7D;
+			}
+		}
+		.flights-available
+		{
+			margin-top: 23px;
+			margin-bottom: 0px;
+			.input-group
+			{
+				border:1px solid #313D4F;
+				margin-bottom: 10px;
+				border-radius: 4px;
+				height: 46px;
+				background: #273142;
+				.location 
+				{
+					border:0px solid transparent;
+					background: #273142;
+					border-right: 0px;
+					height: 46px;
+					color: @default-to-color;
+					border-top-right-radius: 0px;
+					border-bottom-right-radius:0px;
+					&::-webkit-input-placeholder 
+					{
+					   color: #7C8CA5;
+					}
+					&:-moz-placeholder 
+					{ /* Firefox 18- */
+					   color: #7C8CA5;  
+					}
+
+					&::-moz-placeholder 
+					{  /* Firefox 19+ */
+					   color: #7C8CA5;  
+					}
+
+					&:-ms-input-placeholder 
+					{  
+					   color: #7C8CA5;  
+					}
+				}
+				.all 
+				{
+					color :@default-to-color;
+					text-transform: capitalize;
+					font-size: @primary-font-size;
+				}
+				.input-group-addon
+				{
+					background: #273142;
+					border:0px;
+					padding: 5px 12px;
+				}
+				.submit 
+				{
+					width: 90px;
+					height: 36px;
+					background-image: linear-gradient(-1deg, #1991EB 2%, #2DA1F8 98%);
+					border-radius: 4px;
+					float: right;
+					outline: none !important;
+					border:0px solid transparent;
+					.fa 
+					{
+						color: @default-to-color;
+					}
+
+				}
+			}
+		}
+		.preferences 
+		{
+			font-size: @primary-font-size;
+			.checkbox 
+			{
+				margin: 0px;
+				.prefer 
+				{
+					font-size: @primary-font-size;
+					font-weight: 400;
+					color: @default-to-color;
+					line-height: 23px;
+					input[type="checkbox"]
+					{
+						margin-right: @primary-font-size;
+						height: 18px;
+						width: 18px;
+					}
+				}
+			}
+			.check-route 
+			{
+				// line-height: 43px;
+				color: @secondary-content-color;
+				font-size: @primary-font-size;
+				text-decoration: none;
+			}
+		}
+		.check-in-section 
+		{
+			margin-top:25px;
+			.form-group 
+			{
+				margin-bottom: 0px;
+				.cale
+				{
+					background: #273142;
+					border: 1px solid #313D4F;
+					border-radius: 4px;
+					color: #FFFFFF;
+					border-top-right-radius: 0px;
+					border-bottom-right-radius: 0px;
+					border-right: 0px;
+					height: 36px;
+					&::-webkit-input-placeholder 
+					{
+					   color: #7C8CA5;
+					}
+					&:-moz-placeholder 
+					{ /* Firefox 18- */
+					   color: #7C8CA5;  
+					}
+
+					&::-moz-placeholder 
+					{  /* Firefox 19+ */
+					   color: #7C8CA5;  
+					}
+
+					&:-ms-input-placeholder 
+					{  
+					   color: #7C8CA5;  
+					}
+				}
+				.btn-calendar
+				{
+					background: #273142;
+					border: 1px solid #313D4F;
+					border-radius: 4px;
+					border-top-left-radius: 0px;
+					border-bottom-left-radius: 0px;
+					border-left: 0px;
+					height: 36px;
+					cursor: pointer;
+				}
+			}
+		}
+		.categories 
+		{
+			margin-bottom: 0px;
+			display: flex;
+    		justify-content: space-around;
+			li 
+			{
+				height: 36px;
+				&:first-child
+				{
+					margin-left: -20px;
+				}
+				&:last-child
+				{
+					margin-right: -25px;
+				}
+				.filter 
+				{
+					background: #273142;
+					border: 1px solid #313D4F;
+					border-radius: 4px;
+					font-size: @primary-font-size;
+					color: @default-to-color;
+					font-weight: 400;
+				}
+			}
+		}
+
+	}
+	.flight-footer
+	{
+		text-align: center;
+		background: #273142;
+		margin-top: -4px;
+		padding: 17px 30px;
+		.btn-search 
+		{
+			background-image: linear-gradient(-1deg, #1991EB 2%, #2DA1F8 98%);
+			border-radius: 4px;
+			width: 100%;
+			color: #FFFFFF;
+			font-size: 14px;
+			padding: 8px 16px;
+			outline: none !important;
+		}
+	}
+}	
+
+
+// Selectize css
+
+// .selectize-control.plugin-drag_drop.multi > .selectize-input > div.ui-sortable-placeholder {
+//   visibility: visible !important;
+//   background: #f2f2f2 !important;
+//   background: rgba(0, 0, 0, 0.06) !important;
+//   border: 0 none !important;
+//   -webkit-box-shadow: inset 0 0 12px 4px @default-to-color;
+//   box-shadow: inset 0 0 12px 4px @default-to-color;
+// }
+// .selectize-control.plugin-drag_drop .ui-sortable-placeholder::after {
+//   content: '!';
+//   visibility: hidden;
+// }
+// .selectize-control.plugin-drag_drop .ui-sortable-helper {
+//   -webkit-box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+//   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+// }
+
+// .selectize-control.plugin-remove_button [data-value] {
+//   position: relative;
+//   padding-right: 24px !important;
+// }
+// .selectize-control {
+//   position: relative;
+// }
+// .selectize-input 
+// {
+//   	border: 1px solid #313D4F;
+//   	border-radius: 4px;
+//   	padding: 6px 6px;
+//   	background: #273142;
+//   	display: inline-block;
+//   	width: 100%;
+//   	min-height: 46px;
+//   	color: @default-to-color;
+//   	overflow: hidden;
+//   	position: relative;
+//   	z-index: 1;
+//   	-webkit-box-sizing: border-box;
+//   	-moz-box-sizing: border-box;
+//   	box-sizing: border-box;
+//   	-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.1);
+//   	box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.1);
+//   	-webkit-border-radius: 3px;
+//   	-moz-border-radius: 3px;
+// }
+// .selectize-control.multi .selectize-input.has-items {
+//   // padding: 5px 5px 2px;
+// }
+// .selectize-input.full {
+//   background: #273142;
+// }
+// .selectize-input > * {
+//   vertical-align: baseline;
+//   display: -moz-inline-stack;
+//   display: inline-block;
+//   zoom: 1;
+//   *display: inline;
+// }
+// .selectize-dropdown-content
+// {
+// 	display: none;
+// }
+// .selectize-control.multi .selectize-input > div {
+//   background-image: linear-gradient(-1deg, #1991EB 2%, #2DA1F8 98%);
+// 	border: 1px solid rgb(26,145,235,0.4);
+// 	border-radius: 100px;
+// 	font-size: @primary-font-size;
+// 	color: @default-to-color;
+// 	cursor: pointer;
+// 	margin: 0 5px 5px 0;
+//   padding: 2px 6px;
+//   // opacity: 0.4;rgb(26,145,235,0.4)
+// }
+// .selectize-input > input {
+  
+//   padding: 0 !important;
+//   color: #7C8CA5;
+//   font-size: 14px;
+//   font-weight: 400;
+//   min-height: 0 !important;
+//   max-height: none !important;
+//   max-width: 100% !important;
+//   margin: 0 1px !important;
+//   text-indent: 0 !important;
+//   border: 0 none !important;
+//   background: none !important;
+//   line-height: inherit !important;
+//   -webkit-user-select: auto !important;
+//   -webkit-box-shadow: none !important;
+//   box-shadow: none !important;
+
+// 	&::-webkit-input-placeholder 
+// 	{
+// 	   color: #7C8CA5;
+// 	}
+// 	&:-moz-placeholder 
+// 	{ /* Firefox 18- */
+// 	   color: #7C8CA5;  
+// 	}
+
+// 	&::-moz-placeholder 
+// 	{  /* Firefox 19+ */
+// 	   color: #7C8CA5;  
+// 	}
+
+// 	&:-ms-input-placeholder 
+// 	{  
+// 	   color: #7C8CA5;  
+// 	}
+// }
+// .selectize-input > input::-ms-clear {
+//   display: none;
+// }
+// .selectize-input > input:focus {
+//   outline: none !important;
+// }
+// .selectize-input::after {
+//   content: ' ';
+ 
+//   clear: left;
+// }
+// .selectize-control.single .selectize-input,
+// .selectize-control.single .selectize-input input {
+//   cursor: pointer;
+// }
+// ****************************************************************************
+// *                           Payment Window                                 *
+// * this modal lets you to pay money either with credit card or paypal method *
+// ****************************************************************************	
+.paymentwindow-modal 
+{
+	.modal-body 
+	{
+		padding: 0px;
+		.image-section 
+		{
+			padding-right: 0px;
+		}
+		.rate-tag 
+		{
+			position: absolute;
+			bottom:30px;
+			border: 18px solid #1991EB;
+			height: 36px;
+			line-height: 2px;
+			font-size: @primary-font-size;
+			font-weight: 400;
+			color: @default-to-color;
+			width: 96px;
+			cursor: pointer;
+			border-right: 13px solid transparent;
+		}
+		.pay-for-image 
+		{
+			width: 100%;
+			height: auto;
+		}
+		.pay-here 
+		{
+			padding-left: 0px;
+		}
+		.payment-section 
+		{
+			padding: 30px;
+			.card-heading 
+			{
+				font-size:20px;
+				font-weight: 400;
+				margin-top: -8px;
+				margin-bottom: 20px;
+				text-transform: capitalize;
+			}
+			.close-modal  
+			{
+				margin-top: -12px;
+				i 
+				{
+					color: #C5D0DE;
+					font-size: 12px;
+					
+				}
+			}
+			.input-group 
+			{
+				margin-bottom: 15px;
+				.icon
+				{
+					height: 36px;
+				    border: 1px solid #DFE3E9;
+				    border-radius: 4px;
+				    border-right: 0px;
+				    box-shadow: none;
+				    font-size: 16px;
+				    color: @primary-content-color;
+				    background: @default-to-color;
+				    border-top-right-radius: 0px;
+				    border-bottom-right-radius:0px;
+				    .fa 
+				    {
+				    	opacity: 0.5;
+				    }
+				}
+				.enter-details 
+				{
+					height: 36px;
+					padding: 0px;
+				    border: 1px solid #DFE3E9;
+				    border-radius: 4px;
+				    border-left: 0px;
+				    box-shadow: none;
+				    font-size: @primary-font-size;
+				    color: @primary-content-color;
+				    background: @default-to-color;
+				    border-top-left-radius: 0px;
+				    border-bottom-left-radius: 0px;
+				}
+				.enter-card-details 
+				{
+					height: 36px;
+					padding: 0px;
+				    border: 1px solid #DFE3E9;
+				    border-radius: 4px;
+				    border-left: 0px;
+				    box-shadow: none;
+				    font-size: @primary-font-size;
+				    color: @primary-content-color;
+				    border-right: 0px;
+				    background: @default-to-color;
+				    border-radius: 0px;
+				}
+				.card-image 
+				{
+					width: 28px;
+					height: 18px;
+					border-color: #DFE3E9!important;
+					border: 1px solid #DFE3E9;
+					background: @default-to-color; 
+					border-left: 0px;
+					a img 
+					{
+						width: 28px;
+						height: 18px;
+						opacity: 1;
+					}
+				}
+				.btn-calendar
+				{
+					background: @default-to-color;
+				}
+				.month, .number 
+				{
+					border: 1px solid #DFE3E9;
+					height: 36px;
+					border-left: 0px;
+					padding-left: 0px;
+				}
+			}
+			.date 
+			{
+				margin-bottom: 20px;
+			}
+			.payment 
+			{
+				.btn-pay 
+				{
+					background-image: linear-gradient(-180deg, #39B54A 0%, #34AA44 98%);
+					border: 1px solid #249533;
+					border-radius: 4px;
+					padding: 7px 12px;
+					font-size: @primary-font-size;
+					margin-bottom: 20px;
+
+				}
+			}
+			.alternate 
+			{
+				border-bottom: 1px solid #F2F3F5;
+				position: relative;
+				.divide 
+				{
+					position: absolute;
+					top: 50%;
+					left: 50%;
+					margin-left: -25px;
+					width: 50px;
+					margin-top: -8px;
+					height: 13px;
+					font-size: @primary-font-size;
+					color: @primary-content-color;
+					background-color: @default-to-color;
+					a 
+					{
+						opacity: 0.5;
+						color: @primary-content-color;
+						text-decoration: none;
+					}
+				}
+
+			}
+			.alternate-payment 
+			{
+				margin-top: 21px;
+				.pay-alter 
+				{
+					background-image: linear-gradient(-1deg, #1991EB 2%, #2DA1F8 98%);
+					border: 1px solid #1585D8;
+					border-radius: 4px;
+					padding: 7px 12px;
+					font-size: @primary-font-size;
+					img 
+					{
+						width: auto;
+						margin-left: 4px;
+						height: 16px;
+					}
+				}
+			}
+		}
+	}
+}
+// ****************************************************************************
+// *                           Profile Window                                 *
+// * this modal lets you details of user profile and user activities          *
+// ****************************************************************************	
+.profile-modal 
+{
+	.modal-dialog 
+	{
+		width: 630px;
+	}
+	.modal-body 
+	{
+		font-family: @primary-font;
+		padding: 0px;
+		.user-profile-pic
+		{
+			padding-right: 0px;
+
+			a img 
+			{
+				width: 100%;
+				height: auto;
+			}
+			.user-profile-name 
+			{
+				position: absolute;
+				bottom: 35px;
+				left: 50%;
+				margin-left: -50px;
+				.name 
+				{
+					font-size: 20px;
+					color: @default-to-color;
+					font-weight: 400;
+				}
+				.designation 
+				{
+					margin-top: 5px;
+					.circle
+					{
+						width: 12px;
+						height: 12px;
+						border-radius: 50%;
+						border:2px solid #1A91EB;
+						float: left;
+						margin-top: 4px;
+						margin-right: 8px;
+					}
+					span 
+					{
+						font-size: @primary-font-size;
+						color: @default-to-color;
+					}
+				}
+			}
+		}
+		.user-all-activities
+		{
+			padding-left: 0px;
+		}
+		.user-activities
+		{
+			padding-right: 0px;
+			padding:28px 30px 30px 30px;
+			.user-name 
+			{
+				margin-top: -3px;
+				font-size: 20px;
+				font-weight: 400;
+				color: @primary-content-color;
+			}
+			.activity-header
+			{
+				font-size: 12px;
+				font-weight: 400;
+				margin-bottom: 10px;
+			}
+			.activity-pic 
+			{
+				float: left;
+				margin-right: 15px;
+			}
+			.activity-comments
+			{
+				font-size: @primary-font-size;
+				color: @primary-content-color;
+				font-weight: 400;
+				margin-top: -5px;
+			}
+			.separate 
+			{
+				border:1px solid #F2F3F5;
+				margin-top: 10px;
+				margin-bottom: 12px;
+			}
+			.sub-details 
+			{
+				margin-bottom: 13px;
+			}
+			.user-sub-details
+			{
+				font-size: 12px;
+				font-weight: 400;
+				text-transform: capitalize;
+				color: @primary-content-color;
+			}
+			.help-text 
+			{
+				font-size: @primary-font-size;
+				font-weight: 400;
+				text-transform: capitalize;
+				color: @primary-content-color;
+			}
+			.add-user 
+			{
+				font-size: @primary-font-size;
+				color: @primary-content-color;
+				font-weight: 400;
+			}
+			.select-activity
+			{
+				background-image: linear-gradient(0deg, #F2F4F7 0%, @default-to-color 100%);
+				border: 1px solid #CED0DA;
+				border-radius: 4px;
+				height: 36px;
+				margin-top: 3px;
+			}
+			.well 
+			{
+				.protected-user 
+				{
+					margin:0px;
+					color: @primary-content-color;
+					font-weight: 400;
+					letter-spacing: 0.4px;
+					.fa 
+					{
+						font-size: 16px;
+						margin-right: 7px;
+					}
+				}
+				color: @secondary-content-color;
+				letter-spacing: 0.4px;
+				font-size: @primary-font-size;
+				background: #F0F3F8;
+				border: 1px solid #DCE1EA;
+				border-radius: 4px;
+				margin-top: 16px;
+				margin-bottom: 0px;
+			}
+		}
+	}
+}	
+// ****************************************************************************
+// *                          Dark Sign Up modal                            *
+// * 			this modal lets you to create new account                     *
+// ****************************************************************************	
+.darksignup-modal
+{
+	.modal-dialog 
+	{
+		width: 750px;
+	}
+	.modal-body 
+	{
+		font-family: @primary-font;
+		padding: 0px;
+		.create-account 
+		{
+			margin-right: 0px;
+			margin-left: 0px;
+			display: table;
+			.welcome-section 
+			{
+				background-image: linear-gradient(-1deg, #1991EB 2%, #2DA1F8 98%);
+				padding: 30px 30px 23px 30px;
+				height: 100%;
+				float: none;
+				display: table-cell;
+				.welcome-icon 
+				{
+					a 
+					{
+						width: 50px;
+						height: 50px;
+						border-radius: 50%;
+						line-height: 50px;
+						padding: 17px;
+						background-image: linear-gradient(-1deg, #1267A7 3%, #1268A7 100%);
+						i 
+						{
+							font-size: 16px;
+							color: @default-to-color;
+						}
+					}
+				}
+				.dashboard-section 
+				{
+					.welcome 
+					{
+						font-size: 22px;
+						color: @default-to-color;
+						font-weight: 400;
+						margin-top: 20px;
+						margin-bottom: 20px;
+					}
+					.dashboard-content
+					{
+						font-size: @primary-font-size;
+						color: @default-to-color;
+						font-weight: 400;
+						opacity: 0.6;
+					}
+					.buyer 
+					{
+						font-size: 18px;
+						color: @default-to-color;
+						font-weight: 400;
+					}
+					.benefits
+					{
+						color: @default-to-color;
+						font-size: @primary-font-size;
+						font-weight: 400;
+						opacity: 0.6;
+						margin-bottom: 100px;
+					}
+					.dashboard-bottom
+					{
+						margin-bottom: 0px;
+						
+						li 
+						{
+							border-right: 1px solid @default-to-color;
+							&:last-child
+							{
+								border-right: 0px;
+								a 
+								{
+									margin-right: 0px;
+								}
+							}
+							a 
+							{
+								color: @default-to-color;
+								margin-right: 8px;
+								font-size: 12px;
+								font-weight: 400;
+								opacity: 0.6;
+								text-decoration: none;
+							}
+						}
+					}
+				}
+			}
+			.account-section 
+			{
+				background: #222C3C;
+				height: 100%;
+				width: 100%;
+				float: none;
+				display: table-cell;
+				padding: 30px 30px 0px 30px;
+				.create 
+				{
+					font-size: 24px;
+					margin-top: 0px;
+					margin-bottom: 20px;
+					color: @default-to-color;
+					font-weight: 400;
+				}
+				.authenticate
+				{
+					font-size: @primary-font-size;
+					color: @default-to-color;
+					font-weight: 400;
+				}
+				.authentication-form 
+				{
+					background: #273142;
+					height: 36px;
+					color: #FFFFFF;
+					border: 1px solid #313D4F;
+					border-radius: 4px;
+					color: @default-to-color;
+					font-size: @primary-font-size;
+					font-weight: 400;
+					&::-webkit-input-placeholder 
+					{
+					   color: #7C8CA5;
+					}
+					&:-moz-placeholder 
+					{ /* Firefox 18- */
+					   color: #7C8CA5;  
+					}
+
+					&::-moz-placeholder 
+					{  /* Firefox 19+ */
+					   color: #7C8CA5;  
+					}
+
+					&:-ms-input-placeholder 
+					{  
+					   color: #7C8CA5;  
+					}
+				}
+				.password-form 
+				{
+					border-right: 0px;
+					border-top-right-radius: 0px;
+					border-bottom-right-radius: 0px;
+				}
+				.secure 
+				{
+					height: 36px;
+					background: #273142;
+					border: 1px solid #313D4F;
+					border-left: 0px;
+					cursor: pointer;
+				}
+				.sign-up 
+				{
+					margin-bottom: 20px;
+				}
+				.btn-continue 
+				{
+					background-image: linear-gradient(-1deg, #1991EB 2%, #2DA1F8 98%);
+					border-radius: 4px;
+					color: @default-to-color;
+					font-size: @primary-font-size;
+				}
+				.darksign-footer 
+				{
+					margin-left: -30px;
+					margin-right: -30px;
+					margin-top: 20px;
+					text-align: center;
+					background: #273142;
+					padding: 20px 30px;
+					color: @secondary-content-color;
+					font-size: @primary-font-size;
+					a 
+					{
+						color: @default-to-color;
+						font-size: 14px;
+						font-weight: 400;
+					}
+				}
+			}
+		}
+	}
+}	
+
+// ****************************************************************************
+// *                          Dark Phone manager modal                        *
+// * 			                   											  *
+// ****************************************************************************	
+
+.darkphonemanager-modal
+{
+	.modal-content
+	{
+		font-family: @primary-font;
+		.modal-header 
+		{
+			background: #273142;
+			margin-left: 0px;
+			padding: 17px 23px 17px 21px;
+			display: flex;
+			position: relative;
+    		justify-content: space-around;
+			li a 
+			{
+				font-size: 12px;
+				color: #7F8FA4;
+				padding: 0px;
+				text-transform: uppercase;
+				.fa 
+				{
+					margin-right: 9px;
+				}
+			}
+			li.active 
+			{
+				a 
+				{
+					color: #ffffff;
+				}
+			}
+		}
+		.modal-header:before 
+		{
+			content:"\A";
+		    border-style: solid;
+		    border-width: 0px 15px 15px 15px;
+		    border-color: #273142 transparent;
+		    position: absolute;
+		    left: 50%;
+    		margin-top: -30px;
+		}
+		.modal-header:after 
+		{
+			
+		}
+		.dark-phone
+		{
+			background: #222C3C;
+			margin-top: -2px;
+			padding: 20px;
+			.gallery 
+			{
+				margin-left: 2px;
+    			li 
+    			{
+    				img 
+    				{
+    					border-radius: 4px;
+    					width: 98px;
+    					height: 98px;
+    				}
+    			}
+			}
+		}
+		.dark-phone-footer 
+		{
+			background: #273142;
+			padding: 14px 20px 16px 20px;
+			margin-top: -2px;
+			text-align: left;
+			.phone-manager-list 
+			{
+				margin-bottom: 0px;
+				margin-left: 2px;
+				li 
+				{
+					a 
+					{
+						color: #FFFFFF;
+						text-transform: uppercase;
+						font-size: 10px;
+						text-decoration: none;
+						font-weight: 400;
+					}
+				}
+				.app 
+				{
+					background-image: linear-gradient(-1deg, #1991EB 2%, #2DA1F8 98%);
+					border-radius: 4px 0px 0px 4px;
+					text-align: center;
+					height: 20px;
+					width: 110px;
+				}
+				.audio 
+				{
+					background-image: linear-gradient(-1deg, #26B10F 2%, #59DA44 98%);
+					border-radius: 0px;
+					height: 20px;
+					width: 131px;
+					text-align: center;
+				}
+				.photo 
+				{
+					background-image: linear-gradient(-1deg, #805CE6 2%, #9D8FE3 98%);
+					border-radius: 0px;
+					height: 20px;
+					width: 89px;
+					text-align: center;
+				}
+				.other 
+				{
+					background-image: linear-gradient(-1deg, #FDBB02 2%, #F8CF5E 98%);
+					border-radius: 0px 4px 4px 0px;
+					text-align: center;
+					height: 20px;
+					width: 100px;
+				}
+				.percentage 
+				{
+					border-radius: 0px 4px 4px 0px;
+					background: #222C3C;
+					text-align: center;
+					height: 20px;
+					width: 100px;
+					a 
+					{
+						font-size: 10px;
+						color: #566378;
+						text-decoration: none;
+						font-weight: 400;
+					}
+				}
+			}
+		}
+	}
+}
+// ****************************************************************************
+// *                          Setup New Project modal                        *
+// * 			   this modal lets you to set up new project               	 *
+// ****************************************************************************	
+.setnewproject-modal 
+{
+	.modal-body 
+	{
+		padding: 0px;
+		font-family: @primary-font;
+		.newproject-header 
+		{
+			background: #2EA1F8;
+			text-transform: capitalize;
+			padding: 20px 30px;
+			font-size: 18px;
+			color: @default-to-color ;
+			font-weight: 400;
+			letter-spacing: 0.4px;
+			.close-modal i 
+			{
+				color: #70BBFB;
+			}
+		}
+		.upload-section 
+		{
+			padding: 30px;
+			.outer-box 
+			{
+				padding: 6px;
+			    height: 162px;
+			    border: 1px solid #E6EAEE;
+			    border-radius: 4px;
+				cursor: pointer;
+			    .drop-box 
+			    {
+			    	border: 3px dashed #CED0DA;
+				    width: 100%;
+				    height: 100%;
+				    border-radius: 4px;
+				    text-decoration: none; 
+				    i 
+				    {
+				    	color: #E2E3E9;
+					    font-size: 40px;
+					    margin-top: 31px;
+				    }
+				    .cloud-text 
+				    {
+				    	font-family: 'Open Sans', sans-serif;
+					    font-size: 14px;
+					    color: #7F8FA4;
+					    text-decoration: none;
+					    width: 220px;
+					    margin: 0px auto;
+				    }
+				    #my_project
+					{
+						display: none;
+					}
+			    }
+			}
+			.tooltip 
+		    {
+		    	width: 290px;
+		    	.right-tip 
+		    	{
+		    		color: red;
+		    	}
+		    }
+		    .right-tip + .tooltip > .tooltip-inner
+		    {
+		    	color: red;
+		    }
+			.set-up 
+			{
+				margin-top: 20px;
+				margin-bottom: 14px;
+				.set-name 
+				{
+					color: #7F8FA4;
+					font-size: 14px;
+				}
+				.enter-form 
+				{
+					border: 1px solid #DFE3E9;
+					border-radius: 4px;
+					height: 36px;
+				}
+			}
+			.selection 
+			{
+				margin-bottom: 0px;
+				.select-project 
+				{
+					background-image: linear-gradient(0deg, #F2F4F7 0%, #FFFFFF 100%);
+					border: 1px solid #CED0DA;
+					border-radius: 4px;
+					height: 46px;
+				}
+			}
+		}
+	}
+	.new-project-footer 
+	{
+		text-align: center;
+		background: #F0F3F8;
+		padding: 12px 30px;
+		.btn-create 
+		{
+			background-image: linear-gradient(-180deg, #39B54A 0%, #34AA44 98%);
+			border: 1px solid #249533;
+			border-radius: 4px;
+			height: 36px;
+		}
+	}
+}
+// ****************************************************************************
+// *                          Select Layout modal                             *
+// * 			   this modal lets you to select your required loyout         *
+// ****************************************************************************	
+.selectlayout-modal 
+{
+	.modal-body 
+	{
+		padding: 0px;
+		font-family: @primary-font;
+		.layout-header 
+		{
+			background: #2EA1F8;
+			text-transform: capitalize;
+			padding: 20px 30px;
+			font-size: 18px;
+			color: @default-to-color ;
+			font-weight: 400;
+			letter-spacing: 0.4px;
+			.close-modal i 
+			{
+				color: #70BBFB;
+			}
+		}
+		.layout-section 
+		{
+			padding: 20px 30px 5px 30px;
+			.layout-text 
+			{
+				font-size: 14px;
+				color: #7F8FA4;
+				font-weight: 400;
+				margin-bottom: 20px;
+				letter-spacing: 0.4px;
+			}
+			.layout-img 
+			{
+				margin-bottom:15px;
+				img 
+				{
+					width: 160px;
+					height: 110px;
+					
+				}
+				.selected
+				{
+					// display: none;
+					position: absolute;
+					left: 50%;
+					margin-left: -28px;
+					top: 50%;
+					margin-top: -28px;
+					i 
+					{
+						width: 56px;
+						height: 56px;
+						border-radius: 50%;
+						border:1px solid @default-to-color;
+						background: @default-to-color;
+						color: #1BB934;
+						font-size: 24px;
+						line-height: 56px;
+						text-align: center;
+					}
+				}
+			}
+		}
+	}
+	.layout-footer 
+	{
+		background: #F0F3F8;
+		padding: 12px 30px;
+		.btn-cancel 
+		{
+			background-image: linear-gradient(-180deg, #FFFFFF 3%, #F2F4F7 98%);
+			border: 1px solid #CED0DA;
+			border-radius: 4px;
+			height: 36px;
+			color: #7383A1;
+		}
+		.btn-confirm 
+		{
+			background-image: linear-gradient(-180deg, #39B54A 0%, #34AA44 98%);
+			border: 1px solid #249533;
+			border-radius: 4px;
+			height: 36px;
+			color: #FFFFFF;
+		}
+	}
+}
+// ****************************************************************************
+// *                           File Manager                                   *
+// *          *
+// ****************************************************************************	
+.filemanager-modal 
+{
+	.manager-panel 
+	{
+		width: 830px;
+	}
+	.manage-data
+	{
+		padding: 0px;
+		.manage-header 
+		{
+			background: #2EA1F8;
+			text-transform: capitalize;
+			padding: 12px 12px 12px 30px;
+			.manage-text 
+			{
+				font-size: 18px;
+				color: @default-to-color ;
+				font-weight: 400;
+				letter-spacing: 0.4px;
+			}
+			.search-form 
+			{
+				width: 35%;
+				margin-bottom: 0px;
+				.search 
+				{
+					height: 36px;
+					background: #1E8FE4;
+					border: 1px solid #1A84D3;
+					border-radius: 4px;
+					color: #FFFFFF;
+					border-right: 0px;
+					border-top-right-radius: 0px;
+					border-bottom-right-radius: 0px;
+				}
+				.search-icon 
+				{
+					background: #1E8FE4;
+					border: 1px solid #1A84D3;
+					border-radius: 4px;
+					color: #FFFFFF;
+					height: 36px;
+					border-left: 0px;
+					border-top-left-radius: 0px;
+					border-bottom-left-radius: 0px;
+				}
+			}
+		}
+		.manage-section 
+		{
+			margin-left: 0px;
+			margin-right: 0px;
+			display: table;
+			.file-manage-list 
+			{
+				padding-left: 0px;
+				padding-right: 0px;
+				background: #222C3C;
+				height: 100%;
+				display: table-cell;
+				float: none;
+				.manage-list 
+				{
+					li 
+					{
+						color: #848C98;
+						font-size: 14px;
+						height: 36px;
+						border-bottom: 1px solid #2A3546;
+						line-height: 36px;
+						padding-left: 20px;
+						padding-right: 8px;
+						cursor: pointer;
+						border-left:2px solid transparent;
+						a 
+						{
+							color: #848C98;
+							font-size: 14px;
+							text-decoration: none;
+							.badge 
+							{
+								background: #323C4E;
+								border-radius: 50px;
+								margin-top: 5px;
+								color: #848C98;
+							}
+						}
+						&:hover 
+						{
+							border-left: 2px solid #1A91EB;
+							background: #2A3546;
+							a 
+							{
+								color: #FFFFFF;
+							}
+							.badge 
+							{
+								color: #FFFFFF;
+							}
+						}
+
+					}
+					
+				}
+				.bottom-icons 
+				{
+					position: absolute;
+					width: 100%;
+					bottom:15px;
+					padding-left: 20px;
+					padding-right: 8px;
+					.btn-bottom 
+					{
+						background: #222C3C;
+						border: 1px solid #2A3546;
+						border-radius: 4px;
+						i 
+						{
+							color: #848C98;
+						}
+					}
+				}
+			}
+			.manage-table 
+			{
+				padding-left: 0px;
+				padding-right: 0px;
+				margin-right: -15px;
+				height: 100%;
+			    width: 100%;
+			    float: none;
+			    display: table-cell;
+			    .file-manage-table
+			    {
+			    	margin-bottom: 0px;
+			    	thead 
+			    	{
+			    		.table-heading 
+			    		{
+			    			th 
+			    			{
+			    				font-size: 14px;
+			    				color: #7F8FA4;
+			    			}
+			    		}
+			    	}
+			    	.manage-file 
+			    	{
+			    		td 
+			    		{
+			    			.media 
+			    			{
+			    				.media-left 
+			    				{
+			    					img 
+			    					{
+			    						width: 84px;
+			    						height: 62px;
+			    					}
+			    				}
+			    				.media-body 
+			    				{
+			    					.media-heading 
+			    					{
+			    						color: #354052;
+			    						font-size: 14px;
+			    						font-weight: 400;
+			    						margin-bottom: 0px;
+			    						.sub-text
+			    						{
+			    							color: #7F8FA4;
+			    						}
+			    					}
+			    				}
+			    			}
+			    		}
+			    		.created 
+		    			{
+		    				font-size: 12px;
+		    				color: #7F8FA4;
+		    			}
+		    			.quality 
+		    			{
+		    				i 
+		    				{
+		    					color: #F8CD51;
+		    					font-size: 12px;
+		    				}
+		    				.no-color 
+		    				{
+		    					color: #BBBFC5;
+		    				}
+		    			}
+			    	}
+			    }
+			    .file-manage-footer 
+			    {
+			    	background: #F0F3F8;
+					padding: 12px 30px;
+					border-top: 0px;
+					.btn-cancel 
+					{
+						background-image: linear-gradient(-180deg, #FFFFFF 3%, #F2F4F7 98%);
+						border: 1px solid #CED0DA;
+						border-radius: 4px;
+						height: 36px;
+						color: #7383A1;
+					}
+					.btn-confirm 
+					{
+						background-image: linear-gradient(-180deg, #39B54A 0%, #34AA44 98%);
+						border: 1px solid #249533;
+						border-radius: 4px;
+						height: 36px;
+						color: #FFFFFF;
+					}
+			    }
+			}
+		}
+	}
+}
+// ****************************************************************************
+// *                           Activity Profile                              *
+// *          																 *
+// ****************************************************************************	
+
+.activityprofile-modal  
+{
+	.activity-panel
+	{
+		width: 830px;
+		font-family: @primary-font;
+	}
+	.user-activities
+	{
+		padding: 0px;
+		.activity-block 
+		{
+			background: #2EA1F8;
+			padding: 17px 30px;
+			img 
+			{
+				width: 70px;
+				height: 70px;
+				position: absolute;
+				top: -17px;
+				border-radius: 50%;
+			}
+			span 
+			{
+				color: #FFFFFF;
+				font-size: 18px;
+				font-weight: 400;
+				margin-left: 85px;
+			}
+			.close-modal i 
+			{
+				color: #70BBFB;
+			}
+		}
+		.activities-list 
+		{
+			background-color: #222C3C;
+    		margin-left: 0px;
+    		padding-left: 15px;
+    		padding-right: 15px;
+			margin-bottom: 0px;
+			li 
+			{
+				margin-left: 15px;
+				margin-right: 15px;
+				text-transform: capitalize;
+				padding-left: 0px;
+				padding-right: 0px;
+				border-bottom:3px solid transparent;
+				&:first-child 
+				{
+					// margin-left: 10px;
+				}
+				&:last-child
+				{
+					margin-right: 7px;
+				}
+				a 
+				{
+					color: #848C98;
+					padding: 0px;
+					border-radius: 0px;
+					padding-top: @primary-font-size;
+					padding-bottom: 11px;
+					font-size: @primary-font-size;
+					font-family: @primary-font;
+					text-transform: capitalize;
+					text-decoration: none;
+					font-weight: 400;
+				}
+			}
+			.dots 
+			{
+				 i 
+				{
+					line-height: 47px;
+					font-size: 12px;
+					color: #848C98;
+					margin-right: 15px;
+					text-decoration: none;
+				}
+			}
+			li.active 
+			{
+				border-bottom: 3px solid #2EA1F8;
+				a 
+				{
+					border-radius: 0px;
+					color: @default-to-color;
+				}
+			}
+			.options-menu
+			{
+				right: 0px;
+				left: auto;
+				top: 103px;
+			}
+		}
+		.user-overview 
+		{
+			margin-left: 0px;
+			margin-right: 0px;
+			background: #F4F6FA;
+			padding: 30px 30px 20px 30px;
+			display: table;
+			.activities-section 
+			{
+				.left-panel
+				{
+					height: 100%;
+				    display: table-cell;
+				    float: none;
+				    padding-left: 0px;
+				   
+				}
+				.right-panel 
+				{
+					height: 100%;
+				    display: table-cell;
+				    float: none;
+				    
+				    padding-right: 0px
+				}
+				.user-left-panel
+				{
+					max-height: 505px;
+					overflow-y: auto;
+				}
+				.user-activity-panel
+				{
+
+					.panel-heading 
+					{
+						font-size: 14px;
+						color: #354052;
+						font-weight: 400;
+						padding: 15px 20px;
+						background-image: linear-gradient(0deg, #F4F7FA 0%, #FFFFFF 100%);
+						border-radius: 0px 0px 4px 4px;
+						.follow 
+						{
+							margin-top: -9px;
+							a 
+							{
+								color: #7F8FA4;
+								text-decoration: none;
+							}
+							li.active 
+							{
+								a 
+								{
+									color: #354052;
+								}
+							}
+						}
+					}
+					.activity-content
+					{
+						padding: 0px;
+						margin-bottom: 0px;
+						border:0px;
+					}
+
+					.panel-posts-list
+					{
+						padding: 0px 20px;
+						margin-bottom: 0px;
+						background: #FFFFFF;
+						border-radius: 0px 0px 4px 4px;
+						li 
+						{
+							&:last-child
+							{
+								border-bottom: 0px;
+							}
+						}
+						.panel-group-item 
+						{
+							border-left:0px solid transparent;
+							border-right:0px solid transparent;
+							border-top:0px solid transparent;
+							border-bottom: 2px solid #F2F3F5;
+							padding-left: 0px;
+							padding-right: 0px;
+							.media 
+							{
+								.media-left 
+								{
+									a img 
+									{
+										width: 38px;
+										height: 38px;
+										border-radius: 50%;
+										margin-right: 7px;
+									}
+								}
+								.media-body 
+								{
+									.media-heading 
+									{
+										font-size: 14px;
+										color: #354052;
+										font-weight: 400;
+										margin-bottom: 15px;
+									}
+									img 
+									{
+										width: 36px;
+										height: 36px;
+										border-radius: 50%;
+									}
+									.user-post-pics
+									{
+										margin-bottom: 0px;
+										li 
+										{
+											img 
+											{
+												width: 36px;
+												height: 36px;
+												border-radius: 4px;
+												margin-bottom: 10px;
+											}
+										}
+									}
+								}
+							}
+							.panel-icon 
+							{
+								font-size: 14px;
+								color: #354052;
+								font-weight: 400;
+								text-decoration: none;
+								i 
+								{
+									margin-right: 15px;
+									color: #C2C2C2;
+									font-size: 19px;
+								}
+							}
+							.integrated 
+							{
+								text-decoration: none;
+								font-size: 14px;
+							}
+							.public 
+							{
+								color: #36AF47;
+								font-size: 14px;	
+							}
+							&:hover 
+							{
+								.panel-icon 
+								{
+									.icon-twitter 
+									{
+										color: #00AAFF;
+									}
+									.icon-instagram 
+									{
+										color: #125688;
+									}
+									.icon-spotify
+									{
+										color: #2ebd59;
+									}
+									.icon-apple 
+									{
+										color: #464646;
+									}
+								}
+							}
+						}
+
+						.checkbox 
+						{
+							margin-top: 0px;
+							input[type="radio"], input[type="checkbox"]
+							{
+								margin-top: 2px;
+								margin-right: 4px;
+							}
+							.appear 
+							{
+								font-size: 14px;
+								font-weight: 400;
+								color: #354052;
+								font-family: @primary-font;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
+// ****************************************************************************
+// *                           Team Communication                            *
+// *          																 *
+// ****************************************************************************	
+
+.teamcommunication-modal
+{
+	.team-panel
+	{
+		width: 870px;
+
+	}
+	.team-data
+	{
+		padding: 0px;
+		.team-section 
+		{
+			background: #2EA1F8;
+			margin-left: 0px;
+			margin-right: 0px;
+			.team-communicate 
+			{
+				text-transform: capitalize;
+				padding:20px 30px;
+				border-right: 1px solid #40A8F5;
+				.team-header 
+				{
+					color: #FFFFFF;
+					.team-text 
+					{
+						font-size: 18px;
+						font-weight: 400;
+					}
+					.contact 
+					{
+						margin-bottom: 0px;
+						li a 
+						{
+							i 
+							{
+								margin-left: 20px;
+								color: #FFFFFF;
+								font-size: 16px;
+							}
+						}
+					}
+				}
+			}
+			.team-members
+			{
+				padding: 20px;
+				text-transform: capitalize;
+				.team-header 
+				{
+					color: #FFFFFF;
+					.team-text 
+					{
+						font-size: 18px;
+						font-weight: 400;
+					}
+					.close-modal i 
+					{
+						color: #70BBFB;
+					}
+				}
+			}
+		}
+		.communication-body 
+		{
+			margin-left: 0px;
+			margin-right: 0px;
+			.left-communicate 
+			{
+				padding-left: 0px;
+				padding-right: 0px;
+				.left-communicate-panel
+				{
+					border-right: 1px solid #F0F3F8;
+					margin-bottom: 0px;
+					.team-posts-list
+					{
+						border-radius: 0px;
+						.team-group-item
+						{
+							border:1px solid #F0F3F8;
+							border-right: 0px;
+							padding: 20px 30px;
+							.media 
+							{
+								.media-left 
+								{
+									a img 
+									{
+										width: 40px;
+										height: 40px;
+										border-radius: 50%;
+										margin-right: 4px;
+									}
+								}
+								.media-body 
+								{
+									color: #7F8FA4;
+									font-size: 14px;
+									font-weight: 400;
+									.media-heading 
+									{
+										color: #354052;
+										text-transform: capitalize;
+										.time 
+										{
+											color: #7F8FA4;
+										}
+									}
+									.alert-default 
+									{
+										background: #F0F3F8;
+										margin-top:10px;
+										height: 30px;
+										font-size: 14px;
+										border-radius: 4px;
+										padding: 6px 9px 6px 10px;
+										margin-bottom: 0px;
+										i 
+										{
+											margin-right: 9px;
+										}
+										.remove 
+										{
+											.close 
+											{
+												line-height: 0px;
+												i 
+												{
+													color: #7F8FA4;
+													font-size: 14px;
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+						
+					}
+					.team-footer 
+					{
+						background: #F0F3F8;
+						padding: 21px 20px 19px 20px;
+						.input-group 
+						{
+							margin-bottom: 0px;
+							height: 36px;
+							font-size: 14px;
+							font-weight: 400;
+							background: #FFFFFF;
+							border: 1px solid #DFE3E9;
+							border-radius: 4px;
+							.msg-form 
+							{
+								border-right: 0px;
+								border: 1px solid #DFE3E9;
+							}
+							.btn-link 
+							{
+								border-left:0px!important;
+								border: 1px solid #DFE3E9;
+								background: #FFFFFF;
+								i 
+								{
+									color: #B4BFD4;
+								}
+								#my_file 
+								{
+									display: none;
+								}
+							}
+						}
+					}
+				}
+			}
+			.right-team 
+			{
+				padding-left: 0px;
+				padding-right: 0px;
+				.right-team-list
+				{
+					margin-bottom: 0px;
+					.right-group-list
+					{
+						border:1px solid #F0F3F8;
+						border-left: 0px;
+						padding: 11px 15px;
+						cursor: pointer;
+						&:hover 
+						{
+							background: #F0F3F8;
+						}
+						.media 
+						{
+							.media-left 
+							{
+								a img 
+								{
+									width: 40px;
+									height: 40px;
+									border-radius: 50%;
+									margin-right: 3px;
+								}
+								.user-status 
+								{
+									width: 10px;
+									height: 10px;
+									border-radius: 50%;
+									border:2px solid #ffffff;
+									background: #7E8CA0;
+									float: left;
+									position: absolute;
+									left: 45px;
+									bottom: 10px;
+								}
+								.online 
+								{
+									background: #39B54A;
+								}
+								.busy 
+								{
+									background: #FF7800;
+								}
+								.idle 
+								{
+									background: #4FB7C5;
+								}
+							}
+							.media-body 
+							{
+								padding-top: 10px;
+								.media-heading 
+								{
+									color: #354052;
+									font-size: 14px;
+									font-weight: 400;
+									.team-posts 
+									{
+										height: 20px;
+										width: 20px;
+										border-radius: 50%;
+										background-color: #FE7800;
+										color: #FFFFFF;
+										line-height: 20px;
+										text-align: center;
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+

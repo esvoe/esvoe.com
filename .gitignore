@@ -3,6 +3,7 @@
 
 /.idea
 /.vagrant
+.DS_Store
 npm-debug.log
 yarn-error.log
 
@@ -10,5 +11,6 @@ Homestead.yaml
 Homestead.json
 
 .env
+.htaccess
 
 /storage

@@ -1,0 +1,13 @@
+.mini-profile .background {
+  width: 100%;
+  height: 100px;
+  background-image: url('../images/header-background.jpg');
+  background-position: center center;
+}
+.mini-profile .btn-light {
+  float: right;
+}
+.mini-profile .avathar-img {
+  width: 74px;
+  height: 74px;
+}

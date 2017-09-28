@@ -1,0 +1,8 @@
+{
+    "name": "Default",
+    "description": "This theme comes with socialite script.",
+    "version": "1.0",
+    "author" : "Bootstrap Guru",
+    "thumbnail" : "assets/images/theme1.png",
+    "email" : "admin@bootstrapguru.com"
+}

@@ -1,0 +1,8 @@
+.user-successfully-added .user-info {
+  height: 280px;
+  display: block;
+  width: 100%;
+  background-image: -webkit-linear-gradient(271deg, #2EA1F8 2%, #1990EA 100%);
+  background-image: -o-linear-gradient(271deg, #2EA1F8 2%, #1990EA 100%);
+  background-image: linear-gradient(1deg, #2EA1F8 2%, #1990EA 100%);
+}

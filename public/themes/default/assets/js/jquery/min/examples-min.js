@@ -1,0 +1,1 @@
+jQuery("#pie").radialPieChart("init",{"font-size":13,fill:20,data:[{color:"#1AA6D6",perc:70},{color:"#FAC942",perc:20},{color:"#40557D",perc:10}]});

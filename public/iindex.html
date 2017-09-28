@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Esvoe Frame</title>
+</head>
+<body style="height: 100%; width: 100%; overflow: hidden;" onresize="setFrameHeight()">
+    <audio id="radioEl" src="" preload="auto" style="display: none;"></audio>
+    <audio id="musicEl" src="" preload="auto" style="display: none;"></audio>
+    <iframe id="frameEsvoe" width="100%" src="/" style="border: none; margin: -8px;"></iframe>
+    <script>
+        var radioEl = document.getElementById("radioEl"),
+            musicEl = document.getElementById("musicEl"),
+            iframe = document.getElementById("frameEsvoe"),
+            iwindow = window,
+            setFrameHeight = function() {
+                iframe.setAttribute("height", window.innerHeight.toString());
+            };
+        setFrameHeight();
+
+        // frame radio object
+        var frameRadio = {
+            currentItem: 0,
+            playlist: [
+                {
+                    title: "Хіт FM",
+                    img: "images/icon-radio-1.png",
+                    m4a: "https://radio.esvoe.com/hitfm/",
+                    oga: "https://radio.esvoe.com/hitfm/"
+                    // oga: "http://online-hitfm2.tavrmedia.ua/HitFM"
+                },
+                {
+                    title: "KISS FM",
+                    img:"images/icon-radio-2.png",
+                    m4a: "https://radio.esvoe.com/kissfm/",
+                    oga: "https://radio.esvoe.com/kissfm/"
+                    // oga: "http://online-kissfm.tavrmedia.ua/KissFM"
+                },
+                {
+                    title: "Русское радио",
+                    m4a: "https://radio.esvoe.com/rusradio/",
+                    oga: "https://radio.esvoe.com/rusradio/"
+                    // oga: "http://online-rusradio.tavrmedia.ua/RusRadio"
+                },
+                {
+                    title: "Люкс ФМ",
+                    m4a: "https://radio.esvoe.com/lux/",
+                    oga: "https://radio.esvoe.com/lux/"
+                    // oga: "http://icecastlv.luxnet.ua/lux"
+                },
+                {
+                    title: "Radio ROKS",
+                    m4a: "https://radio.esvoe.com/radioroks/",
+                    oga: "https://radio.esvoe.com/radioroks/"
+                    // oga: "http://online-radioroks.tavrmedia.ua:8000/RadioROKS"
+                },
+                {
+                    title: "Радіо Львівська хвиля",
+                    m4a: "https://radio.esvoe.com/lviv/",
+                    oga: "https://radio.esvoe.com/lviv/"
+                    // oga: "http://onair.lviv.fm:8000/lviv.fm"
+                },
+                {
+                    title: "Радіо-Ера",
+                    m4a: "https://radio.esvoe.com/era/",
+                    oga: "https://radio.esvoe.com/era/"
+                    // oga: "http://212.26.129.2:8000/era96"
+                }
+            ],
+            play: function(item) {
+                this.playPause(item);
+            },
+            playPause: function(item) {
+                if (!musicEl.paused) musicEl.pause();
+                if (item === undefined) {
+                    if (radioEl.paused) {
+                        radioEl.play();
+                        this.showRadioWidget();
+                    } else {
+                        radioEl.pause();
+                        iwindow.$('#online-radio .jp_container_radio, .radio-widget').removeClass('jp-state-playing');
+                        iwindow.$('.played-radio-widget').removeClass('ekva-active');
+                    }
+                } else {
+                    if (this.playlist[item] !== undefined) {
+                        iwindow.$('#online-radio .jp_container_radio, .radio-widget').addClass('jp-state-playing');
+                        if (item === this.currentItem) {
+                            if (radioEl.paused) radioEl.play();
+                            return;
+                        }
+                        this.currentItem = item;
+                        radioEl.setAttribute('src', this.playlist[this.currentItem].oga);
+                        radioEl.oncanplay = function () {
+                            radioEl.play();
+                        };
+                    }
+                }
+            },
+            setVolume: function(volume) {
+                if (volume === undefined) return;
+                volume = +volume;
+                if (typeof volume !== 'number') return;
+                radioEl.volume = (volume > 1) ? 1 : ((volume < 0) ? 0 : volume);
+                iwindow.$('#online-radio .jp_container_radio, .radio-widget').removeClass('jp-state-muted');
+                iwindow.$('#online-radio .jp-volume-bar-value, .radio-widget .jp-volume-bar-value')
+                    .css('width', (radioEl.volume * 100) + '%');
+            },
+            muteUnmute: function() {
+                if (radioEl.muted) {
+                    radioEl.muted = false;
+                    iwindow.$('#online-radio .jp_container_radio, .radio-widget').removeClass('jp-state-muted');
+                    iwindow.$('#online-radio .jp-volume-bar-value, .radio-widget .jp-volume-bar-value')
+                        .css('width', (radioEl.volume * 100) + '%');
+                } else {
+                    radioEl.muted = true;
+                    iwindow.$('#online-radio .jp_container_radio, .radio-widget').addClass('jp-state-muted');
+                    iwindow.$('#online-radio .jp-volume-bar-value, .radio-widget .jp-volume-bar-value')
+                        .css('width', '0%');
+                }
+            },
+            showRadioWidget: function() {
+                var currentRadio = iwindow.$('#online-radio .block-own-radio[data-play=' + this.currentItem + ']'),
+                    title = this.playlist[this.currentItem].title,
+                    path = currentRadio.find('img').attr('src');
+                currentRadio.addClass('active-radio');
+                iwindow.$('#online-radio .jp_container_radio, .radio-widget').addClass('jp-state-playing');
+                iwindow.$('.block-played-radio h5').html(title);
+                iwindow.$('.played-radio-widget > h6').html(title);
+                iwindow.$('.active-radio-img img').attr('src', path);
+                iwindow.$('.radio-widget .jp-seek-bar').css('width', '100%');
+                iwindow.$('.radio-widget .jp-details, .radio-widget .jp-no-solution').hide();
+                iwindow.$('.played-radio-widget').addClass('ekva-active');
+                iwindow.$('.widget-li').fadeIn();
+            }
+        };
+        radioEl.setAttribute('src', frameRadio.playlist[0].oga);
+
+        // frame music player
+        var frameMusic = {
+            currentItem: 0,
+            playlist: {},
+            playPause: function(item) {
+                if (!musicEl.hasAttribute('src') || (musicEl.getAttribute('src') === "")) return;
+                if (!radioEl.paused) radioEl.pause();
+                if (item === undefined) {
+                    if (musicEl.paused) {
+                        musicEl.play();
+                    } else {
+                        musicEl.pause();
+                    }
+                } else {
+                    if (playlist[item] !== undefined) {
+                        if (item === this.currentItem) {
+                            if (musicEl.paused) musicEl.play();
+                            return;
+                        }
+                        this.currentItem = item;
+                        musicEl.setAttribute('src', this.playlist[this.currentItem].oga);
+                        musicEl.oncanplay = function () {
+                            musicEl.play();
+                        };
+                    }
+                }
+            },
+            setVolume: function(volume) {
+                if (volume === undefined) return;
+                volume = +volume;
+                if (typeof volume !== 'number') return;
+                musicEl.volume = (volume > 1) ? 1 : ((volume < 0) ? 0 : volume);
+            },
+            muteUnmute: function() {
+                if (musicEl.muted) {
+                    musicEl.muted = false;
+                } else {
+                    musicEl.muted = true;
+                }
+            }
+        };
+
+        // set current state and event listeners in frame on load
+        iframe.onload = function() {
+            iwindow = iframe.contentWindow;
+
+            // set onlineRadio object
+            iwindow.onlineRadio = frameRadio;
+            iwindow.onlineMusic = frameMusic;
+
+            // hide gray empty row (why it shows?)
+            iwindow.$('#online-radio .jp-details').hide();
+
+            // set current playing state in frame
+            if (!radioEl.paused) {
+                iwindow.$('#online-radio .block-own-radio').removeClass('active-radio');
+                frameRadio.showRadioWidget();
+            }
+            if (radioEl.muted) {
+                iwindow.$('#online-radio .jp_container_radio, .radio-widget').addClass('jp-state-muted');
+                iwindow.$('#online-radio .jp-volume-bar-value, .radio-widget .jp-volume-bar-value')
+                    .css('width', '0%');
+            } else {
+                iwindow.$('#online-radio .jp-volume-bar-value, .radio-widget .jp-volume-bar-value')
+                    .css('width', (radioEl.volume * 100) + '%');
+            }
+            radioEl.ontimeupdate = function() {
+                var totalSeconds = Math.floor(radioEl.currentTime),
+                    hours = Math.floor(totalSeconds / 3600),
+                    minutes = Math.floor((totalSeconds - (hours * 3600)) / 60),
+                    seconds = totalSeconds - (hours * 3600) - (minutes * 60),
+                    strTime = ((minutes < 10) ? "0"+minutes : minutes)+":"+((seconds < 10) ? "0"+seconds : seconds);
+                if (hours) strTime = ((hours < 10) ? "0"+hours : hours)+":"+strTime;
+                iwindow.$('.radio-widget .jp-current-time').html(strTime);
+            };
+
+            // set listeners on radio click events
+            // play/pause click
+            iwindow.$('#online-radio .jp-play, .radio-widget .jp-play').click(function (event) {
+                event.stopImmediatePropagation();
+                event.preventDefault();
+                frameRadio.playPause();
+            });
+            // mute/unmute click
+            iwindow.$('#online-radio .jp-mute, .radio-widget .jp-mute').click(function (event) {
+                event.stopImmediatePropagation();
+                event.preventDefault();
+                frameRadio.muteUnmute();
+            });
+            // volume level click
+            iwindow.$('#online-radio .jp-volume-bar, .radio-widget .jp-volume-bar').click(function (event) {
+                event.stopImmediatePropagation();
+                event.preventDefault();
+                // unmute
+                radioEl.muted = false;
+                // count volume
+                var $bar = iwindow.$(this),
+                    offset = $bar.offset(),
+                    x = event.pageX - offset.left,
+                    w = $bar.width(),
+                    volume = x/w;
+                // set volume
+                frameRadio.setVolume(volume);
+            });
+        };
+    </script>
+</body>
+</html>
