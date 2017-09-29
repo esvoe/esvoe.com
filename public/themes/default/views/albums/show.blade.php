@@ -77,7 +77,7 @@
 									<li class="col-xs-12 col-sm-3 col-md-3" id="{{ $photo->id }}">
 										<div class="panel panel-default checkbox-panel">
 											@if((Auth::user()->username == $album->timeline->username))
-											<div class="checkbox widget-checkbox">
+											<div class="checkbox widget-checkbox check-left-img-box">
 											      <input class="checkbox-input" type="checkbox" id="{{ $photo->id }}" value="{{ $photo->id }}" name="{{ $photo->id }}" v-model="selectedPhotos">
 											       <label class="input-label checkbox-label" for="{{ $photo->id }}"></label>
 											</div>
@@ -91,14 +91,18 @@
 																<a href="{{ url('/'.Auth::user()->username.'/album-preview/'.$album->id.'/'.$photo->id) }}" class="btn btn-success btn-sm">
 																	{{ trans('common.set_as_preview') }}
 																</a>
-																<a href="{!! $photo->albumUrl($timeline->username) !!}" class="btn btn-sm btn-lightgallery btn-primary">{{ trans('common.view_image') }}</a>
+																<a href="{!! $photo->albumUrl($timeline->username) !!}" class="btn btn-sm btn-lightgallery btn-primary">
+																	<img src="{!! Theme::asset()->url('images/view-photo-img.png') !!}" alt="">
+																</a>
 															</div>
-															<img src="{!! $photo->albumUrl($timeline->username) !!}"  class="btn btn-default btn-sm">
+															<img src="{!! $photo->albumUrl($timeline->username,230,226) !!}"  class="btn btn-default btn-sm">
 														@else
 															<div class="photo_options">
-																<a href="{!! $photo->albumUrl($timeline->username) !!}" class="btn btn-sm btn-primary btn-lightgallery">{{ trans('common.view_image') }}</a>
+																<a href="{!! $photo->albumUrl($timeline->username) !!}" class="btn btn-sm btn-primary btn-lightgallery">
+																	<img src="{!! Theme::asset()->url('images/view-photo-img.png') !!}" alt="">
+																</a>
 															</div>
-															<img src="{!! $photo->albumUrl($timeline->username) !!}"  class="btn btn-default btn-sm">
+															<img src="{!! $photo->albumUrl($timeline->username,230,226) !!}"  class="btn btn-default btn-sm">
 														@endif
 													
 													</div>

@@ -52,10 +52,13 @@
 								{{ Form::textarea('about', $album->about, ['class' => 'form-control', 'placeholder' => trans('messages.create_album_placeholder'), 'rows' => '4', 'cols' => '20']) }}
 							</fieldset>
 
-							<fieldset class="form-group">
+{{--							<fieldset class="form-group">
 								{{ Form::label('album_photos[]', trans('common.add_more_photos'), ['class' => 'control-label']) }}
 								{{ Form::file('album_photos[]', ['multiple' => 'multiple', 'accept' =>  'image/jpeg,image/png,image/gif']) }}
-							</fieldset>
+							</fieldset>--}}
+
+							<div id="dropzone" class="dropzone"></div>
+
 
 							<fieldset class="form-group">
 								<div class="pull-right">
@@ -84,7 +87,7 @@
 </div>
 
 <script type="text/javascript">
-	$('#albumEditForm').on('submit', function(event) {
+	/*$('#albumEditForm').on('submit', function(event) {
 	    event.preventDefault();
 		var $form = $(this),
             formData = new FormData(this),
@@ -128,11 +131,25 @@
                 $progressBar.val(0).text('0%, error upload');
 			}
 		});
-    });
+    });*/
 
 	$('.add-youtube-input').click(function(event) {
 	    $('.youtube-videos').append('{{ Form::text('album_videos[]', null, ['class' => 'form-control youtube_link', 'placeholder' => trans('common.copy_paste_youtube_link')] ) }}');
 	});
 </script>
-
+<link rel="stylesheet" href="/themes/default/assets/js/plugins/dropzone/dropzone.css">
+<script src="/themes/default/assets/js/plugins/dropzone/dropzone.js"></script>
+<script>
+    $(function () {
+        var dzone = new Dropzone("#dropzone", {
+            url: "{{route('user.album.upload',Auth::user()->username)}}",
+            dictDefaultMessage: 'Перетащите или выберите файлы',
+            thumbnailWidth: 200,
+            thumbnailHeight: 200,
+            params: {
+                _token: '{{csrf_token()}}'
+            }
+        });
+    })
+</script>
 <!-- /main-section -->

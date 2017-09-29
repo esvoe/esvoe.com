@@ -132,5 +132,13 @@ class PageController extends Controller
         return $theme->scope('/font/index')->render();
     }
 
+    public function pagePhoto()
+    {
+
+        $theme = Theme::uses(Setting::get('current_theme', 'default'))->layout('default');
+
+        return $theme->scope('/pages/photo')->render();
+    }
+
 
 }

@@ -46,8 +46,9 @@
             <div class="title-modal-game">
                 Описание Игры
             </div>
-            <p class="desc-modal-game">
+            <p class="desc-modal-game text-expand" data-expand="160|{{ trans('sidebar.more') }}|{{ trans('common.unshare') }}">
                 {{$application->description}}
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Porro labore, soluta cum! Consequatur, dolor in incidunt animi repellat quos placeat hic at quam nulla explicabo voluptate, magnam unde est aliquam.
             </p>
             <div class="line-modal-game"></div>
             <div class="title-modal-game">

@@ -5,6 +5,7 @@
 @import "messenger.css";
 @import "modal-app-info.css";
 @import "rating-block.css";
+@import "app-auth-page.css";
 
 @font-face{
     font-family: "OpenSans Regular";
@@ -29,7 +30,6 @@ header{
     left: 0;
     width: 100%;
     z-index: 9;
-
 }
 header .navbar-default{
     background-color: #335287;
@@ -2374,7 +2374,6 @@ header .navbar-default .header-friends > a{
 .tooltip.right .tooltip-arrow {
     border-right-color: #294370;
 }
-
 
 @media(max-height: 900px){
     .sidebar > ul > li > a{

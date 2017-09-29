@@ -46,89 +46,60 @@ class ApplicationController extends Controller
 
         $user = Auth::user();
         $timeline = $user->timeline;
-        $application = Application::where('name', $name)->first();
-
-        // todo: check if applicatinon
+        $application = Application::where('name', $name)
+            ->first();
 
         if ( ! $application ) {
             return redirect('/');
         }
 
-        $userLink = ApplicationUser::where('user_id', $user->id)
-            ->where('app_id', $application->id)
-            ->withTrashed()
+        if ( ! $application->is_active && $application->user_id !== $user->id) {
+            return redirect('/');
+        }
+
+        $applicationUser = ApplicationUser::where('app_id', $application->id)
+            ->where('user_id', $user->id)
+            ->where('authorized', true)
+            ->where('banned', false)
             ->first();
 
-        // fixme: use deleted as ususal
-
-        if ( ! $userLink ) {
-            // create user link
-            $userLink = new ApplicationUser();
-            $userLink->user_id = $user->id;
-            $userLink->app_id = $application->id;
-            $userLink->permissions = array();
-            $userLink->settings = array();
-            $userLink->store = array();
-            $userLink->save();
-        }
-
-        if ($userLink->trashed()) {
-            $userLink->restore();
-        }
-
-        $app_perms = $application->permissions;
-        if ($app_perms === null) $app_perms = array();
-
-
-
-        $user_perms = $userLink->permissions;
-
-        $perms = array();
-
-        $allow = $userLink->authorized && $userLink->enabled;
-
-        foreach($app_perms as $key => $value) {
-            if ($user_perms[$key]) {
-
-            }
-            else {
-                $allow = false;
-            }
-            $perms[] = array(
-                'key' => $key,
-                'value' => $value,
-            );
-        }
-
-
-        if (!$allow) {
+        if ( ! $applicationUser ) {
 
             $linkHash = md5('application_link_'.$user->id.'-'.$application->id);
             $link_hash = $linkHash;
 
-            $screenshots = ApplicationImage::where('id', $application->id)
+            $screenshots = ApplicationImage::where('app_id', $application->id)
                 ->get();
 
             $permissions = array_merge(['authorize'], (array)$application->permissions);
 
-            return $this->renderView('applications/container/details', compact('application', 'permissions', 'perms', 'allow', 'link_hash','screenshots'));
+
+            return $this->renderView('applications/container/details', compact('application', 'permissions', 'link_hash', 'screenshots'));
         }
 
         // back compability
         $gameName = $application->name;
 
-        $session = $this->getApiSession($user->id, $application->id, $timeline->id);
+        if ( ! $applicationUser->session_token || ! $applicationUser->session_token_expire || $applicationUser->session_token_expire->timestamp <= time()) {
+            // create new token
+            $applicationUser->session_token = sha1(random_bytes(20));
+            $applicationUser->session_token_expire = time() + 60 * 30; // 30 minutes
+            $applicationUser->update();
+        }
 
-        $api_session = (string)$session->session;
+        $session_key = $applicationUser->session_token;
+        $session_secret_key = sha1($applicationUser->id . $applicationUser->session_token . $application->id . $application->api_key . '_secret_');
 
         $web_channel = 'ch_'.bin2hex(random_bytes(8));
 
         $params = array(
             'web_server' => url('/'),
             'web_channel' => $web_channel,
-            'api_server' => 'https://sand.esvoe.com:5501',
-            'api_session' => $api_session,
+            'api_server' => url('/'),
+            'api_session' => $session_key,
+            'api_session_secret' => $session_secret_key,
             'user_id' => $user->id,
+            'user_lang'=>Config::get('app.locale'),
             'lang'=>Config::get('app.locale'),
         );
 
@@ -138,7 +109,7 @@ class ApplicationController extends Controller
         Theme::asset()->add('name', 'js/api_server.js?t='.time());
 
 
-        return $this->renderView('/applications/container/iframe', compact('application', 'iframe_url', 'api_session', 'web_channel', 'gameName', 'application'));
+        return $this->renderView('/applications/container/iframe', compact('application', 'iframe_url', 'api_session_key', 'web_channel', 'gameName'));
     }
 
     public function details($name) {
@@ -150,7 +121,7 @@ class ApplicationController extends Controller
         $linkHash = md5('application_link_'.$application->id.'-'.csrf_token().'-'.$user->id);
 
 
-        $screenshots = ApplicationImage::where('id', $application->id)
+        $screenshots = ApplicationImage::where('app_id', $application->id)
             ->get();
 
         return $this->renderView('applications/container/details', compact('application', 'perms', 'allow', 'link_hash','screenshots'));

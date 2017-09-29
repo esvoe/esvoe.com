@@ -4,7 +4,7 @@
 		<div class="row">
 			<div class="col-md-12 profile-col">
 				@if($timeline->type == "user")
-					{!! Theme::partial('user-header',compact('user','timeline','liked_pages','joined_groups','isMe','type_friend','is_follower','available_relative', 'curStatuses', 'curRelative','requestInviteMe','followRequests','following_count','followers_count','follow_confirm','user_post','joined_groups_count','guest_events', 'dialog_id')) !!}
+					{!! Theme::partial('user-header',compact('user','timeline','liked_pages','joined_groups','isMe','type_friend','is_follower','available_relative', 'curStatuses', 'curRelative','requestInviteMe','followRequests','following_count','followers_count','follow_confirm','user_post','joined_groups_count','guest_events', 'dialog_id', 'counters')) !!}
 				@elseif($timeline->type == "page")
 					{!! Theme::partial('page-header',compact('page','timeline')) !!}
 				@elseif($timeline->type == "group")
@@ -34,16 +34,16 @@
 										<div class="count-friend-photo-block">
 											<div class="row">
 												<div class="col-xs-4">
-													<span>{{ $user->profile->count_friend }}</span>
+													<span>{{ $counters['friends'] }}</span>
 													<p>{{ trans('timeline.of_friends_ucf') }}</p>
 												</div>
 												<div class="col-xs-4">
-													<span>{{ $user->profile->count_follower }}</span>
-													<p>{{ trans('timeline.followers') }}</p>
+													<span>{{ $counters['followers'] }}</span>
+													<p>{{ trans('timeline.of_followers') }}</p>
 												</div>
 												<div class="col-xs-4">
-													<span>{{ $photos_count }}</span>
-													<p>{{ trans('timeline.photos') }}</p>
+													<span>{{ $counters['photos'] }}</span>
+													<p>{{ trans('timeline.of_photos') }}</p>
 												</div>
 											</div>
 										</div>
@@ -86,7 +86,7 @@
 											@endif
 											@if($user->city != NULL)
 											<div class="own-info-contact">
-												<span><i class="fa fa-home" aria-hidden="true"></i>>{{ trans('timeline.city') }}:</span>
+												<span><i class="fa fa-home" aria-hidden="true"></i>{{ trans('timeline.city') }}:</span>
 												<span>{{ $user->city }}</span>
 											</div>
 											@endif
@@ -145,13 +145,13 @@
 										</div>
 									</div>
 								</div>
-								@if($photos_count)
+								@if($counters['photos'])
 								<div class="wrap-panel-prof">
 									<div class="title-link-album">
 										<a href="#">
 											<i class="icon-photoalbomy svoe-icon" style="top: 23px;"></i>
 											{{ trans('timeline.last_photos') }}
-											<span>({{ $photos_count }} {{ trans('timeline.foto') }})</span>
+											<span>({{ $counters['photos'] }} {{ trans('timeline.photo_lcf') }})</span>
 										</a>
 									</div>
 									<div class="last-photo-prof">
@@ -159,7 +159,7 @@
 											<div class="col-xs-12">
 												<div class="chronicle">
 													@foreach($photos_last as $url)
-														<img src="{{ $url }}" alt="" />
+														<img class="img-responsive" src="{{ $url }}" alt="" />
 													@endforeach
 												</div>
 											</div>
@@ -170,8 +170,8 @@
 									<div class="title-link-album">
 										<a href="#">
 											<i class="icon-photoalbomy svoe-icon" style="top: 22px;"></i>
-											{{ trans('timeline.albums') }}
-											<span>({{ $albums_count }} {{ trans('timeline.of_albums') }})</span>
+											{{ trans('timeline.photoalbums') }}
+											<span>({{ $counters['albums'] }} {{ trans('timeline.of_photoalbums') }})</span>
 										</a>
 									</div>
 									<div class="album-prof-block album-last">
@@ -183,7 +183,7 @@
 														<a href="{{ $album['href'] }}" style="background-image: url({{ $album['preview'] }})"></a>
 													</div>
 													<a href="{{ $album['href'] }}">{{ $album['name'] }}</a>
-													<span>({{ $album['count'] }} {{ trans('timeline.foto') }})</span>
+													<span>({{ $album['photos_count'] }} {{ trans('timeline.photo_lcf') }})</span>
 												</div>
 											</div>
 											@endforeach
@@ -191,13 +191,13 @@
 									</div>
 								</div>
 								@endif
-								@if($user->profile->count_friend)
+								@if($counters['friends'])
 								<div class="wrap-panel-prof">
 									<div class="title-link-album">
 										<a href="{{ url($user->username.'/friends') }}">
 											<i class="icon-druzi svoe-lg svoe-icon" style="top: 20px;left: 15px;"></i>
 											{{ trans('timeline.friends') }}
-											<span>({{ $user->profile->count_friend }} {{ trans('timeline.of_friends_lcf') }})</span>
+											<span>({{ $counters['friends'] }} {{ trans('timeline.of_friends_lcf') }})</span>
 										</a>
 									</div>
 									<div class="friend-prof-block">
@@ -215,7 +215,7 @@
 									</div>
 								</div>
 								@endif
-								@if($pages_count)
+								@if($counters['pages'])
 								<div class="wrap-panel-prof">
 									<div class="title-link-album">
 										<a href="{{ url($user->username.'/pages') }}">
@@ -235,14 +235,18 @@
 													<div class="content-page-rightbar">
 														<h4><a href="{{ 'page/'.$page->slug }}">{{ $page->name }}</a></h4>
 														<p>{{ $page->category()->value('name') }}</p>
-														<span><i class="icon-like  svoe-icon"></i> {{ $page->likes()->count() }}</span>
+														<span><i class="icon-like  svoe-icon"></i> {{ $page->likes_count }}</span>
 														<div class="btn-hover-wrap wrap-btn-hover-pages pagelike-links">
-															<div class="btn-follow page"><a href="#" class="btn btn-options btn-block btn-default page-like like" ><i class="icon-like  svoe-icon"></i> <span>{{ trans('common.like') }}</span></a></div>
-															<div class="btn-follow page hidden"><a href="#" class="btn btn-options btn-block btn-success page-like liked " ><i class="fa fa-heart" aria-hidden="true"></i> <span>{{ trans('common.liked') }}</span></a></div>
+															<div class="btn-follow page @if($page->liked) hidden @endif"><a href="#" class="btn btn-options btn-block btn-default page-like like" @if($page->liked) aria-hidden="true" @endif><i class="icon-like  svoe-icon"></i> <span>{{ trans('common.like') }}</span></a></div>
+															<div class="btn-follow page @if(!$page->liked) hidden @endif"><a href="#" class="btn btn-options btn-block btn-success page-like liked " ><i class="fa fa-heart" @if(!$page->liked) aria-hidden="true" @endif></i> <span>{{ trans('common.liked') }}</span></a></div>
 
-															<a href="" class="btn-action-hover show-action-hover hidden-action-hover">
+															<a href="#" class="btn-action-hover show-action-hover hidden-action-hover @if($page->subscribed) hidden @endif">
 																<i class="icon-pidpysatysya  svoe-icon"></i>
 																{{ trans('friend.subscribe') }}
+															</a>
+															<a href="#" class="btn-action-hover show-action-hover hidden-action-hover @if(!$page->subscribed) hidden @endif">
+																<i class="icon-vidpysatys svoe-icon"></i>
+																{{ trans('friend.unsubscribe') }}
 															</a>
 														</div>
 													</div>
@@ -253,7 +257,7 @@
 									</div>
 								</div>
 								@endif
-								@if($groups_last->count())
+								@if($counters['groups'])
 								<div class="wrap-panel-prof">
 									<div class="title-link-album">
 										<a href="#">
@@ -262,11 +266,11 @@
 											<span class="show-all-title">{{ trans('timeline.all') }}</span>
 										</a>
 									</div>
-									@foreach($groups_last as $group)
+									@foreach($groups_last->take(2) as $group)
 									<div class="wrap-group-prof">
 										<div class="wrap-padding-group">
 											<div class="own-photo-group" style="background-image: url({{ url('group/cover/'.$group['cover']) }})">
-												<a href=""></a>
+												<a href="{{ url($group['username']) }}"></a>
 												<div>
 													@foreach($group['friends'] as $friend)
 													<div class="your-group-friend" style="background-image: url({{ $friend->avatar }})">
@@ -276,54 +280,52 @@
 												</div>
 											</div>
 											<div class="content-group-profile">
-												<a href=""><i class="
-													@if($group['type'] == 'closed') icon-zakryto @else icon-vidkryto @endif svoe-icon"></i> {{ $group['name'] }}
+												<a href="{{ url($group['username']) }}"><i class="
+													@if($group['type'] == 'closed')
+															icon-zakryto
+													@elseif($group['type'] == 'open')
+															icon-vidkryto
+													@else
+															icon-secret
+													@endif
+															svoe-icon"></i> {{ $group['name'] }}
 												</a>
-												@if($group['notMember'])
+
 												<div class="btn-joined-prof-group">
 													<i class="icon-prisoidenitsa svoe-icon"></i> {{ trans('common.join') }}
 												</div>
-												@endif
-												<span>{{ $group['friends']->count() }} {{ trans('timeline.of_friends_lcf') }}</span>
+												<span>{{ $group['friends_count'] }} {{ trans('timeline.of_friends_lcf') }}</span>
 											</div>
 										</div>
 									</div>
 									@endforeach
 								</div>
 								@endif
+								@if($counters['events'])
 								<div class="wrap-panel-prof">
 									<div class="title-link-album">
 										<a href="#">
 											<i class="icon-podii  svoe-icon" style="top: 23px;left: 19px;"></i>
-											События
-											<span class="show-all-title">Все</span>
+											{{ trans('timeline.events') }}
+											<span class="show-all-title">{{ trans('timeline.all') }}</span>
 										</a>
 									</div>
+									@foreach($events_last->take(2) as $event)
 									<div class="wrap-event-prof">
-										<div class="photo-event-prof" style="background-image: url({!! Theme::asset()->url('images/event-prof-1.png') !!})">
+										<div class="photo-event-prof" style="background-image: url({{ url('event/cover/'.$event->cover) }})">
 											<div class="shadow-event-prof">
 												<div class="date-event-prof">
-													<span class="number-date">26</span>
-													<span>серпня</span>
+													<span class="number-date">{{ $event->start_date->format('d') }}</span>
+													<span>{{ trans('timeline.at_month')[$event->start_date->format('n')] }}</span>
 												</div>
 											</div>
 										</div>
-										<a href="">LET SWIFT - iOS Developers Meet-up</a>
-										<span>3 246 учасників</span>
+										<a href="{{ url($event->timeline->username) }}">{{ $event->timeline->name }}</a>
+										<span>{{ number_format($event->users()->count(), 0, '', ' ') }} {{ trans('timeline.of_participants') }}</span>
 									</div>
-									<div class="wrap-event-prof">
-										<div class="photo-event-prof" style="background-image: url({!! Theme::asset()->url('images/event-prof-1.png') !!})">
-											<div class="shadow-event-prof">
-												<div class="date-event-prof">
-													<span class="number-date">26</span>
-													<span>серпня</span>
-												</div>
-											</div>
-										</div>
-										<a href="">LET SWIFT - iOS Developers Meet-up</a>
-										<span>3 246 учасників</span>
-									</div>
+									@endforeach
 								</div>
+								@endif
 							</div>
 							<div class="col-md-7  col-lg-5  col-grid-1">
 								{{--<div style="height: 600px;background-color: #ccc;"></div>--}}
@@ -391,10 +393,10 @@
 								<div class="wrap-content-tab">
 									<div class="wrap-photo-tab">
 										<ul class="nav nav-tabs" role="tablist">
-											<li role="presentation" class="active"><a href="#tab-friend-1" aria-controls="tab-friend-1" role="tab" data-toggle="tab">Друзі</a></li>
-											<li role="presentation"><a href="#tab-friend-2" aria-controls="tab-friend-2" role="tab" data-toggle="tab">Підписники</a></li>
-											<li role="presentation" ><a href="#tab-friend-3" aria-controls="tab-friend-3" role="tab" data-toggle="tab">Спільні друзі</a></li>
-											<li role="presentation" ><a href="#tab-friend-4" aria-controls="tab-friend-4" role="tab" data-toggle="tab">Родина</a></li>
+											@foreach($relations as $relation => $users)
+												@continue($isMe && ($relation == 'mutual_friends'))
+											<li role="presentation" @if($loop->iteration == 1) class="active" @endif><a href="#tab-friend-{{ $loop->iteration }}" aria-controls="tab-friend-{{ $loop->iteration }}" role="tab" data-toggle="tab">{{ trans('timeline.'.$relation) }}</a></li>
+											@endforeach
 											<li class="grid-col-friend">
 												<div class="search-friend-tab">
 													<input type="text" class="form-control">
@@ -409,13 +411,15 @@
 											</li>
 										</ul>
 										<div class="tab-content">
-											<div role="tabpanel" class="tab-pane fade in active" id="tab-friend-1">
+											@foreach($relations as $users)
+											<div role="tabpanel" class="tab-pane fade @if($loop->iteration == 1) in active @endif" id="tab-friend-{{ $loop->iteration }}">
 												<div class="wrap-friend-tab-prof">
 													<div class="row small-tab-friend row-big-tab-friend">
+														@foreach($users as $friend)
 														<div class="col-sm-6">
 															<div class="own-friend-tab-prof">
-																<div class="bg-wall-friend-tab" style="background-image: url('{!! Theme::asset()->url('images/test-img-modal.png') !!}')" ></div>
-																<div class="photo-friend-tab" style="background-image: url('https://sand.esvoe.com/user/avatar/2017-06-08-19-43-0612208272_784130515042917_6144586870815355082_n.jpg')"></div>
+																<div class="bg-wall-friend-tab" style="background-image: url('{{ url('user/cover/'.$friend->cover) }}')" ></div>
+																<div class="photo-friend-tab" style="background-image: url('{{ $friend->avatar }}')"></div>
 																<div class="content-friend-tab">
 																	<ul class="list-inline no-margin">
 																		<li class="dropdown">
@@ -425,153 +429,134 @@
 																			<ul class="dropdown-menu">
 																				<li>
 																					<a href="#">
-																						Поскаржитись
+																						{{ trans('common.report') }}
 																					</a>
 																				</li>
 																			</ul>
 																		</li>
 																	</ul>
 																	<div class="info-action-friend-tab">
-																		<p><a href="">Vitalii Oleniichuk</a></p>
-																		<span>Львів</span>
+																		<p><a href="{{ url($friend->username) }}">{{ $friend->name }}</a></p>
+																		<span>{{ $friend->city }}</span>
 																		<div class="count-friend-photo-block">
 																			<div class="row">
 																				<div class="col-xs-3">
-																					<span>320</span>
-																					<p>Друзів</p>
+																					<span>{{ $friend->profile->count_friend }}</span>
+																					<p>{{ trans('timeline.of_friends_ucf') }}</p>
 																				</div>
 																				<div class="col-xs-4">
-																					<span>229</span>
-																					<p>Підписників </p>
+																					<span>{{ $friend->profile->count_follower }}</span>
+																					<p>{{ trans('timeline.of_followers') }} </p>
 																				</div>
 																				<div class="col-xs-5">
-																					<span>356</span>
-																					<p>Фотографий</p>
+																					<span>{{ $friend->photos_count }}</span>
+																					<p>{{ trans('timeline.of_photos') }}</p>
 																				</div>
 																			</div>
 																		</div>
+																		@if($friend->id != Auth::id())
 																		<div class="profheader-ctrl">
 																			<!-- case 0 : confirm request for friendship -->
-																			<div class="profheader-ctrl-item" data-role="friend-request" style="display: ---none;">
+																			<div class="profheader-ctrl-item" data-role="friend-request" @if($friend->type_friend != 4) style="display: none;" @endif>
 																				<div class="dropdown">
 																					<a href="#" class="profheader-ctrl-btn profheader-ctrl-togglewidth profheader-ctrl-confirm dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" style="">
 																						<i class="icon-druzhyty svoe-lg svoe-icon"></i>
-																						<span class="profheader-ctrl-text">Хочет дружить</span>
+																						<span class="profheader-ctrl-text">{{ trans('friend.want_friend') }}</span>
 																					</a>
 																					<ul class="dropdown-menu profheader-ctrl-dropdown dropdown-unclosed">
 																						<li>
 																							<a data-action="friend-accept" href="#" class="">
-																								<i class="icon-prinyat svoe-icon"></i>Принять
+																								<i class="icon-prinyat svoe-icon"></i>{{ trans('common.accept') }}
 																							</a>
 																						</li>
 																						<li>
 																							<a data-action="friend-cancel" href="#" class="">
-																								<i class="icon-vidpysatys svoe-icon"></i>Отказать
+																								<i class="icon-vidpysatys svoe-icon"></i>{{ trans('common.decline') }}
 																							</a>
 																						</li>
 																					</ul>
 																				</div>
 																			</div>
 																			<!-- case 1 : add to friend -->
-																			<div class="profheader-ctrl-item" data-role="add-to-friend" style="display: none;">
+																			<div class="profheader-ctrl-item" data-role="add-to-friend" @if($friend->type_friend != 0) style="display: none;" @endif>
 																				<a data-action="add" href="#" class="profheader-ctrl-btn profheader-ctrl-togglewidth profheader-ctrl-addtofriend" style="">
 																					<i class="icon-dodaty-druzi svoe-lg svoe-icon"></i>
-																					<span class="profheader-ctrl-text">Добавить в друзья</span>
+																					<span class="profheader-ctrl-text">{{ trans('friend.add_to_friends') }}</span>
 																				</a>
 																			</div>
 																			<!-- case 2 : not allowed, cancel adding -->
-																			<div class="profheader-ctrl-item" data-role="not-allowed" style="display: none;">
+																			<div class="profheader-ctrl-item" data-role="not-allowed" @if($friend->type_friend != 1) style="display: none;" @endif>
 																				<div class="dropdown">
 																					<a href="#" class="profheader-ctrl-btn profheader-ctrl-togglewidth profheader-ctrl-cancel dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" style="">
 																						<i class="icon-chekaty svoe-lg svoe-icon"></i>
-																						<span class="profheader-ctrl-text">Не подтверждено</span>
+																						<span class="profheader-ctrl-text">{{ trans('friend.not_confirmed') }}</span>
 																					</a>
 																					<ul class="dropdown-menu profheader-ctrl-dropdown">
 																						<li>
 																							<a data-action="cancel" href="#" class="">
-																								<i class="icon-vidpysatys svoe-icon"></i>Отменить заявку
+																								<i class="icon-vidpysatys svoe-icon"></i>{{ trans('friend.cancel_request') }}
 																							</a>
 																						</li>
 																					</ul>
 																				</div>
 																			</div>
 																			<!-- case 3 : your friend -->
-																			<div class="profheader-ctrl-item" data-role="your-friend" style="display: none;">
+																			<div class="profheader-ctrl-item" data-role="your-friend" @if($friend->type_friend != 3) style="display: none;" @endif>
 																				<div class="dropdown">
 																					<a href="#" class="profheader-ctrl-btn profheader-ctrl-togglewidth profheader-ctrl-friend dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" style="">
 																						<i class="icon-prinyat svoe-lg svoe-icon"></i>
-																						<span class="profheader-ctrl-text">У Вас в друзьях</span>
+																						<span class="profheader-ctrl-text">{{ trans('friend.in_your_friends') }}</span>
 																					</a>
 																					<ul class="dropdown-menu profheader-ctrl-dropdown">
 																						<li>
 																							<a data-action="delete" href="#" class="dropdown-unclosed">
-																								<i class="icon-vidpysatys svoe-icon"></i>Удалить из друзей
+																								<i class="icon-vidpysatys svoe-icon"></i>{{ trans('friend.delete_from_friends') }}
 																							</a>
 																						</li>
 																						<li class="divider"></li>
 																						<li>
 																							<form name="user-status-form">
 																								<a class="sub profheader-ctrl-submenu-btn" data-toggle="collapse" href="#collapseMenu-1" aria-expanded="true" aria-controls="collapseMenu-1">
-																									<i class="icon-strilka svoe-icon"></i>Статус дружбы
+																									<i class="icon-strilka svoe-icon"></i>{{ trans('friend.friendship_status') }}
 																								</a>
 																								<ul id="collapseMenu-1" class="profheader-ctrl-submenu collapse in" role="tabpanel">
+																									@foreach(config('friend.status') as $status)
 																									<li class="profheader-ctrl-submenu-item">
-																										<label for="bestfriends">
-                                                                                                <span class="wrap-checker-sett">
-                                                                                                    <div class="jq-checkbox" id="bestfriends-styler"><input data-action="status" type="checkbox" name="status" id="bestfriends" value="bestfriends"><div class="jq-checkbox__div"></div></div>
-                                                                                                </span>
-																											Лучшие друзья
+																										<label for="{{$status}}">
+																											<span class="wrap-checker-sett">
+																												<div class="jq-checkbox" id="{{$status}}-styler">
+																													<input data-action="status" type="checkbox" name="status" id="{{$status}}" value="{{$status}}" @if(isset($friend->curStatuses) AND strpos($friend->curStatuses, $status)!==false) checked="checked" @endif /><div class="jq-checkbox__div"></div>
+																												</div>
+																											</span>
+																											{{ trans('friend.status_'.$status) }}
 																										</label>
 																									</li>
-																									<li class="profheader-ctrl-submenu-item">
-																										<label for="colleagues">
-                                                                                                <span class="wrap-checker-sett">
-                                                                                                    <div class="jq-checkbox" id="colleagues-styler"><input data-action="status" type="checkbox" name="status" id="colleagues" value="colleagues"><div class="jq-checkbox__div"></div></div>
-                                                                                                </span>
-																											Коллеги
-																										</label>
-																									</li>
-																									<li class="profheader-ctrl-submenu-item">
-																										<label for="employees">
-                                                                                                <span class="wrap-checker-sett">
-                                                                                                    <div class="jq-checkbox" id="employees-styler"><input data-action="status" type="checkbox" name="status" id="employees" value="employees"><div class="jq-checkbox__div"></div></div>
-                                                                                                </span>
-																											Сотрудники
-																										</label>
-																									</li>
+																									@endforeach
 																								</ul>
 																							</form>
 																						</li>
 																						<li>
 																							<form name="user-relative-form">
 																								<a class="sub profheader-ctrl-submenu-btn collapsed" data-toggle="collapse" href="#collapseMenu-2" aria-expanded="false" aria-controls="collapseMenu-2">
-																									<i class="icon-strilka svoe-icon"></i>Родственники
+																									<i class="icon-strilka svoe-icon"></i>{{ trans('timeline.relatives') }}
 																								</a>
 																								<ul id="collapseMenu-2" class="profheader-ctrl-submenu collapse" role="tabpanel">
-																									<li class="profheader-ctrl-submenu-item">
-																										<label for="mother">
-                                                                                                <span class="wrap-checker-sett">
-                                                                                                    <div class="jq-radio" id="mother-styler"><input data-action="relative" type="radio" name="relative" id="mother" value="mother"><div class="jq-radio__div"></div></div>
-                                                                                                </span>
-																											Мать
-																										</label>
-																									</li>
-																									<li class="profheader-ctrl-submenu-item">
-																										<label for="doughter">
-                                                                                                <span class="wrap-checker-sett">
-                                                                                                    <div class="jq-radio" id="doughter-styler"><input data-action="relative" type="radio" name="relative" id="doughter" value="doughter"><div class="jq-radio__div"></div></div>
-                                                                                                </span>
-																											Дочь
-																										</label>
-																									</li>
-																									<li class="profheader-ctrl-submenu-item">
-																										<label for="grandmother">
-                                                                                                <span class="wrap-checker-sett">
-                                                                                                    <div class="jq-radio" id="grandmother-styler"><input data-action="relative" type="radio" name="relative" id="grandmother" value="grandmother"><div class="jq-radio__div"></div></div>
-                                                                                                </span>
-																											Бабушка
-																										</label>
-																									</li>
+																									@if (isset($available_relative))
+																										@foreach($available_relative as $rl => $rlValue)
+																										<li class="profheader-ctrl-submenu-item">
+																											<label for="{{$rl}}">
+		                            																			<span class="wrap-checker-sett">
+																													<div class="jq-radio" id="{{$rl}}-styler">
+		                            																					<input data-action="relative" type="radio" name="relative" id="{{$rl}}" value="{{$rl}}" @if($rlValue == $friend->curRelative) checked="checked" @endif /><div class="jq-radio__div"></div>
+																													</div>
+		                            																			</span>
+																													{{ trans('friend.rl_'.$rl) }}
+																												</label>
+																											</li>
+																										@endforeach
+																									@else
+																										<small> ---</small>
+																									@endif
 																								</ul>
 																							</form>
 																						</li>
@@ -579,9 +564,13 @@
 																				</div>
 																			</div>
 																			<div class="profheader-ctrl-item profheader-ctrl-item___message">
-																				<a href="#" class="profheader-ctrl-btn profheader-ctrl-message" style="">
+																				<a data-action="subscribe" href="#" class="profheader-ctrl-btn profheader-ctrl-message" @if($friend->is_follower) style="display: none;" @endif>
 																					<i class="icon-pidpysatysya svoe-lg svoe-icon"></i>
-																					<span class="profheader-ctrl-text">Подписаться</span>
+																					<span class="profheader-ctrl-text">{{ trans('friend.subscribe') }}</span>
+																				</a>
+																				<a data-action="unsubscribe" href="#" class="profheader-ctrl-btn profheader-ctrl-message" @if(!$friend->is_follower) style="display: none;" @endif>
+																					<i class="icon-vidpysatys svoe-icon"></i>
+																					<span class="profheader-ctrl-text">{{ trans('friend.unsubscribe') }}</span>
 																				</a>
 																			</div>
 																			<div class="profheader-ctrl-item">
@@ -591,460 +580,35 @@
 																					</a>
 																					<ul class="dropdown-menu profheader-ctrl-dropdown dropdown-unclosed">
 																						<li>
-																							<a data-action="subscribe" href="#" class="">
-																								<i class="icon-povidomlennia svoe-icon"></i>Написать сообщение
-																							</a>
-																						</li>
-																						<li>
-																							<a data-action="unsubscribe" href="#" class="" style="display:none;">
-																								<i class="icon-vidpysatys svoe-icon"></i>Подписаться
+																							<a href="#" class="">
+																								<i class="icon-povidomlennia svoe-icon"></i>{{ trans('friend.write_message') }}
 																							</a>
 																						</li>
 																						<li class="divider"></li>
 																						<li>
 																							<a data-action="claim" href="#" class="sub">
-																								<i class="icon-poskarzhytysya svoe-icon"></i>Пожаловаться
+																								<i class="icon-poskarzhytysya svoe-icon"></i>{{ trans('common.report') }}
 																							</a>
 																						</li>
 																						<li>
 																							<a data-action="block" href="#" class="sub">
-																								<i class="icon-zablokuvaty svoe-icon"></i>Заблокировать
+																								<i class="icon-zablokuvaty svoe-icon"></i>{{ trans('friend.block') }}
 																							</a>
 																						</li>
 																					</ul>
 																				</div>
 																			</div>
 																		</div>
+																		@endif
 																	</div>
 																</div>
 															</div>
 														</div>
-														<div class="col-sm-6">
-															<div class="own-friend-tab-prof">
-																<div class="bg-wall-friend-tab" style="background-image: url('{!! Theme::asset()->url('images/test-img-modal.png') !!}')" ></div>
-																<div class="photo-friend-tab" style="background-image: url({!! Theme::asset()->url('https://sand.esvoe.com/user/avatar/2017-07-18-13-21-54AGp7eZ4Z.png') !!})"></div>
-																<div class="content-friend-tab">
-																	<ul class="list-inline no-margin">
-																		<li class="dropdown">
-																			<a href="#" class="dropdown-togle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">
-																				<i class="icon-menyu svoe-lg svoe-icon"></i>
-																			</a>
-																			<ul class="dropdown-menu">
-																				<li>
-																					<a href="#">
-																						Поскаржитись
-																					</a>
-																				</li>
-																			</ul>
-																		</li>
-																	</ul>
-																	<div class="info-action-friend-tab">
-																		<p><a href="">Andriy Vynarchyk</a></p>
-																		<span>Львів</span>
-																		<div class="count-friend-photo-block">
-																			<div class="row">
-																				<div class="col-xs-3">
-																					<span>320</span>
-																					<p>Друзів</p>
-																				</div>
-																				<div class="col-xs-4">
-																					<span>229</span>
-																					<p>Підписників </p>
-																				</div>
-																				<div class="col-xs-5">
-																					<span>356</span>
-																					<p>Фотографий</p>
-																				</div>
-																			</div>
-																		</div>
-																		<div class="profheader-ctrl">
-																			<!-- case 0 : confirm request for friendship -->
-																			<div class="profheader-ctrl-item" data-role="friend-request" style="display: ---none;">
-																				<div class="dropdown">
-																					<a href="#" class="profheader-ctrl-btn profheader-ctrl-togglewidth profheader-ctrl-confirm dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" style="">
-																						<i class="icon-druzhyty svoe-lg svoe-icon"></i>
-																						<span class="profheader-ctrl-text">Хочет дружить</span>
-																					</a>
-																					<ul class="dropdown-menu profheader-ctrl-dropdown dropdown-unclosed">
-																						<li>
-																							<a data-action="friend-accept" href="#" class="">
-																								<i class="icon-prinyat svoe-icon"></i>Принять
-																							</a>
-																						</li>
-																						<li>
-																							<a data-action="friend-cancel" href="#" class="">
-																								<i class="icon-vidpysatys svoe-icon"></i>Отказать
-																							</a>
-																						</li>
-																					</ul>
-																				</div>
-																			</div>
-																			<!-- case 1 : add to friend -->
-																			<div class="profheader-ctrl-item" data-role="add-to-friend" style="display: none;">
-																				<a data-action="add" href="#" class="profheader-ctrl-btn profheader-ctrl-togglewidth profheader-ctrl-addtofriend" style="">
-																					<i class="icon-dodaty-druzi svoe-lg svoe-icon"></i>
-																					<span class="profheader-ctrl-text">Добавить в друзья</span>
-																				</a>
-																			</div>
-																			<!-- case 2 : not allowed, cancel adding -->
-																			<div class="profheader-ctrl-item" data-role="not-allowed" style="display: none;">
-																				<div class="dropdown">
-																					<a href="#" class="profheader-ctrl-btn profheader-ctrl-togglewidth profheader-ctrl-cancel dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" style="">
-																						<i class="icon-chekaty svoe-lg svoe-icon"></i>
-																						<span class="profheader-ctrl-text">Не подтверждено</span>
-																					</a>
-																					<ul class="dropdown-menu profheader-ctrl-dropdown">
-																						<li>
-																							<a data-action="cancel" href="#" class="">
-																								<i class="icon-vidpysatys svoe-icon"></i>Отменить заявку
-																							</a>
-																						</li>
-																					</ul>
-																				</div>
-																			</div>
-																			<!-- case 3 : your friend -->
-																			<div class="profheader-ctrl-item" data-role="your-friend" style="display: none;">
-																				<div class="dropdown">
-																					<a href="#" class="profheader-ctrl-btn profheader-ctrl-togglewidth profheader-ctrl-friend dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" style="">
-																						<i class="icon-prinyat svoe-lg svoe-icon"></i>
-																						<span class="profheader-ctrl-text">У Вас в друзьях</span>
-																					</a>
-																					<ul class="dropdown-menu profheader-ctrl-dropdown">
-																						<li>
-																							<a data-action="delete" href="#" class="dropdown-unclosed">
-																								<i class="icon-vidpysatys svoe-icon"></i>Удалить из друзей
-																							</a>
-																						</li>
-																						<li class="divider"></li>
-																						<li>
-																							<form name="user-status-form">
-																								<a class="sub profheader-ctrl-submenu-btn" data-toggle="collapse" href="#collapseMenu-1" aria-expanded="true" aria-controls="collapseMenu-1">
-																									<i class="icon-strilka svoe-icon"></i>Статус дружбы
-																								</a>
-																								<ul id="collapseMenu-1" class="profheader-ctrl-submenu collapse in" role="tabpanel">
-																									<li class="profheader-ctrl-submenu-item">
-																										<label for="bestfriends">
-                                                                                                <span class="wrap-checker-sett">
-                                                                                                    <div class="jq-checkbox" id="bestfriends-styler"><input data-action="status" type="checkbox" name="status" id="bestfriends" value="bestfriends"><div class="jq-checkbox__div"></div></div>
-                                                                                                </span>
-																											Лучшие друзья
-																										</label>
-																									</li>
-																									<li class="profheader-ctrl-submenu-item">
-																										<label for="colleagues">
-                                                                                                <span class="wrap-checker-sett">
-                                                                                                    <div class="jq-checkbox" id="colleagues-styler"><input data-action="status" type="checkbox" name="status" id="colleagues" value="colleagues"><div class="jq-checkbox__div"></div></div>
-                                                                                                </span>
-																											Коллеги
-																										</label>
-																									</li>
-																									<li class="profheader-ctrl-submenu-item">
-																										<label for="employees">
-                                                                                                <span class="wrap-checker-sett">
-                                                                                                    <div class="jq-checkbox" id="employees-styler"><input data-action="status" type="checkbox" name="status" id="employees" value="employees"><div class="jq-checkbox__div"></div></div>
-                                                                                                </span>
-																											Сотрудники
-																										</label>
-																									</li>
-																								</ul>
-																							</form>
-																						</li>
-																						<li>
-																							<form name="user-relative-form">
-																								<a class="sub profheader-ctrl-submenu-btn collapsed" data-toggle="collapse" href="#collapseMenu-2" aria-expanded="false" aria-controls="collapseMenu-2">
-																									<i class="icon-strilka svoe-icon"></i>Родственники
-																								</a>
-																								<ul id="collapseMenu-2" class="profheader-ctrl-submenu collapse" role="tabpanel">
-																									<li class="profheader-ctrl-submenu-item">
-																										<label for="mother">
-                                                                                                <span class="wrap-checker-sett">
-                                                                                                    <div class="jq-radio" id="mother-styler"><input data-action="relative" type="radio" name="relative" id="mother" value="mother"><div class="jq-radio__div"></div></div>
-                                                                                                </span>
-																											Мать
-																										</label>
-																									</li>
-																									<li class="profheader-ctrl-submenu-item">
-																										<label for="doughter">
-                                                                                                <span class="wrap-checker-sett">
-                                                                                                    <div class="jq-radio" id="doughter-styler"><input data-action="relative" type="radio" name="relative" id="doughter" value="doughter"><div class="jq-radio__div"></div></div>
-                                                                                                </span>
-																											Дочь
-																										</label>
-																									</li>
-																									<li class="profheader-ctrl-submenu-item">
-																										<label for="grandmother">
-                                                                                                <span class="wrap-checker-sett">
-                                                                                                    <div class="jq-radio" id="grandmother-styler"><input data-action="relative" type="radio" name="relative" id="grandmother" value="grandmother"><div class="jq-radio__div"></div></div>
-                                                                                                </span>
-																											Бабушка
-																										</label>
-																									</li>
-																								</ul>
-																							</form>
-																						</li>
-																					</ul>
-																				</div>
-																			</div>
-																			<div class="profheader-ctrl-item profheader-ctrl-item___message">
-																				<a href="#" class="profheader-ctrl-btn profheader-ctrl-message" style="">
-																					<i class="icon-pidpysatysya svoe-lg svoe-icon"></i>
-																					<span class="profheader-ctrl-text">Подписаться</span>
-																				</a>
-																			</div>
-																			<div class="profheader-ctrl-item">
-																				<div class="dropdown">
-																					<a href="#" class="profheader-ctrl-btn profheader-ctrl-menu dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">
-																						<i class="icon-menyu svoe-lg svoe-icon"></i>
-																					</a>
-																					<ul class="dropdown-menu profheader-ctrl-dropdown dropdown-unclosed">
-																						<li>
-																							<a data-action="subscribe" href="#" class="">
-																								<i class="icon-povidomlennia svoe-icon"></i>Написать сообщение
-																							</a>
-																						</li>
-																						<li>
-																							<a data-action="unsubscribe" href="#" class="" style="display:none;">
-																								<i class="icon-vidpysatys svoe-icon"></i>Подписаться
-																							</a>
-																						</li>
-																						<li class="divider"></li>
-																						<li>
-																							<a data-action="claim" href="#" class="sub">
-																								<i class="icon-poskarzhytysya svoe-icon"></i>Пожаловаться
-																							</a>
-																						</li>
-																						<li>
-																							<a data-action="block" href="#" class="sub">
-																								<i class="icon-zablokuvaty svoe-icon"></i>Заблокировать
-																							</a>
-																						</li>
-																					</ul>
-																				</div>
-																			</div>
-																		</div>
-																	</div>
-																</div>
-															</div>
-														</div>
-														<div class="col-sm-6">
-															<div class="own-friend-tab-prof">
-																<div class="bg-wall-friend-tab" style="background-image: url('{!! Theme::asset()->url('images/test-img-modal.png') !!}')" ></div>
-																<div class="photo-friend-tab" style="background-image: url('https://sand.esvoe.com/user/avatar/2017-06-08-19-43-0612208272_784130515042917_6144586870815355082_n.jpg')"></div>
-																<div class="content-friend-tab">
-																	<ul class="list-inline no-margin">
-																		<li class="dropdown">
-																			<a href="#" class="dropdown-togle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">
-																				<i class="icon-menyu svoe-lg svoe-icon"></i>
-																			</a>
-																			<ul class="dropdown-menu">
-																				<li>
-																					<a href="#">
-																						Поскаржитись
-																					</a>
-																				</li>
-																			</ul>
-																		</li>
-																	</ul>
-																	<div class="info-action-friend-tab">
-																		<p><a href="">Vitalii Oleniichuk</a></p>
-																		<span>Львів</span>
-																		<div class="count-friend-photo-block">
-																			<div class="row">
-																				<div class="col-xs-3">
-																					<span>320</span>
-																					<p>Друзів</p>
-																				</div>
-																				<div class="col-xs-4">
-																					<span>229</span>
-																					<p>Підписників </p>
-																				</div>
-																				<div class="col-xs-5">
-																					<span>356</span>
-																					<p>Фотографий</p>
-																				</div>
-																			</div>
-																		</div>
-																		<div class="profheader-ctrl">
-																			<!-- case 0 : confirm request for friendship -->
-																			<div class="profheader-ctrl-item" data-role="friend-request" style="display: ---none;">
-																				<div class="dropdown">
-																					<a href="#" class="profheader-ctrl-btn profheader-ctrl-togglewidth profheader-ctrl-confirm dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" style="">
-																						<i class="icon-druzhyty svoe-lg svoe-icon"></i>
-																						<span class="profheader-ctrl-text">Хочет дружить</span>
-																					</a>
-																					<ul class="dropdown-menu profheader-ctrl-dropdown dropdown-unclosed">
-																						<li>
-																							<a data-action="friend-accept" href="#" class="">
-																								<i class="icon-prinyat svoe-icon"></i>Принять
-																							</a>
-																						</li>
-																						<li>
-																							<a data-action="friend-cancel" href="#" class="">
-																								<i class="icon-vidpysatys svoe-icon"></i>Отказать
-																							</a>
-																						</li>
-																					</ul>
-																				</div>
-																			</div>
-																			<!-- case 1 : add to friend -->
-																			<div class="profheader-ctrl-item" data-role="add-to-friend" style="display: none;">
-																				<a data-action="add" href="#" class="profheader-ctrl-btn profheader-ctrl-togglewidth profheader-ctrl-addtofriend" style="">
-																					<i class="icon-dodaty-druzi svoe-lg svoe-icon"></i>
-																					<span class="profheader-ctrl-text">Добавить в друзья</span>
-																				</a>
-																			</div>
-																			<!-- case 2 : not allowed, cancel adding -->
-																			<div class="profheader-ctrl-item" data-role="not-allowed" style="display: none;">
-																				<div class="dropdown">
-																					<a href="#" class="profheader-ctrl-btn profheader-ctrl-togglewidth profheader-ctrl-cancel dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" style="">
-																						<i class="icon-chekaty svoe-lg svoe-icon"></i>
-																						<span class="profheader-ctrl-text">Не подтверждено</span>
-																					</a>
-																					<ul class="dropdown-menu profheader-ctrl-dropdown">
-																						<li>
-																							<a data-action="cancel" href="#" class="">
-																								<i class="icon-vidpysatys svoe-icon"></i>Отменить заявку
-																							</a>
-																						</li>
-																					</ul>
-																				</div>
-																			</div>
-																			<!-- case 3 : your friend -->
-																			<div class="profheader-ctrl-item" data-role="your-friend" style="display: none;">
-																				<div class="dropdown">
-																					<a href="#" class="profheader-ctrl-btn profheader-ctrl-togglewidth profheader-ctrl-friend dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" style="">
-																						<i class="icon-prinyat svoe-lg svoe-icon"></i>
-																						<span class="profheader-ctrl-text">У Вас в друзьях</span>
-																					</a>
-																					<ul class="dropdown-menu profheader-ctrl-dropdown">
-																						<li>
-																							<a data-action="delete" href="#" class="dropdown-unclosed">
-																								<i class="icon-vidpysatys svoe-icon"></i>Удалить из друзей
-																							</a>
-																						</li>
-																						<li class="divider"></li>
-																						<li>
-																							<form name="user-status-form">
-																								<a class="sub profheader-ctrl-submenu-btn" data-toggle="collapse" href="#collapseMenu-1" aria-expanded="true" aria-controls="collapseMenu-1">
-																									<i class="icon-strilka svoe-icon"></i>Статус дружбы
-																								</a>
-																								<ul id="collapseMenu-1" class="profheader-ctrl-submenu collapse in" role="tabpanel">
-																									<li class="profheader-ctrl-submenu-item">
-																										<label for="bestfriends">
-                                                                                                <span class="wrap-checker-sett">
-                                                                                                    <div class="jq-checkbox" id="bestfriends-styler"><input data-action="status" type="checkbox" name="status" id="bestfriends" value="bestfriends"><div class="jq-checkbox__div"></div></div>
-                                                                                                </span>
-																											Лучшие друзья
-																										</label>
-																									</li>
-																									<li class="profheader-ctrl-submenu-item">
-																										<label for="colleagues">
-                                                                                                <span class="wrap-checker-sett">
-                                                                                                    <div class="jq-checkbox" id="colleagues-styler"><input data-action="status" type="checkbox" name="status" id="colleagues" value="colleagues"><div class="jq-checkbox__div"></div></div>
-                                                                                                </span>
-																											Коллеги
-																										</label>
-																									</li>
-																									<li class="profheader-ctrl-submenu-item">
-																										<label for="employees">
-                                                                                                <span class="wrap-checker-sett">
-                                                                                                    <div class="jq-checkbox" id="employees-styler"><input data-action="status" type="checkbox" name="status" id="employees" value="employees"><div class="jq-checkbox__div"></div></div>
-                                                                                                </span>
-																											Сотрудники
-																										</label>
-																									</li>
-																								</ul>
-																							</form>
-																						</li>
-																						<li>
-																							<form name="user-relative-form">
-																								<a class="sub profheader-ctrl-submenu-btn collapsed" data-toggle="collapse" href="#collapseMenu-2" aria-expanded="false" aria-controls="collapseMenu-2">
-																									<i class="icon-strilka svoe-icon"></i>Родственники
-																								</a>
-																								<ul id="collapseMenu-2" class="profheader-ctrl-submenu collapse" role="tabpanel">
-																									<li class="profheader-ctrl-submenu-item">
-																										<label for="mother">
-                                                                                                <span class="wrap-checker-sett">
-                                                                                                    <div class="jq-radio" id="mother-styler"><input data-action="relative" type="radio" name="relative" id="mother" value="mother"><div class="jq-radio__div"></div></div>
-                                                                                                </span>
-																											Мать
-																										</label>
-																									</li>
-																									<li class="profheader-ctrl-submenu-item">
-																										<label for="doughter">
-                                                                                                <span class="wrap-checker-sett">
-                                                                                                    <div class="jq-radio" id="doughter-styler"><input data-action="relative" type="radio" name="relative" id="doughter" value="doughter"><div class="jq-radio__div"></div></div>
-                                                                                                </span>
-																											Дочь
-																										</label>
-																									</li>
-																									<li class="profheader-ctrl-submenu-item">
-																										<label for="grandmother">
-                                                                                                <span class="wrap-checker-sett">
-                                                                                                    <div class="jq-radio" id="grandmother-styler"><input data-action="relative" type="radio" name="relative" id="grandmother" value="grandmother"><div class="jq-radio__div"></div></div>
-                                                                                                </span>
-																											Бабушка
-																										</label>
-																									</li>
-																								</ul>
-																							</form>
-																						</li>
-																					</ul>
-																				</div>
-																			</div>
-																			<div class="profheader-ctrl-item profheader-ctrl-item___message">
-																				<a href="#" class="profheader-ctrl-btn profheader-ctrl-message" style="">
-																					<i class="icon-pidpysatysya svoe-lg svoe-icon"></i>
-																					<span class="profheader-ctrl-text">Подписаться</span>
-																				</a>
-																			</div>
-																			<div class="profheader-ctrl-item">
-																				<div class="dropdown">
-																					<a href="#" class="profheader-ctrl-btn profheader-ctrl-menu dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">
-																						<i class="icon-menyu svoe-lg svoe-icon"></i>
-																					</a>
-																					<ul class="dropdown-menu profheader-ctrl-dropdown dropdown-unclosed">
-																						<li>
-																							<a data-action="subscribe" href="#" class="">
-																								<i class="icon-povidomlennia svoe-icon"></i>Написать сообщение
-																							</a>
-																						</li>
-																						<li>
-																							<a data-action="unsubscribe" href="#" class="" style="display:none;">
-																								<i class="icon-vidpysatys svoe-icon"></i>Подписаться
-																							</a>
-																						</li>
-																						<li class="divider"></li>
-																						<li>
-																							<a data-action="claim" href="#" class="sub">
-																								<i class="icon-poskarzhytysya svoe-icon"></i>Пожаловаться
-																							</a>
-																						</li>
-																						<li>
-																							<a data-action="block" href="#" class="sub">
-																								<i class="icon-zablokuvaty svoe-icon"></i>Заблокировать
-																							</a>
-																						</li>
-																					</ul>
-																				</div>
-																			</div>
-																		</div>
-																	</div>
-																</div>
-															</div>
-														</div>
+														@endforeach
 													</div>
 												</div>
 											</div>
-											<div role="tabpanel" class="tab-pane fade" id="tab-friend-2">
-
-											</div>
-											<div role="tabpanel" class="tab-pane fade " id="tab-friend-3">
-
-											</div>
-											<div role="tabpanel" class="tab-pane fade " id="tab-friend-4">
-
-											</div>
+											@endforeach
 										</div>
 									</div>
 								</div>
@@ -1063,54 +627,24 @@
 							</div>
 							<div class="wrap-group-col">
 								<div class="row">
+									@foreach($groups_last as $group)
 									<div class="col-xs-6 col-md-4">
 										<div class="wrap-one-group-prof">
-											<div class="photo-group-col"  style="background-image: url('{!! Theme::asset()->url('images/profheader/profheader-bg.jpg') !!}');">
+											<div class="photo-group-col"  style="background-image: url('{{ 'group/cover/'.$group['cover'] }}');">
 												<div>
-													<div class="your-group-friend" style="background-image: url('{!! Theme::asset()->url('images/profheader/profheader-ava.jpg') !!}')">
-														<a href=""></a>
+													@foreach($group['friends'] as $friend)
+													<div class="your-group-friend" style="background-image: url('{{ $friend->avatar }}')">
+														<a href="{{ url($friend->username) }}"></a>
 													</div>
-													<div class="your-group-friend" style="background-image: url('{!! Theme::asset()->url('images/set3/orher-img-1.png') !!}')">
-														<a href=""></a>
-													</div>
-													<div class="your-group-friend" style="background-image: url('{!! Theme::asset()->url('images/set3/8.jpg') !!}')">
-														<a href=""></a>
-													</div>
+													@endforeach
 												</div>
 											</div>
 											<div class="content-group-col">
-												<p><a href="">Cтудія меблів «Файно»</a><i style="left: 4px;" class="fa fa-lock fa-lg" aria-hidden="true"></i></p>
-												<span><i class="icon-grupy svoe-lg svoe-icon"></i> 3 141(3 друзей)</span>
-												<div class="btn-group-col">
-													<a href="">
-														<i class="icon-prisoidenitsa svoe-icon"></i>
-														{{ trans('common.join') }}
-													</a>
-												</div>
-											</div>
-										</div>
-									</div>
-									<div class="col-xs-6 col-md-4">
-										<div class="wrap-one-group-prof">
-											<div class="photo-group-col"  style="background-image: url('{!! Theme::asset()->url('images/event-prof-1.png') !!}');">
-												<div>
-													<div class="your-group-friend" style="background-image: url('{!! Theme::asset()->url('images/profheader/profheader-ava.jpg') !!}')">
-														<a href=""></a>
-													</div>
-													<div class="your-group-friend" style="background-image: url('{!! Theme::asset()->url('images/set3/orher-img-1.png') !!}')">
-														<a href=""></a>
-													</div>
-													<div class="your-group-friend" style="background-image: url('{!! Theme::asset()->url('images/set3/8.jpg') !!}')">
-														<a href=""></a>
-													</div>
-												</div>
-											</div>
-											<div class="content-group-col">
-												<p><a href="">Cтудія меблів «Файно»</a><i class="fa fa-unlock fa-lg" aria-hidden="true"></i></p>
-												<span><i class="icon-grupy svoe-lg svoe-icon"></i> 3 141(3 друзей)</span>
+												<p><a href="{{ url($group['username']) }}">{{ $group['name'] }}</a><i style="left: 4px;" class="fa @if($group['type'] == 'open') fa-unlock @else fa-lock @endif fa-lg" aria-hidden="true"></i></p>
+												<span><i class="icon-grupy svoe-lg svoe-icon"></i> {{ number_format($group['members_count'], 0, '', ' ') }} ({{ number_format($group['friends_count'], 0, '', ' ') }} {{ trans('timeline.of_friends_lcf') }})</span>
 												<div class="btn-group-col">
 
-													<a href="">
+													<a href="#">
 														<i class="icon-prisoidenitsa svoe-icon"></i>
 														{{ trans('common.join') }}
 													</a>
@@ -1118,456 +652,189 @@
 											</div>
 										</div>
 									</div>
-									<div class="col-xs-6 col-md-4">
-										<div class="wrap-one-group-prof">
-											<div class="photo-group-col"  style="background-image: url('{!! Theme::asset()->url('images/set3/orher-img-1.png') !!}');">
-												<div>
-													<div class="your-group-friend" style="background-image: url('{!! Theme::asset()->url('images/profheader/profheader-ava.jpg') !!}')">
-														<a href=""></a>
+									@endforeach
+								</div>
+							</div>
+						</div>
+					</div>
+					<div role="tabpanel" class="tab-pane fade" id="tab-pages">
+						<div class="row">
+							<div class="visible-lg col-lg-3 hide-1">
+								{!! Theme::partial('advertising') !!}
+							</div>
+							<div class="col-lg-9 col-wallet">
+								<div class="wrap-content-tab">
+									<div class="wrap-photo-tab">
+										<ul class="nav nav-tabs" role="tablist">
+											<li role="presentation" class="active"><a href="#tab-pages-1" aria-controls="tab-pages-1" role="tab" data-toggle="tab">{{ trans('timeline.all') }}</a></li>
+											@foreach($pages_cat as $category => $pages)
+											<li role="presentation"><a href="#tab-pages-{{ ($loop->index + 2) }}" aria-controls="tab-pages-{{ ($loop->index + 2) }}" role="tab" data-toggle="tab">{{ $category }}</a></li>
+											@endforeach
+										</ul>
+										<div class="tab-content">
+											<div role="tabpanel" class="tab-pane fade in active" id="tab-pages-1">
+												<div class="row">
+													@foreach($pages_cat as $category => $pages)
+													@foreach($pages as $page)
+													<div class="col-xs-3">
+														<div class="own-page-rightbar">
+															<div class="photo-page-rightbar" style="background-image: url({{ url('page/avatar/'.$page->avatar) }})">
+																<a href="{{ url($page->username) }}"></a>
+															</div>
+															<div class="content-page-rightbar">
+																<h4><a href="{{ url($page->username) }}">{{ $page->name }}</a></h4>
+																<p>{{ $category }}</p>
+																<span><i class="icon-like  svoe-icon"></i> {{ $page->likes_count }}</span>
+																<div class="btn-hover-wrap wrap-btn-hover-pages pagelike-links">
+																	<div class="btn-follow page @if($page->liked) hidden @endif"><a href="#" class="btn btn-options btn-block btn-default page-like like" @if($page->liked) aria-hidden="true" @endif><i class="icon-like  svoe-icon"></i> <span>{{ trans('common.like') }}</span></a></div>
+																	<div class="btn-follow page @if(!$page->liked) hidden @endif"><a href="#" class="btn btn-options btn-block btn-success page-like liked " ><i class="fa fa-heart" @if(!$page->liked) aria-hidden="true" @endif></i> <span>{{ trans('common.liked') }}</span></a></div>
+
+																	<a href="#" class="btn-action-hover show-action-hover hidden-action-hover @if($page->subscribed) hidden @endif">
+																		<i class="icon-pidpysatysya  svoe-icon"></i>
+																		{{ trans('friend.subscribe') }}
+																	</a>
+																	<a href="#" class="btn-action-hover show-action-hover hidden-action-hover @if(!$page->subscribed) hidden @endif">
+																		<i class="icon-vidpysatys svoe-icon"></i>
+																		{{ trans('friend.unsubscribe') }}
+																	</a>
+																</div>
+															</div>
+														</div>
 													</div>
-													<div class="your-group-friend" style="background-image: url('{!! Theme::asset()->url('images/set3/orher-img-1.png') !!}')">
-														<a href=""></a>
-													</div>
-													<div class="your-group-friend" style="background-image: url('{!! Theme::asset()->url('images/set3/8.jpg') !!}')">
-														<a href=""></a>
-													</div>
+													@endforeach
+													@endforeach
 												</div>
 											</div>
-											<div class="content-group-col">
-												<p><a href="">Cтудія меблів «Файно»</a><i class="fa fa-unlock fa-lg" aria-hidden="true"></i></p>
-												<span><i class="icon-grupy svoe-lg svoe-icon"></i> 3 141(3 друзей)</span>
-												<div class="btn-group-col">
-													<a href="">
-														<i class="icon-prisoidenitsa svoe-icon"></i>
-														{{ trans('common.join') }}
-													</a>
-												</div>
-											</div>
-										</div>
-									</div>
-									<div class="col-xs-6 col-md-4">
-										<div class="wrap-one-group-prof">
-											<div class="photo-group-col"  style="background-image: url('{!! Theme::asset()->url('images/profheader/profheader-bg.jpg') !!}');">
-												<div>
-													<div class="your-group-friend" style="background-image: url('{!! Theme::asset()->url('images/profheader/profheader-ava.jpg') !!}')">
-														<a href=""></a>
-													</div>
-													<div class="your-group-friend" style="background-image: url('{!! Theme::asset()->url('images/set3/orher-img-1.png') !!}')">
-														<a href=""></a>
-													</div>
-													<div class="your-group-friend" style="background-image: url('{!! Theme::asset()->url('images/set3/8.jpg') !!}')">
-														<a href=""></a>
-													</div>
-												</div>
-											</div>
-											<div class="content-group-col">
-												<p><a href="">Cтудія меблів «Файно»</a><i style="left: 4px;" class="fa fa-lock fa-lg" aria-hidden="true"></i></p>
-												<span><i class="icon-grupy svoe-lg svoe-icon"></i> 3 141(3 друзей)</span>
-												<div class="btn-group-col">
-													<a href="">
-														<i class="icon-prisoidenitsa svoe-icon"></i>
-														{{ trans('common.join') }}
-													</a>
-												</div>
-											</div>
-										</div>
-									</div>
-									<div class="col-xs-6 col-md-4">
-										<div class="wrap-one-group-prof">
-											<div class="photo-group-col"  style="background-image: url('{!! Theme::asset()->url('images/event-prof-1.png') !!}');">
-												<div>
-													<div class="your-group-friend" style="background-image: url('{!! Theme::asset()->url('images/profheader/profheader-ava.jpg') !!}')">
-														<a href=""></a>
-													</div>
-													<div class="your-group-friend" style="background-image: url('{!! Theme::asset()->url('images/set3/orher-img-1.png') !!}')">
-														<a href=""></a>
-													</div>
-													<div class="your-group-friend" style="background-image: url('{!! Theme::asset()->url('images/set3/8.jpg') !!}')">
-														<a href=""></a>
+											@foreach($pages_cat as $category => $pages)
+											<div role="tabpanel" class="tab-pane fade" id="tab-pages-{{ ($loop->index + 2) }}">
+												@foreach($pages as $page)
+												<div class="col-xs-3">
+													<div class="own-page-rightbar">
+														<div class="photo-page-rightbar" style="background-image: url({{ url('page/avatar/'.$page->avatar) }})">
+															<a href="{{ url($page->username) }}"></a>
+														</div>
+														<div class="content-page-rightbar">
+															<h4><a href="{{ url($page->username) }}">{{ $page->name }}</a></h4>
+															<p>{{ $category }}</p>
+															<span><i class="icon-like  svoe-icon"></i> {{ $page->likes_count }}</span>
+															<div class="btn-hover-wrap wrap-btn-hover-pages pagelike-links">
+																<div class="btn-follow page @if($page->liked) hidden @endif"><a href="#" class="btn btn-options btn-block btn-default page-like like" @if($page->liked) aria-hidden="true" @endif><i class="icon-like  svoe-icon"></i> <span>{{ trans('common.like') }}</span></a></div>
+																<div class="btn-follow page @if(!$page->liked) hidden @endif"><a href="#" class="btn btn-options btn-block btn-success page-like liked " ><i class="fa fa-heart" @if(!$page->liked) aria-hidden="true" @endif></i> <span>{{ trans('common.liked') }}</span></a></div>
+
+																<a href="#" class="btn-action-hover show-action-hover hidden-action-hover @if($page->subscribed) hidden @endif">
+																	<i class="icon-pidpysatysya  svoe-icon"></i>
+																	{{ trans('friend.subscribe') }}
+																</a>
+																<a href="#" class="btn-action-hover show-action-hover hidden-action-hover @if(!$page->subscribed) hidden @endif">
+																	<i class="icon-vidpysatys svoe-icon"></i>
+																	{{ trans('friend.unsubscribe') }}
+																</a>
+															</div>
+														</div>
 													</div>
 												</div>
+												@endforeach
 											</div>
-											<div class="content-group-col">
-												<p><a href="">Cтудія меблів «Файно»</a><i class="fa fa-unlock fa-lg" aria-hidden="true"></i></p>
-												<span><i class="icon-grupy svoe-lg svoe-icon"></i> 3 141(3 друзей)</span>
-												<div class="btn-group-col">
-													<a href="">
-														<i class="icon-prisoidenitsa svoe-icon"></i>
-														{{ trans('common.join') }}
-													</a>
-												</div>
-											</div>
-										</div>
-									</div>
-									<div class="col-xs-6 col-md-4">
-										<div class="wrap-one-group-prof">
-											<div class="photo-group-col"  style="background-image: url('{!! Theme::asset()->url('images/set3/orher-img-1.png') !!}');">
-												<div>
-													<div class="your-group-friend" style="background-image: url('{!! Theme::asset()->url('images/profheader/profheader-ava.jpg') !!}')">
-														<a href=""></a>
-													</div>
-													<div class="your-group-friend" style="background-image: url('{!! Theme::asset()->url('images/set3/orher-img-1.png') !!}')">
-														<a href=""></a>
-													</div>
-													<div class="your-group-friend" style="background-image: url('{!! Theme::asset()->url('images/set3/8.jpg') !!}')">
-														<a href=""></a>
-													</div>
-												</div>
-											</div>
-											<div class="content-group-col">
-												<p><a href="">Cтудія меблів «Файно»</a><i class="fa fa-unlock fa-lg" aria-hidden="true"></i></p>
-												<span><i class="icon-grupy svoe-lg svoe-icon"></i> 3 141(3 друзей)</span>
-												<div class="btn-group-col">
-													<a href="">
-														<i class="icon-prisoidenitsa svoe-icon"></i>
-														{{ trans('common.join') }}
-													</a>
-												</div>
-											</div>
+											@endforeach
 										</div>
 									</div>
 								</div>
 							</div>
 						</div>
 					</div>
-					<div role="tabpanel" class="tab-pane fade" id="tab-pages">Tab Pages ...</div>
 					<div role="tabpanel" class="tab-pane fade" id="tab-photos">
 						<div class="wrap-content-tab">
 							<div class="wrap-photo-tab">
 								<ul class="nav nav-tabs" role="tablist">
-									<li role="presentation" class="active"><a href="#tab-photo-1" aria-controls="tab-photo-1" role="tab" data-toggle="tab">Альбоми <span>(8)</span></a></li>
-									<li role="presentation"><a href="#tab-photo-2" aria-controls="tab-photo-2" role="tab" data-toggle="tab">Світлини з Катерина <span>(13)</span></a></li>
-									<li role="presentation" ><a class="switch-grid" href="#tab-photo-3" aria-controls="tab-photo-3" role="tab" data-toggle="tab">Світлини Катерины <span>(458)</span></a></li>
+									<li role="presentation" class="active"><a href="#tab-photo-1" aria-controls="tab-photo-1" role="tab" data-toggle="tab">{{ trans('timeline.albums') }} <span>({{ $counters['albums'] }})</span></a></li>
+									{{--<li role="presentation"><a href="#tab-photo-2" aria-controls="tab-photo-2" role="tab" data-toggle="tab" aria-expanded="true">Світлини з Катерина <span>(13)</span></a></li>--}}
+									{{--<li role="presentation"><a class="switch-grid" href="#tab-photo-3" aria-controls="tab-photo-3" role="tab" data-toggle="tab" aria-expanded="true">Світлини Катерины <span>(458)</span></a></li>--}}
 									<li class="grid-col">
-                        <span class="own-grid-bootstrap">
-                            <i class="icon-sort-b svoe-sort svoe-icon"></i>
-                        </span>
-                        <span class="own-grid-mosaic active-grid">
-                            <i class="icon-sort-a svoe-sort svoe-icon"></i>
-                        </span>
+										<span class="own-grid-bootstrap">
+											<i class="icon-sort-b svoe-sort svoe-icon"></i>
+										</span>
+										<span class="own-grid-mosaic active-grid">
+											<i class="icon-sort-a svoe-sort svoe-icon"></i>
+										</span>
 									</li>
 								</ul>
 								<div class="tab-content">
 									<div role="tabpanel" class="tab-pane fade in active" id="tab-photo-1">
 										<div class="wrap-album-tab">
 											<div class="row">
+												@foreach($albums_last as $album)
 												<div class="col-album">
 													<div class="own-album-tab">
 														<div class="photo-album-tab-border">
-															<div class="one-photo-album" style="background-image: url('{!! Theme::asset()->url('images/test-img-modal.png') !!}')">
-																<a href="#"></a>
+															<div class="one-photo-album" style="background-image: url('{{ $album['preview'] }}')">
+																<a href="{{ $album['href'] }}"></a>
 															</div>
 														</div>
 														<div class="title-album-count">
-															<a href="">Всяке прирізне</a>
-															<span>(458 фото)</span>
+															<a href="{{ $album['href'] }}">{{ $album['name'] }}</a>
+															<span>({{ $album['photos_count'] }} {{ trans('timeline.photo_lcf') }})</span>
 														</div>
 													</div>
 												</div>
-												<div class="col-album">
-													<div class="own-album-tab">
-														<div class="photo-album-tab-border">
-															<div class="one-photo-album" style="background-image: url('{!! Theme::asset()->url('images/test-img-modal.png') !!}')">
-																<a href="#"></a>
-															</div>
-														</div>
-														<div class="title-album-count">
-															<a href="">Шопінг у Львові</a>
-															<span>(8 фото)</span>
-														</div>
-													</div>
-												</div>
-												<div class="col-album">
-													<div class="own-album-tab">
-														<div class="photo-album-tab-border">
-															<div class="one-photo-album" style="background-image: url('{!! Theme::asset()->url('images/reklama-1.jpg') !!}')">
-																<a href="#"></a>
-															</div>
-														</div>
-														<div class="title-album-count">
-															<a href="">Фотосесія на кухні</a>
-															<span>(36 фото)</span>
-														</div>
-													</div>
-												</div>
-												<div class="col-album">
-													<div class="own-album-tab">
-														<div class="photo-album-tab-border">
-															<div class="one-photo-album" style="background-image: url('https://sand.esvoe.com/user/gallery/2017-08-20-12-29-22Ie0V3.jpg')">
-																<a href="#"></a>
-															</div>
-														</div>
-														<div class="title-album-count">
-															<a href="">Шопінг у Львові</a>
-															<span>(8 фото)</span>
-														</div>
-													</div>
-												</div>
-												<div class="col-album">
-													<div class="own-album-tab">
-														<div class="photo-album-tab-border">
-															<div class="one-photo-album" style="background-image: url('{!! Theme::asset()->url('images/test-img-modal.png') !!}')">
-																<a href="#"></a>
-															</div>
-														</div>
-														<div class="title-album-count">
-															<a href="">Всяке прирізне</a>
-															<span>(458 фото)</span>
-														</div>
-													</div>
-												</div>
-												<div class="col-album">
-													<div class="own-album-tab">
-														<div class="photo-album-tab-border">
-															<div class="one-photo-album" style="background-image: url('{!! Theme::asset()->url('images/test-img-modal.png') !!}')">
-																<a href="#"></a>
-															</div>
-														</div>
-														<div class="title-album-count">
-															<a href="">Шопінг у Львові</a>
-															<span>(8 фото)</span>
-														</div>
-													</div>
-												</div>
-												<div class="col-album">
-													<div class="own-album-tab">
-														<div class="photo-album-tab-border">
-															<div class="one-photo-album" style="background-image: url('https://sand.esvoe.com/user/gallery/2017-08-20-12-29-22Ie0V3.jpg')">
-																<a href="#"></a>
-															</div>
-														</div>
-														<div class="title-album-count">
-															<a href="">Фотосесія на кухні</a>
-															<span>(36 фото)</span>
-														</div>
-													</div>
-												</div>
-												<div class="col-album">
-													<div class="own-album-tab">
-														<div class="photo-album-tab-border">
-															<div class="one-photo-album" style="background-image: url('https://sand.esvoe.com/user/gallery/2017-08-20-12-29-22Ie0V3.jpg')">
-																<a href="#"></a>
-															</div>
-														</div>
-														<div class="title-album-count">
-															<a href="">Шопінг у Львові</a>
-															<span>(8 фото)</span>
-														</div>
-													</div>
-												</div>
+												@endforeach
 											</div>
 										</div>
 									</div>
-									<div role="tabpanel" class="tab-pane fade" id="tab-photo-2">Tab 6 ...</div>
-									<div role="tabpanel" class="tab-pane fade " id="tab-photo-3">
-										<div class="one-date-photo">
-											<span>2017 год</span>
-											<div class="tjpictures">
-												<img src="{!! Theme::asset()->url('images/set3/1.jpg') !!}" alt="" />
-												<img src="{!! Theme::asset()->url('images/set3/2.jpg') !!}" alt="" />
-												<img src="{!! Theme::asset()->url('images/set3/3.jpg') !!}" alt="" />
-												<img src="{!! Theme::asset()->url('images/set3/4.jpg') !!}" alt="" />
-												<img src="{!! Theme::asset()->url('images/set3/5.jpg') !!}" alt="" />
-												<img src="{!! Theme::asset()->url('images/set3/6.jpg') !!}" alt="" />
-												<img src="{!! Theme::asset()->url('images/set3/7.jpg') !!}" alt="" />
-												<img src="{!! Theme::asset()->url('images/set3/8.jpg') !!}" alt="" />
-												<img src="{!! Theme::asset()->url('images/set3/9.jpg') !!}" alt="" />
-												<img src="{!! Theme::asset()->url('images/set3/10.jpg') !!}" alt="" />
-												<img src="{!! Theme::asset()->url('images/set3/11.jpg') !!}" alt="" />
-												<img src="{!! Theme::asset()->url('images/set3/1.jpg') !!}" alt="" />
-												<img src="{!! Theme::asset()->url('images/set3/2.jpg') !!}" alt="" />
-												<img src="{!! Theme::asset()->url('images/set3/3.jpg') !!}" alt="" />
-												<img src="{!! Theme::asset()->url('images/set3/4.jpg') !!}" alt="" />
-												<img src="{!! Theme::asset()->url('images/set3/5.jpg') !!}" alt="" />
-												<img src="{!! Theme::asset()->url('images/set3/6.jpg') !!}" alt="" />
-												<img src="{!! Theme::asset()->url('images/set3/7.jpg') !!}" alt="" />
-											</div>
-										</div>
-										<div class="one-date-photo">
-											<span>2016 год</span>
-											<div class="tjpictures">
-												<img src="{!! Theme::asset()->url('images/set3/1.jpg') !!}" alt="" />
-												<img src="{!! Theme::asset()->url('images/set3/2.jpg') !!}" alt="" />
-												<img src="{!! Theme::asset()->url('images/set3/3.jpg') !!}" alt="" />
-												<img src="{!! Theme::asset()->url('images/set3/4.jpg') !!}" alt="" />
-												<img src="{!! Theme::asset()->url('images/set3/5.jpg') !!}" alt="" />
-												<img src="{!! Theme::asset()->url('images/set3/6.jpg') !!}" alt="" />
-												<img src="{!! Theme::asset()->url('images/set3/7.jpg') !!}" alt="" />
-												<img src="{!! Theme::asset()->url('images/set3/8.jpg') !!}" alt="" />
-												<img src="{!! Theme::asset()->url('images/set3/9.jpg') !!}" alt="" />
-												<img src="{!! Theme::asset()->url('images/set3/10.jpg') !!}" alt="" />
-												<img src="{!! Theme::asset()->url('images/set3/11.jpg') !!}" alt="" />
-												<img src="{!! Theme::asset()->url('images/set3/1.jpg') !!}" alt="" />
-												<img src="{!! Theme::asset()->url('images/set3/2.jpg') !!}" alt="" />
-												<img src="{!! Theme::asset()->url('images/set3/3.jpg') !!}" alt="" />
-												<img src="{!! Theme::asset()->url('images/set3/4.jpg') !!}" alt="" />
-												<img src="{!! Theme::asset()->url('images/set3/5.jpg') !!}" alt="" />
-												<img src="{!! Theme::asset()->url('images/set3/6.jpg') !!}" alt="" />
-												<img src="{!! Theme::asset()->url('images/set3/7.jpg') !!}" alt="" />
-											</div>
-										</div>
-									</div>
+									{{--<div role="tabpanel" class="tab-pane fade" id="tab-photo-2"></div>--}}
+									{{--<div role="tabpanel" class="tab-pane fade" id="tab-photo-3"></div>--}}
 								</div>
 							</div>
 						</div>
 					</div>
 					<div role="tabpanel" class="tab-pane fade" id="tab-videos">
 						<div class="wrap-content-tab">
-
-							<div class="wrap-photo-tab">
+							<div class="wrap-photo-tab"></div>
 								<ul class="nav nav-tabs" role="tablist">
-									<li role="presentation" class="active"><a href="#tab-video-1" aria-controls="tab-video-1" role="tab" data-toggle="tab">Альбоми з відео</a></li>
-									<li role="presentation" ><a class="switch-grid" href="#tab-video-2" aria-controls="tab-video-2" role="tab" data-toggle="tab">Всі відео</a></li>
+									<li role="presentation" class="active"><a href="#tab-video-1" aria-controls="tab-video-1" role="tab" data-toggle="tab">{{ trans('timeline.albums_with_video') }}</a></li>
+									<li role="presentation" ><a class="switch-grid" href="#tab-video-2" aria-controls="tab-video-2" role="tab" data-toggle="tab">{{ trans('timeline.all_videos') }}</a></li>
 								</ul>
 								<div class="tab-content">
 									<div role="tabpanel" class="tab-pane fade in active" id="tab-video-1">
 										<div class="wrap-video-tab">
 											<div class="row">
+												@foreach($albums_last as $album)
+													@continue(!$album['videos']->count())
 												<div class="col-sm-3">
 													<div class="wrap-video-album-tab">
 														<div class="own-album-video">
-															<div class="embed-video" data-source="youtube" data-video-url="https://youtu.be/KyyvXziUGCQ"></div>
+															<div class="embed-video" data-source="{{ $album['videos'][0]['type'] }}" data-video-url="https://youtu.be/{{ $album['videos'][0]['source'] }}"></div>
 														</div>
 													</div>
 													<div class="title-video-tab">
-														<p><a href="">PSG vs Toulouse 6-2 - All Goals & Highlights</a></p>
-														<span>(28 видео)</span>
+														<p><a href="{{ $album['href'] }}">{{ $album['name'] }}</a></p>
+														<span>({{ $album['videos']->count() }} {{ trans('timeline.video_lcf') }})</span>
 													</div>
 												</div>
-												<div class="col-sm-3">
-													<div class="wrap-video-album-tab">
-														<div class="own-album-video">
-															<div class="embed-video" data-source="youtube" data-video-url="https://youtu.be/MXGORPXI6QQ"></div>
-														</div>
-													</div>
-													<div class="title-video-tab">
-														<p><a href="">Chalissery program 2015</a></p>
-														<span>(28 видео)</span>
-													</div>
-												</div>
-												<div class="col-sm-3">
-													<div class="wrap-video-album-tab">
-														<div class="own-album-video">
-															<div class="embed-video" data-source="youtube" data-video-url="https://www.youtube.com/watch?v=C-Q7GeQG6iE"></div>
-														</div>
-													</div>
-													<div class="title-video-tab">
-														<p><a href="">TRADA's National Student Design</a></p>
-														<span>(28 видео)</span>
-													</div>
-												</div>
-												<div class="col-sm-3">
-													<div class="wrap-video-album-tab">
-														<div class="own-album-video">
-															<div class="embed-video" data-source="youtube" data-video-url="https://youtu.be/adFIMREcfog"></div>
-														</div>
-													</div>
-													<div class="title-video-tab">
-														<p><a href="">Вечерний Квартал 2016</a></p>
-														<span>(28 видео)</span>
-													</div>
-												</div>
+												@endforeach
 											</div>
 										</div>
 									</div>
 									<div role="tabpanel" class="tab-pane fade" id="tab-video-2">
 										<div class="wrap-video-tab">
 											<div class="row">
+												@foreach($albums_last as $album)
+													@continue(!$album['videos']->count())
+												@foreach($album['videos'] as $video)
 												<div class="col-sm-3">
-													<div class="embed-video" data-source="youtube" data-video-url="https://youtu.be/KyyvXziUGCQ"></div>
+													<div class="embed-video" data-source="youtube" data-video-url="https://youtu.be/{{ $video->source }}"></div>
 													<div class="title-video-tab">
-														<p><a href="">PSG vs Toulouse 6-2 - All Goals & Highlights</a></p>
-														<a href="">Vine Video</a>
-														<span><img src="{!! Theme::asset()->url('images/eye-video.png') !!}" alt="">1 388</span>
-														<span><img src="{!! Theme::asset()->url('images/eye-video.png') !!}" alt="">два года назад</span>
+														<p><a href="">{{ $video->title }}</a></p>
+														<a href="">{{ $album['name'] }}</a>
+{{--														<span><img src="{!! Theme::asset()->url('images/eye-video.png') !!}" alt="">1 388</span>--}}
+														<span><img src="{!! Theme::asset()->url('images/eye-video.png') !!}" alt="">{{ $video->created_at->format('d.m.Y') }}</span>
 													</div>
 												</div>
-												<div class="col-sm-3">
-													<div class="embed-video" data-source="youtube" data-video-url="https://youtu.be/MXGORPXI6QQ"></div>
-													<div class="title-video-tab">
-														<p><a href="">Chalissery program 2015</a></p>
-														<a href="">Vine Video</a>
-														<span><img src="{!! Theme::asset()->url('images/eye-video.png') !!}" alt="">1 388</span>
-														<span><img src="{!! Theme::asset()->url('images/eye-video.png') !!}" alt="">13.09.18</span>
-													</div>
-												</div>
-												<div class="col-sm-3">
-													<div class="embed-video" data-source="youtube" data-video-url="https://www.youtube.com/watch?v=C-Q7GeQG6iE"></div>
-													<div class="title-video-tab">
-														<p><a href="">TRADA's National Student Design</a></p>
-														<a href="">Vine Video</a>
-														<span><img src="{!! Theme::asset()->url('images/eye-video.png') !!}" alt="">1 388</span>
-														<span><img src="{!! Theme::asset()->url('images/eye-video.png') !!}" alt="">два года назад</span>
-													</div>
-												</div>
-												<div class="col-sm-3">
-													<div class="embed-video" data-source="youtube" data-video-url="https://youtu.be/adFIMREcfog"></div>
-													<div class="title-video-tab">
-														<p><a href="">Вечерний Квартал 2016</a></p>
-														<a href="">Студия Квартал 95</a>
-														<span><img src="{!! Theme::asset()->url('images/eye-video.png') !!}" alt="">1 388</span>
-														<span><img src="{!! Theme::asset()->url('images/eye-video.png') !!}" alt="">два года назад</span>
-													</div>
-												</div>
-												<div class="col-sm-3">
-													<div class="embed-video" data-source="youtube" data-video-url="https://youtu.be/uhmcyFSJYXg"></div>
-													<div class="title-video-tab">
-														<p><a href="">Топ 5 противостояний Конора Макгрегора</a></p>
-														<a href="">TOP TIP TOP MMA</a>
-														<span><img src="{!! Theme::asset()->url('images/eye-video.png') !!}" alt="">1 388</span>
-														<span><img src="{!! Theme::asset()->url('images/eye-video.png') !!}" alt="">13.09.18</span>
-													</div>
-												</div>
-												<div class="col-sm-3">
-													<div class="embed-video" data-source="youtube" data-video-url="https://youtu.be/L3wKzyIN1yk"></div>
-													<div class="title-video-tab">
-														<p><a href="">Rag'n'Bone Man - Human</a></p>
-														<a href="">RagnBoneManVEVO</a>
-														<span><img src="{!! Theme::asset()->url('images/eye-video.png') !!}" alt="">1 388</span>
-														<span><img src="{!! Theme::asset()->url('images/eye-video.png') !!}" alt="">13.09.18</span>
-													</div>
-												</div>
-												<div class="col-sm-3">
-													<div class="embed-video" data-source="youtube" data-video-url="https://youtu.be/kJQP7kiw5Fk"></div>
-													<div class="title-video-tab">
-														<p><a href="">Ed Sheeran - Shape of You</a></p>
-														<a href="">Ed Sheeran</a>
-														<span><img src="{!! Theme::asset()->url('images/eye-video.png') !!}" alt="">1 388</span>
-														<span><img src="{!! Theme::asset()->url('images/eye-video.png') !!}" alt="">три года назад</span>
-													</div>
-												</div>
-												<div class="col-sm-3">
-													<div class="embed-video" data-source="youtube" data-video-url="https://youtu.be/th63_uyJsWI"></div>
-													<div class="title-video-tab">
-														<p><a href="">ТОП-10 трансферов, которые потрясли мир</a></p>
-														<a href="">oSporte TV</a>
-														<span><img src="{!! Theme::asset()->url('images/eye-video.png') !!}" alt="">1 388</span>
-														<span><img src="{!! Theme::asset()->url('images/eye-video.png') !!}" alt="">два года назад</span>
-													</div>
-												</div>
-												<div class="col-sm-3">
-													<div class="embed-video" data-source="youtube" data-video-url="https://youtu.be/KyyvXziUGCQ"></div>
-													<div class="title-video-tab">
-														<p><a href="">PSG vs Toulouse 6-2 - All Goals & Highlights</a></p>
-														<a href="">Vine Video</a>
-														<span><img src="{!! Theme::asset()->url('images/eye-video.png') !!}" alt="">1 388</span>
-														<span><img src="{!! Theme::asset()->url('images/eye-video.png') !!}" alt="">13.09.18</span>
-													</div>
-												</div>
-												<div class="col-sm-3">
-													<div class="embed-video" data-source="youtube" data-video-url="https://youtu.be/MXGORPXI6QQ"></div>
-													<div class="title-video-tab">
-														<p><a href="">Chalissery program 2015</a></p>
-														<a href="">Vine Video</a>
-														<span><img src="{!! Theme::asset()->url('images/eye-video.png') !!}" alt="">1 388</span>
-														<span><img src="{!! Theme::asset()->url('images/eye-video.png') !!}" alt="">13.09.18</span>
-													</div>
-												</div>
+												@endforeach
+												@endforeach
 											</div>
 										</div>
 									</div>
 								</div>
-							</div>
 						</div>
 					</div>
 					<div role="tabpanel" class="tab-pane fade" id="tab-events">
@@ -1582,235 +849,153 @@
 							</div>
 							<div class="wrap-event-col">
 								<div class="row">
+									@foreach($events_last as $event)
 									<div class="col-xs-6 col-md-4">
 										<div class="wrap-one-event-col">
-											<div class="photo-event-col" style="background-image: url('{!! Theme::asset()->url('images/set3/other-img-2.png') !!}')">
+											<div class="photo-event-col" style="background-image: url('{{ url('event/cover/'.$event->cover) }}')">
 												<div class="shadow-event-prof">
 													<div class="date-event-prof">
-														<span class="number-date">26</span>
-														<span>серпня</span>
+														<span class="number-date">{{ $event->start_date->format('d') }}</span>
+														<span>{{ trans('timeline.at_month')[$event->start_date->format('n')] }}</span>
 													</div>
 												</div>
 												<div class="wrap-event-friend">
-													<div class="your-group-friend" style="background-image: url('{!! Theme::asset()->url('images/profheader/profheader-ava.jpg') !!}')">
-														<a href=""></a>
+													@foreach($event->users as $user)
+													<div class="your-group-friend" style="background-image: url('{{ $user->avatar }}')">
+														<a href="{{ url($user->username) }}"></a>
 													</div>
-													<div class="your-group-friend" style="background-image: url('{!! Theme::asset()->url('images/set3/orher-img-1.png') !!}')">
-														<a href=""></a>
-													</div>
-													<div class="your-group-friend" style="background-image: url('{!! Theme::asset()->url('images/set3/8.jpg') !!}')">
-														<a href=""></a>
-													</div>
+													@endforeach
 												</div>
 											</div>
 											<div class="content-event-col">
-												<p><a href="">LET SWIFT - iOS Developers Meet-up</a></p>
+												<p><a href="{{ url($event->timeline->username) }}">{{ $event->timeline->name }}</a></p>
 												<div class="btn-hover-wrap">
-													<a href="" class="btn-action-hover">
+													<a href="#" class="btn-action-hover">
 														<i class="icon-pereytu  svoe-icon"></i>
-														Посетить
+														{{ trans('timeline.visit') }}
 													</a>
-													<a href="" class="btn-action-hover show-action-hover hidden-action-hover">
+													<a href="#" class="btn-action-hover show-action-hover hidden-action-hover @if($event->subscribed) hidden @endif">
 														<i class="icon-pidpysatysya  svoe-icon"></i>
-														Подписаться
+														{{ trans('friend.subscribe') }}
+													</a>
+													<a href="#" class="btn-action-hover show-action-hover hidden-action-hover @if(!$event->subscribed) hidden @endif">
+														<i class="icon-vidpysatys  svoe-icon"></i>
+														{{ trans('friend.unsubscribe') }}
 													</a>
 												</div>
-												<span>295 374 участников</span>
+												<span>{{ number_format($event->users_count, 0, '', ' ') }} {{ trans('timeline.of_participants') }}</span>
 											</div>
 										</div>
 									</div>
-									<div class="col-xs-6 col-md-4">
-										<div class="wrap-one-event-col">
-											<div class="photo-event-col" style="background-image: url('{!! Theme::asset()->url('images/set3/other-img-3.png') !!}')">
-												<div class="shadow-event-prof">
-													<div class="date-event-prof">
-														<span class="number-date">26</span>
-														<span>серпня</span>
-													</div>
-												</div>
-												<div class="wrap-event-friend">
-													<div class="your-group-friend" style="background-image: url('{!! Theme::asset()->url('images/profheader/profheader-ava.jpg') !!}')">
-														<a href=""></a>
-													</div>
-													<div class="your-group-friend" style="background-image: url('{!! Theme::asset()->url('images/set3/orher-img-1.png') !!}')">
-														<a href=""></a>
-													</div>
-													<div class="your-group-friend" style="background-image: url('{!! Theme::asset()->url('images/set3/8.jpg') !!}')">
-														<a href=""></a>
-													</div>
-												</div>
-											</div>
-											<div class="content-event-col">
-												<p><a href="">LET SWIFT - iOS Developers Meet-up</a></p>
-												<div class="btn-hover-wrap">
-													<a href="" class="btn-action-hover">
-														<i class="icon-pereytu  svoe-icon"></i>
-														Посетить
-													</a>
-													<a href="" class="btn-action-hover show-action-hover hidden-action-hover">
-														<i class="icon-pidpysatysya  svoe-icon"></i>
-														Подписаться
-													</a>
-												</div>
-												<span>295 374 участников</span>
-											</div>
-										</div>
-									</div>
-									<div class="col-xs-6 col-md-4">
-										<div class="wrap-one-event-col">
-											<div class="photo-event-col" style="background-image: url('{!! Theme::asset()->url('images/event-prof-1.png') !!}')">
-												<div class="shadow-event-prof">
-													<div class="date-event-prof">
-														<span class="number-date">26</span>
-														<span>серпня</span>
-													</div>
-												</div>
-												<div class="wrap-event-friend">
-													<div class="your-group-friend" style="background-image: url('{!! Theme::asset()->url('images/profheader/profheader-ava.jpg') !!}')">
-														<a href=""></a>
-													</div>
-													<div class="your-group-friend" style="background-image: url('{!! Theme::asset()->url('images/set3/orher-img-1.png') !!}')">
-														<a href=""></a>
-													</div>
-													<div class="your-group-friend" style="background-image: url('{!! Theme::asset()->url('images/set3/8.jpg') !!}')">
-														<a href=""></a>
-													</div>
-												</div>
-											</div>
-											<div class="content-event-col">
-												<p><a href="">LET SWIFT - iOS Developers Meet-up</a></p>
-												<div class="btn-hover-wrap">
-													<a href="" class="btn-action-hover">
-														<i class="icon-pereytu  svoe-icon"></i>
-														Посетить
-													</a>
-													<a href="" class="btn-action-hover show-action-hover hidden-action-hover">
-														<i class="icon-pidpysatysya  svoe-icon"></i>
-														Подписаться
-													</a>
-												</div>
-												<span>295 374 участников</span>
-											</div>
-										</div>
-									</div>
-									<div class="col-xs-6 col-md-4">
-										<div class="wrap-one-event-col">
-											<div class="photo-event-col" style="background-image: url('{!! Theme::asset()->url('images/set3/other-img-2.png') !!}')">
-												<div class="shadow-event-prof">
-													<div class="date-event-prof">
-														<span class="number-date">26</span>
-														<span>серпня</span>
-													</div>
-												</div>
-												<div class="wrap-event-friend">
-													<div class="your-group-friend" style="background-image: url('{!! Theme::asset()->url('images/profheader/profheader-ava.jpg') !!}')">
-														<a href=""></a>
-													</div>
-													<div class="your-group-friend" style="background-image: url('{!! Theme::asset()->url('images/set3/orher-img-1.png') !!}')">
-														<a href=""></a>
-													</div>
-													<div class="your-group-friend" style="background-image: url('{!! Theme::asset()->url('images/set3/8.jpg') !!}')">
-														<a href=""></a>
-													</div>
-												</div>
-											</div>
-											<div class="content-event-col">
-												<p><a href="">LET SWIFT - iOS Developers Meet-up</a></p>
-												<div class="btn-hover-wrap">
-													<a href="" class="btn-action-hover">
-														<i class="icon-pereytu  svoe-icon"></i>
-														Посетить
-													</a>
-													<a href="" class="btn-action-hover show-action-hover hidden-action-hover">
-														<i class="icon-pidpysatysya  svoe-icon"></i>
-														Подписаться
-													</a>
-												</div>
-												<span>295 374 участников</span>
-											</div>
-										</div>
-									</div>
-									<div class="col-xs-6 col-md-4">
-										<div class="wrap-one-event-col">
-											<div class="photo-event-col" style="background-image: url('{!! Theme::asset()->url('images/set3/other-img-3.png') !!}')">
-												<div class="shadow-event-prof">
-													<div class="date-event-prof">
-														<span class="number-date">26</span>
-														<span>серпня</span>
-													</div>
-												</div>
-												<div class="wrap-event-friend">
-													<div class="your-group-friend" style="background-image: url('{!! Theme::asset()->url('images/profheader/profheader-ava.jpg') !!}')">
-														<a href=""></a>
-													</div>
-													<div class="your-group-friend" style="background-image: url('{!! Theme::asset()->url('images/set3/orher-img-1.png') !!}')">
-														<a href=""></a>
-													</div>
-													<div class="your-group-friend" style="background-image: url('{!! Theme::asset()->url('images/set3/8.jpg') !!}')">
-														<a href=""></a>
-													</div>
-												</div>
-											</div>
-											<div class="content-event-col">
-												<p><a href="">LET SWIFT - iOS Developers Meet-up</a></p>
-												<div class="btn-hover-wrap">
-													<a href="" class="btn-action-hover">
-														<i class="icon-pereytu  svoe-icon"></i>
-														Посетить
-													</a>
-													<a href="" class="btn-action-hover show-action-hover hidden-action-hover">
-														<i class="icon-pidpysatysya  svoe-icon"></i>
-														Подписаться
-													</a>
-												</div>
-												<span>295 374 участников</span>
-											</div>
-										</div>
-									</div>
-									<div class="col-xs-6 col-md-4">
-										<div class="wrap-one-event-col">
-											<div class="photo-event-col" style="background-image: url('{!! Theme::asset()->url('images/event-prof-1.png') !!}')">
-												<div class="shadow-event-prof">
-													<div class="date-event-prof">
-														<span class="number-date">26</span>
-														<span>серпня</span>
-													</div>
-												</div>
-												<div class="wrap-event-friend">
-													<div class="your-group-friend" style="background-image: url('{!! Theme::asset()->url('images/profheader/profheader-ava.jpg') !!}')">
-														<a href=""></a>
-													</div>
-													<div class="your-group-friend" style="background-image: url('{!! Theme::asset()->url('images/set3/orher-img-1.png') !!}')">
-														<a href=""></a>
-													</div>
-													<div class="your-group-friend" style="background-image: url('{!! Theme::asset()->url('images/set3/8.jpg') !!}')">
-														<a href=""></a>
-													</div>
-												</div>
-											</div>
-											<div class="content-event-col">
-												<p><a href="">LET SWIFT - iOS Developers Meet-up</a></p>
-												<div class="btn-hover-wrap">
-													<a href="" class="btn-action-hover">
-														<i class="icon-pereytu  svoe-icon"></i>
-														Посетить
-													</a>
-													<a href="" class="btn-action-hover show-action-hover hidden-action-hover">
-														<i class="icon-pidpysatysya  svoe-icon"></i>
-														Подписаться
-													</a>
-												</div>
-												<span>295 374 участников</span>
-											</div>
-										</div>
-									</div>
+									@endforeach
 								</div>
 							</div>
 						</div>
 					</div>
 					<div role="tabpanel" class="tab-pane fade" id="tab-bookmarks">Tab Bookmarks ...</div>
 					<div role="tabpanel" class="tab-pane fade" id="tab-audio">Tab Audio ...</div>
-					<div role="tabpanel" class="tab-pane fade" id="tab-apps">Tab Apps ...</div>
+					<div role="tabpanel" class="tab-pane fade" id="tab-apps">
+						<div class="wrap-content-tab">
+							<div class="wrap-photo-tab">
+								<ul class="nav nav-tabs" role="tablist">
+									<li role="presentation" class="active"><a href="#all-apps" aria-controls="tab-app-1" role="tab" data-toggle="tab">{{ trans('timeline.all') }}</a></li>
+									@foreach($applications_cat as $category => $apps)
+									<li role="presentation"><a href="#tab-app-{{ ($loop->index + 2) }}" aria-controls="tab-app-{{ ($loop->index + 2) }}" role="tab" data-toggle="tab">@if($category == 'other') {{ trans('timeline.other') }} @else {{ $category }} @endif</a></li>
+									@endforeach
+									{{--<li class="grid-col-friend">--}}
+									{{--<div class="search-friend-tab">--}}
+									{{--<input type="text" class="form-control">--}}
+									{{--<i class="icon-shukaty svoe-lg svoe-icon"></i>--}}
+									{{--</div>--}}
+									{{--<span class="sort-small">--}}
+									{{--<i class="icon-sort-c svoe-sort svoe-icon"></i>--}}
+									{{--</span>--}}
+									{{--<span class="active-col-friend sort-big">--}}
+									{{--<i class="icon-sort-d svoe-sort svoe-icon"></i>--}}
+									{{--</span>--}}
+									{{--</li>--}}
+								</ul>
+								<div class="tab-content">
+									<div role="tabpanel" class="tab-pane fade in active" id="all-apps">
+										<div class="wrap-app-tab">
+											<div class="row">
+												@foreach($applications_cat as $category => $apps)
+												@foreach($apps as $app)
+												<div class="games-grid">
+													<a href="{{ $app->url_main }}">
+														<div class="game-image" style="background-image:url({{ static_uploads($app->image_main) }})"></div>
+														<div class="content-app-tab">
+															<h5>{{ $app->title }}</h5>
+															<span>@if($category == 'other') {{ trans('timeline.other') }} @else {{ $category }} @endif</span>
+															<div class="rating">
+																<div>
+																	<span class="rating-counter">
+																		{{ $app->ratingStr }}
+																	</span>
+																</div>
+																<div class="stars stars-example-bootstrap">
+																	<div class="br-wrapper br-theme-bootstrap-stars">
+																		<select  name="rating" class="rating-block" autocomplete="off" style="display: none;">
+																			<option value="1">1</option>
+																			<option value="2">2</option>
+																			<option value="3">3</option>
+																			<option value="4">4</option>
+																			<option value="5">5</option>
+																		</select>
+																	</div>
+																</div>
+															</div>
+															<p class="game-members">{{ $app->count_users }} {{ trans('timeline.of_participants') }}</p>
+														</div>
+													</a>
+												</div>
+												@endforeach
+												@endforeach
+											</div>
+										</div>
+									</div>
+									@foreach($applications_cat as $category => $apps)
+									<div role="tabpanel" class="tab-pane fade" id="tab-app-{{ ($loop->index + 2) }}">
+										<div class="wrap-app-tab">
+											<div class="row">
+												@foreach($apps as $app)
+												<div class="games-grid">
+													<a href="{{ $app->url_main }}">
+														<div class="game-image" style="background-image:url({{ static_uploads($app->image_main) }})"></div>
+														<div class="content-app-tab">
+															<h5>{{ $app->title }}</h5>
+															<span>@if($category == 'other') {{ trans('timeline.other') }} @else {{ $category }} @endif</span>
+															<div class="rating">
+																<div>
+																	<span class="rating-counter">
+																		{{ $app->ratingStr }}
+																	</span>
+																</div>
+																<div class="stars stars-example-bootstrap">
+																	<div class="br-wrapper br-theme-bootstrap-stars">
+																		<select  name="rating" class="rating-block" autocomplete="off" style="display: none;">
+																			<option value="1">1</option>
+																			<option value="2">2</option>
+																			<option value="3">3</option>
+																			<option value="4">4</option>
+																			<option value="5">5</option>
+																		</select>
+																	</div>
+																</div>
+															</div>
+															<p class="game-members">{{ $app->count_users }} {{ trans('timeline.of_participants') }}</p>
+														</div>
+													</a>
+												</div>
+												@endforeach
+											</div>
+										</div>
+									</div>
+									@endforeach
+								</div>
+							</div>
+						</div>
+					</div>
 				</div>
 				<!-- </div> -->
 			</div>

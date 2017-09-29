@@ -8,7 +8,7 @@ $(function () {
         $.post(urlTakeInvite, {'_token':token}, function(data){
             $( "#friendInviteList" ).html( data );
         } );
-        setTimeout(takeListInvite, 30000);//tmp - only after click on icon
+        // setTimeout(takeListInvite, 30000);//tmp - only after click on icon
     }
     setTimeout(takeListInvite, 300);
 

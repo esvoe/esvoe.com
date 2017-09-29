@@ -113,7 +113,18 @@ class MessageController extends Controller
         }
         
         $result['conversationMessages'] = $thread->messages()->withTrashed()->latest()->with('user')->paginate(15);
-        $result['participants'] = $thread->participants()->where('user_id', $userId)->first(['last_read']);
+
+
+        $result['participants'] = $thread->participants()->where('user_id', $userId)->get(['last_read']);
+        
+        $lastRead=$result['participants'][0]['attributes']['last_read'];
+
+        
+        foreach ($result['conversationMessages']->items() as $item){
+            $el=$item['attributes']['created_at'];
+            if($item['attributes']['user_id']==$userId) continue;
+            $item->read_participants =(strtotime($lastRead)>=strtotime($el))?true:false;
+        }
         return response()->json($result);
     }
 
@@ -411,6 +422,53 @@ class MessageController extends Controller
         return response()->json($result);
     }
 
+
+    /**
+     * Set read mesage
+     *
+     * @return \Response
+     */
+    public function readStatusMessage($id){
+
+        $messagesIDS=$this->request->get('messages', '');
+        /*try {
+            if (empty($id)) throw new \Exception('No thread id');
+            if (!is_numeric($id)) throw new \Exception('Incorrect thread id');
+            $thread = Thread::find($id);
+            if (empty($thread)) throw new \Exception('Thread not found');
+        } catch (ModelNotFoundException $e) {
+            return abort(404);
+        }*/
+
+        $thread = Thread::find($id);
+        $participants = $thread->participants()->get();
+
+        \DB::table('messages')
+            ->whereIn('id', $messagesIDS)
+            ->update(['read_at'=>new Carbon()]);
+
+        $createAt=\DB::table('messages')
+              /*->where('thread_id', $id)*/
+              ->whereIn('id', $messagesIDS)
+              ->max('created_at');
+
+        $part=\DB::table('participants')
+            ->where(['thread_id'=> $id,'user_id'=> Auth::id()])
+            ->update(['last_read'=>$createAt]);
+
+
+        $messages = Message::whereIn('id', $messagesIDS)->latest()->with('user')->get();
+
+        foreach ($participants as $participant) {
+            $this->pushEvent(
+                $messages->first(),
+                $participant->user,
+                'readMessage',
+                ['readedMessageIds' => $messages]
+            );
+        }
+
+    }
     /**
      * Filter for messenger
      * return each item limit 10 no pagination
@@ -591,7 +649,7 @@ class MessageController extends Controller
             'type'          => $type,
             'avatar'        => $this->getAvatarUrl($item['avatar'], $item['gender']),
             'id'            => $item['id'],
-            'subject'       => $item['firstname'] . ' ' . $item['lastname'],
+            'subject'       => $item['name'],
             'updated_at'    => $item['created_at'],
             'text'          => __('messages.create_a_new_message'),
             'online'        => ($item['last_online'] > (time() - config('app.online_timeout'))) ? true : false
@@ -743,11 +801,10 @@ class MessageController extends Controller
         // get result
         $userIds = $query->pluck('user_id');
         // get users
-        $query = User::whereIn('id', $userIds);
-        $result = $query
-            ->get(['id', 'last_online', 'created_at'])
+        $result = User::whereIn('id', $userIds)
+            ->get(['id', 'timeline_id', 'last_online', 'created_at'])
             ->map(function ($user) {
-                $user['type'] = 'newuser';
+                $user->type = 'newuser';
                 return $user;
             });
         return $result;

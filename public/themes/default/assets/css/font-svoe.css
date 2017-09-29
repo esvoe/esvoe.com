@@ -300,3 +300,9 @@
 .icon-m-skryt:before {
   content: "\3d";
 }
+.icon-photo-last-friend:before {
+    content: "\3f";
+}
+.icon-photo-favourite:before {
+    content: "\40";
+}

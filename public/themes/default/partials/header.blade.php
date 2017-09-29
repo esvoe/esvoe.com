@@ -237,6 +237,12 @@
                                         </a>
                                     </li>
                                     <li>
+                                        <a href="http://sand.esvoe.com/application/auth?id=50&endpoint=d20537dc031e67cf5157">
+                                            <img src="{!! Theme::asset()->url('images/_new/icon-video.png') !!}" alt="icon-wallet" style="max-height: 15px">
+                                            {{ trans('common.my_advertising') }}
+                                        </a>
+                                    </li>
+                                    <li>
                                         <a href="{{ url('/'.Auth::user()->username.'/settings/general') }}">
                                             <img src="{!! Theme::asset()->url('images/_new/icon-setting.png') !!}" alt="icon-wallet" style="max-height: 15px">
                                             {{ trans('common.settings') }}

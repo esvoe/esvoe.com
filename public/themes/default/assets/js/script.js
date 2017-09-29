@@ -1,5 +1,41 @@
 $(function(){
 
+    // CREATE EXPAND TEXT
+    function createExpandText() {
+        $('.text-expand:not(.ready)').each(function(){
+            var $el = $(this);
+            $el.addClass('ready');
+
+            var data = $el.data('expand').split('|');
+
+            // create expand ?
+            if ( $el.text().length > data[0] ) {
+                var text = $el.text();
+
+                var expanded = $('<span class="expanded">'+text+'</span>');
+                var collapsed = $('<span class="collapsed">'+text.substring(0, data[0])+'...</span>');
+
+                $el.text('').append(expanded, collapsed, ' <a href="#" class="collapsed">'+data[1]+'</a>', ' <a href="#" class="expanded">'+data[2]+'</a>');
+            }
+
+            $el.find('.expanded').hide();
+
+            // expand func
+            $el.find('.expanded, .collapsed').click(function() {
+                $(this).parent().children('.expanded, .collapsed').toggle();
+                return false;
+            });
+                        
+        });
+    }
+
+    createExpandText();
+
+    $('.find-page-friend .title-find-invite').click(function(){
+       $(this).next().slideToggle();
+        $(this).toggleClass('open-find-friend');
+    });
+
     // RATING        
     if ( $('.ratingblock').length ) {
         createRating()
@@ -222,6 +258,8 @@ $(function(){
                     </div>\
                 </div>');
         }
+
+        createExpandText();
 
         $('body').addClass('overlay-game-modal');
 
@@ -774,7 +812,7 @@ $(function(){
 
     //shown tab photo
     $('.photo-shown-tab').on('shown.bs.tab',function(){
-        $('.photo-album-tab-border').parent().addClass('scale-animate');
+        $('.photo-album-tab-border,.album-main').parent().addClass('scale-animate');
     })
     //shown tab life
     $('.life-line').on('shown.bs.tab',function(){
@@ -924,4 +962,18 @@ function playPause(self){
             $('.played-radio-widget').removeClass('ekva-active');
         }
     },200);
+}
+
+function loadBannersOnMainPage(count, width, height) {
+    var data = {
+        count: count,
+        width: width,
+        height: height,
+    };
+    $.post(SP_source() + 'ajax/get-banners', data, function(responseText) {
+        console.log(responseText);
+        if (responseText.status == 200) {
+            $('.advertising-place').html(responseText.htmlBlocks);
+        }
+    });
 }

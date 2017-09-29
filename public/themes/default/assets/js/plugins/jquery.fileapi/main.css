@@ -1,0 +1,373 @@
+.btn .progress {
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    opacity: .5;
+    position: absolute;
+}
+
+.progress .bar {
+    width: 0;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    position: absolute;
+    background-color: #f60;
+}
+
+.progress-small {
+    height: 5px;
+    padding: 1px;
+    box-shadow: 0 0 1px 1px rgba(255, 255, 255, 0.3);
+    background-color: rgba(0, 0, 0, .5);
+}
+
+.progress-small .bar {
+    width: 0;
+    height: 100%;
+    position: static;
+    background-color: orange;
+}
+
+.js-preview.userpic__preview img {
+    width: 100%;
+    height: auto;
+}
+
+.webcam,
+.userpic {
+    /* 	width: 200px;
+        height: 200px;
+        border: 2px solid #aaa;
+        display: inline-block;
+        position: relative;
+        background: url('uploader/userpic.gif') no-repeat;
+        background-size: cover; */
+}
+
+.webcam .btn,
+.userpic .btn {
+    margin-top: 15px;
+    border: 2px solid #ed1c24;
+    border-radius: 0;
+    color: #ed1c24;
+    font-family: "GothamProMedium";
+    font-size: 18px;
+    margin: 20px 0;
+    padding: 10px 30px;
+    text-transform: uppercase;
+    background: none;
+}
+
+#submitform {
+    margin-top: 15px;
+    border: 2px solid #ed1c24;
+    color: #ed1c24;
+    font-family: "GothamProMedium";
+    font-size: 18px;
+    margin: 20px 0;
+    padding: 10px 30px;
+    text-transform: uppercase;
+    background: none;
+}
+
+.webcam__preview,
+.userpic__preview {
+
+}
+
+.webcam {
+    background-size: auto;
+    background-image: url('uploader/webcam.png');
+    background-position: center 10px;
+}
+
+.b-upload {
+    white-space: nowrap;
+}
+
+.b-upload__dnd .upload{
+    cursor: pointer;
+}
+
+.b-upload__name,
+.b-upload__size {
+    display: inline-block;
+    position: relative;
+    overflow: hidden;
+    max-width: 150px;
+    vertical-align: middle;
+}
+
+.b-upload__size {
+    color: #666;
+    font-size: 12px;
+}
+
+.b-upload .js-files:after {
+    clear: both;
+    content: '';
+    display: block;
+}
+
+.b-upload__dnd_hover {
+    color: #fff;
+    background-color: orange;
+}
+
+.b-upload__hint {
+    padding: 5px 8px;
+    font-size: 12px;
+    white-space: normal;
+    background-color: rgba(0, 0, 0, .08);
+}
+
+.b-thumb {
+    float: left;
+    margin: 3px;
+    padding: 5px;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 0 2px rgba(0, 0, 0, .4);
+    background-color: #fff;
+}
+
+.b-thumb__del {
+    top: -6px;
+    right: -1px;
+    color: #FF0000;
+    cursor: pointer;
+    opacity: 0;
+    z-index: 999;
+    position: absolute;
+    font-size: 20px;
+    -webkit-transition: opacity .1s ease-in;
+    -moz-transition: opacity .1s ease-in;
+    transition: opacity .1s ease-in;
+}
+
+.b-thumb:hover .b-thumb__del {
+    opacity: 1;
+}
+
+.b-thumb__rotate {
+    top: 40%;
+    left: 50%;
+    width: 32px;
+    height: 32px;
+    cursor: pointer;
+    margin: -16px 0 0 -16px;
+    position: absolute;
+    background: url('uploader/rotate.png');
+}
+
+.b-thumb__preview {
+    width: 80px;
+    height: 80px;
+    -webkit-transition: -webkit-transform .2s ease-in;
+    -moz-transition: -moz-transform .2s ease-in;
+    transition: transform .2s ease-in;
+}
+
+.b-thumb__preview__pic {
+    width: 100%;
+    height: 100%;
+    background: url('uploader/file-icon.png') 50% 50% no-repeat;
+}
+
+.b-thumb__name {
+    width: 80px;
+    overflow: hidden;
+    font-size: 12px;
+}
+
+.b-thumb__progress {
+    top: 75px;
+    left: 10px;
+    right: 10px;
+    position: absolute;
+}
+
+.btn {
+    cursor: pointer;
+    *zoom: 1;
+    *display: inline;
+    display: inline-block;
+    position: relative;
+    overflow: hidden;
+    font-size: 20px;
+    font-family: Arial;
+    border-radius: 4px;
+    vertical-align: middle;
+}
+
+.btn_browse {
+    border: 1px solid rgba(0, 0, 0, .2);
+    padding: 8px 20px;
+    background-color: #FFDC73;
+    background: -moz-linear-gradient(top, #FFE599 0%, #FFDC73);
+    background: -webkit-gradient(linear, left top, left bottom, from(#FFE599), to(#FFDC73));
+    box-shadow: 0 1px 1px rgba(255, 255, 255, .5);
+}
+
+.btn_browse_small {
+    padding: 5px 10px;
+    font-size: 16px;
+}
+
+.btn_browse_small[aria-disabled] {
+    opacity: .5;
+}
+
+.btn_choose {
+    color: #fff;
+    border: 2px solid rgba(255, 255, 255, .4);
+    padding: 5px 10px;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, .3);
+    background-color: rgba(0, 0, 0, .4);
+    *background-color: #aaa;
+}
+
+.btn__inp {
+    top: -10px;
+    right: -10px;
+    cursor: pointer;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    font-size: 50px;
+    position: absolute;
+}
+
+.btn__progress {
+    top: 0;
+    left: 0;
+    height: 100%;
+    opacity: .5;
+    position: absolute;
+    background-color: #f60;
+}
+
+.fileprogress {
+    padding: 1px;
+    height: 5px;
+    box-shadow: 0 0 1px 1px rgba(255, 255, 255, 0.3);
+    border-radius: 10px;
+    background-color: rgba(0, 0, 0, .5);
+}
+
+.fileprogress__bar {
+    width: 0;
+    height: 100%;
+    border-radius: 10px;
+    background-color: orange;
+}
+
+.userpic {
+    /* 	width: 200px;
+        height: 200px;
+        border: 2px solid rgba(0,0,0,.3);
+        display: inline-block;
+        position: relative; */
+}
+
+.userpic .btn {
+    /* 		margin-top: 150px; */
+}
+
+.userpic__preview {
+
+}
+
+.b-upload {
+    white-space: nowrap;
+}
+
+.b-upload__name,
+.b-upload__size {
+    display: inline-block;
+    position: relative;
+    overflow: hidden;
+    max-width: 150px;
+    vertical-align: middle;
+}
+
+.b-upload__size {
+    color: #666;
+    font-size: 12px;
+}
+
+.b-upload .js-files:after {
+    clear: both;
+    content: '';
+    display: block;
+}
+
+.b-upload__dnd {
+    padding: 10px;
+    border: 3px solid #ECF0F5;
+    color: #A1A1A1;
+}
+
+.b-upload__dnd_hover {
+    color: #fff;
+    background-color: orange;
+}
+
+.themodal-overlay {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    top: 0;
+    right: 0;
+    z-index: 100000;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.lock {
+    overflow: hidden;
+}
+
+.popup {
+    margin: 5px;
+    float: left;
+    display: inline-block;
+    box-shadow: 0 0 5px #000;
+    background-color: #fff;
+}
+
+.popup__body {
+    margin: 10px 10px 5px;
+}
+
+.b-upload__dnd {
+    width: 100%;
+    height: 100%;
+}
+
+.b-upload__dnd_hover {
+    border: 2px solid white;
+}
+
+.userpic__preview {
+
+}
+
+.js-browse input {
+    display: none;
+}
+
+.js-upload.btn {
+    background: #ED1C24;
+    color: white;
+}
+
+#popup .btn_browse_small {
+    display: block !important;
+    padding: 0 10px !important;
+}
+
+canvas {
+    width: 100% !important;
+}

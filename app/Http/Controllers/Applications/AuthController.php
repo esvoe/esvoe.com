@@ -169,8 +169,7 @@ class AuthController extends Controller
         $explicitAuth = $this->request->get('explicit_auth') == 1;
         $explicitPerms = $this->request->get('explicit_perms') == 1;
 
-        $authTime = time();
-        $authToken = md5($authTime.$redirectUri.$application->api_key);
+        $authToken = sha1(random_bytes(20));
 
         $this->authSession = array(
             'app_id' => $application->id,
@@ -184,9 +183,8 @@ class AuthController extends Controller
             'explicit_auth' => $explicitAuth,
             'explicit_perms' => $explicitPerms,
             'user_ip' => \Request::ip(),
-            'auth_time' => $authTime,
             'hash'=> bin2hex(random_bytes(5)),
-            'time'=> $authTime,
+            'time'=> time(),
             'auth_token' => $authToken,
             'time_create' => time(),
             'time_expire' => time() + 600,
@@ -280,7 +278,9 @@ class AuthController extends Controller
             $application->api_key
         );
 
-        $this->authSession['auth_token'] = $this->getApiSession($user, $application);
+        // replace auth token with existed
+        $this->authSession['auth_token'] = $applicationUser->auth_token;
+        // todo: extend auth_token life
 
         $payload = array(
             'status' => $status,
@@ -446,7 +446,9 @@ class AuthController extends Controller
                         $application->api_key
                     );
 
-                    $this->authSession['auth_token'] = $this->getApiSession($user, $application);
+                    // replace with exist token
+                    $this->authSession['auth_token'] = $applicationUser->auth_token;
+                    // todo: extend auth_token life
 
                     $payload = array(
                         'status' => $status,
@@ -616,7 +618,7 @@ class AuthController extends Controller
         }
         else {
 
-            ApplicationLog::addApplicationUserLink($this, $user, $applicationUser->permissions, array('auth_type'=>'external'));
+            ApplicationLog::addApplicationUserLink($application, $user, $applicationUser->permissions, array('auth_type'=>'external'));
 
             $application->dispatchSocialEvent('user.link', array(
                 'app_id' => $application->id,
@@ -640,6 +642,10 @@ class AuthController extends Controller
         }
 
         $applicationUser->authorized = true;
+
+        $applicationUser->auth_token = sha1(random_bytes(20));
+        $applicationUser->auth_token_expire = time() + 86400 * 5;
+
         $applicationUser->save();
 
         $status = 'authorize';
@@ -652,7 +658,7 @@ class AuthController extends Controller
             $application->api_key
         );
 
-        $this->authSession['auth_token'] = $this->getApiSession($user, $application);
+        $this->authSession['auth_token'] = $applicationUser->auth_token;
 
         $payload = array(
             'status' => $status,
@@ -727,7 +733,14 @@ class AuthController extends Controller
 
     public function result() {
 
-        return $this->renderView('developer/auth/result', array(), 'empty');
+        $app_id = $this->request->get('app_id');
+        $application = Application::where('id', $app_id)
+            ->where('is_active', true)
+            ->first();
+
+        $status = $this->request->get('status');
+
+        return $this->renderView('developer/auth/result', compact('application', 'status'), 'empty');
     }
 
     public function error() {

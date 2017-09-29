@@ -1,0 +1,49 @@
+
+.app-auth-page .template-reg-svoe {
+    max-width: 100%;
+    text-align: center;
+}
+
+.app-auth-page .description {
+    max-width: 260px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.app-auth-page .footer-reg-svoe a {
+    line-height: 20px;
+    vertical-align: top;
+}
+
+.app-auth-page .photo-reg-site {
+    width: auto;
+    height: auto;
+    max-width: 270px;
+}
+
+.app-auth-page .photo-reg-site img {
+    width: 100%;
+    height: auto;
+}
+
+.app-auth-page .perms {
+    text-align: left;
+}
+.app-auth-page .logout-prof-header {
+    display: block;
+    width: 60px;
+    height: 60px;
+    border: none;
+    float: right;
+    position: relative !important;
+    top: 0;
+    right: 0;
+}
+
+.app-auth-page .logout-prof-header a {
+    display: block;
+    width: 60px;
+    height: 60px;
+    text-align: center;
+    line-height: 52px;
+}

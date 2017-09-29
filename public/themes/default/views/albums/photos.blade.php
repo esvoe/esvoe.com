@@ -80,7 +80,7 @@
 								<div class="widget-card preview">
 									<div class="widget-card-bg">	
 										<div class="photo-holder">
-											<img src="{!! $image->albumUrl($timeline->username) !!}" alt="{{ $image->name }}">
+											<img src="{!! $image->albumUrl($timeline->username,230,226) !!}" alt="{{ $image->name }}">
 										</div>	
 									</div>
 									<div class="widget-card-project">

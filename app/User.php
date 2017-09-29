@@ -37,6 +37,16 @@ class User extends Authenticatable
        */
     protected $appends = [
         'name',
+        'firstname',
+        'lastname',
+        'gender',
+        'country',
+        'city',
+        'birthday',
+        'designation',
+        'interests',
+        'hobbies',
+        'username',
         'avatar',
         'cover',
         'about',
@@ -86,7 +96,7 @@ class User extends Authenticatable
      */
     public function getFirstnameAttribute($value)
     {
-        return $this->profile()->value('firstname');
+        return $this->profile->firstname;
     }
 
     /**
@@ -98,7 +108,7 @@ class User extends Authenticatable
      */
     public function getLastnameAttribute($value)
     {
-        return $this->profile()->value('lastname');
+        return $this->profile->lastname;
     }
 
     /**
@@ -110,7 +120,7 @@ class User extends Authenticatable
      */
     public function getGenderAttribute($value)
     {
-        return $this->profile()->value('gender');
+        return $this->profile->gender;
     }
 
     /**
@@ -122,7 +132,7 @@ class User extends Authenticatable
      */
     public function getCountryAttribute($value)
     {
-        return $this->profile()->value('country');
+        return $this->profile->country;
     }
 
     /**
@@ -134,7 +144,7 @@ class User extends Authenticatable
      */
     public function getCityAttribute($value)
     {
-        return $this->profile()->value('city');
+        return $this->profile->city;
     }
 
     /**
@@ -146,7 +156,7 @@ class User extends Authenticatable
      */
     public function getBirthdayAttribute($value)
     {
-        return $this->profile()->value('birthday');
+        return $this->profile->birthday;
     }
 
 
@@ -159,7 +169,7 @@ class User extends Authenticatable
      */
     public function getDesignationAttribute($value)
     {
-        return $this->profile()->value('designation');
+        return $this->profile->designation;
     }
 
 
@@ -172,7 +182,7 @@ class User extends Authenticatable
      */
     public function getInterestsAttribute($value)
     {
-        return $this->profile()->value('interests');
+        return $this->profile->interests;
     }
 
 
@@ -185,7 +195,7 @@ class User extends Authenticatable
      */
     public function getHobbiesAttribute($value)
     {
-        return $this->profile()->value('hobbies');
+        return $this->profile->hobbies;
     }
 
 
@@ -210,8 +220,8 @@ class User extends Authenticatable
      */
     public function getAvatarAttribute($value)
     {
-        return $this->profile()->value('avatar')
-            ? url('user/avatar/'.$this->profile()->value('avatar'))
+        return $this->profile->avatar
+            ? url('user/avatar/'.$this->profile->avatar)
             : url('user/avatar/default-'.$this->gender.'-avatar.png');
     }
 
@@ -271,8 +281,6 @@ class User extends Authenticatable
                 $array[$key] = $value;
             }
         }
-
-        $array['avatar'] = $this->avatar;
 
         return $array;
     }
@@ -687,6 +695,17 @@ class User extends Authenticatable
                         ->where('group_user.status', 'approved')
                         ->get();
         return $joined_groups ? $joined_groups : 0;
+    }
+
+    public function getPhotosCountAttribute()
+    {
+        $counters = Album::where('timeline_id', $this->timeline_id)
+            ->latest()
+            ->get(['id'])
+            ->map(function($album) {
+                return $album->photos()->where('media.type', 'image')->count('media.id');
+            });
+        return $counters->sum();
     }
 
     public function scopeStars()

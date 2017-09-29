@@ -4,7 +4,113 @@
     .user-blocks-photo,.last-photo-mosaic-1 {margin: 0px auto; width: 100%; padding: 0;}
 </style>
 <div class="container container-grid section-container">
-    <div class="profheader">
+
+
+    <div class="wrap-new-prof-header" style="background-image: url('{!! Theme::asset()->url('images/set3/wallpaper-1.jpg') !!}');">
+        <div class="shadow-new-prof"></div>
+        <div class="ava-new-prof" style="background-image: url('{!! Theme::asset()->url('images/profheader/profheader-ava.jpg') !!}');"></div>
+        <div class="profheader-content new-content-prof">
+            <div class="profheader-text">
+                <div class="profheader-name">Катерина Казакова</div>
+                <div class="profheader-note">Ищу интересные типажи для tfp сьемок</div>
+                <div class="profheader-status online">В мережі 20:32</div>
+            </div>
+            <div class="profheader-nav">
+                <div class="profheader-ctrl ctrl-new-prof">
+                    <div class="profheader-ctrl-item profheader-ctrl-item___toggle-width">
+                        <a href="#" class="profheader-ctrl-btn profheader-ctrl-add" style="width: 171px">
+                            <i class="icon-druzi svoe-lg svoe-icon">
+                            </i>
+                            <span class="profheader-ctrl-text">Додати в друзі</span>
+                        </a>
+                    </div>
+                    <div class="profheader-ctrl-item profheader-ctrl-item___toggle-width">
+                        <a href="#" class="profheader-ctrl-btn profheader-ctrl-message">
+                            <span class="profheader-ctrl-text"></span>
+                            <i class="icon-povidomlennia svoe-lg svoe-icon"></i>
+                        </a>
+                    </div>
+                    <div class="profheader-ctrl-item">
+                        <div class="dropdown">
+                            <a href="#" class="profheader-ctrl-btn profheader-ctrl-menu dropdown-togle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                <img src="{!! Theme::asset()->url('images/post-event-more.png') !!}" alt="">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#profheader-navbar-collapse" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <div class="navbar-collapse collapse" id="profheader-navbar-collapse" aria-expanded="false">
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li role="presentation" class="active">
+                            <a class="life-line" href="#tab-1" aria-controls="tab-1" role="tab" data-toggle="tab">
+                                <span class="count-cat-new-prof"><i class="fa fa-home" aria-hidden="true"></i></span>
+                                {{--<span class="count-cat-new-prof">240 <span>/ 354</span></span>--}}
+                                <span class="text-category-new-prof">Главная</span>
+                            </a>
+                        </li>
+                        <li role="presentation" >
+                            <a href="#tab-3" aria-controls="tab-3" role="tab" data-toggle="tab">
+                                <span class="count-cat-new-prof">240 <span>/ 354</span></span>
+                               <span class="text-category-new-prof">Друзі <span>/ підписників</span></span>
+                            </a>
+                        </li>
+                        <li role="presentation" >
+                            <a class="photo-shown-tab" href="#tab-4" aria-controls="tab-4" role="tab" data-toggle="tab">
+                                <span class="count-cat-new-prof">15 <span>/ 245</span></span>
+                                <span class="text-category-new-prof">Альбоми <span>/ Світлини</span></span>
+                            </a>
+                        </li>
+                        <li role="presentation" >
+                            <a href="#tab-5" aria-controls="tab-5" role="tab" data-toggle="tab">
+                                <span class="count-cat-new-prof">15</span>
+                                <span class="text-category-new-prof">Відео</span>
+                            </a>
+                        </li>
+                        <li role="presentation">
+                            <a href="#tab-6" aria-controls="tab-6" role="tab" data-toggle="tab">
+                                <span class="count-cat-new-prof">152</span>
+                                <span class="text-category-new-prof">Спільноти</span>
+                            </a>
+                        </li>
+                        <li role="presentation" >
+                            <a href="#tab-events" aria-controls="tab-events" role="tab" data-toggle="tab" aria-expanded="true">
+                                <span class="count-cat-new-prof">152</span>
+                                <span class="text-category-new-prof">События</span>
+                            </a>
+                        </li>
+                        <li role="presentation" class="">
+                            <a href="#tab-apps" aria-controls="tab-apps" role="tab" data-toggle="tab">
+                                <span class="count-cat-new-prof">19</span>
+                                <span class="text-category-new-prof">Приложения</span>
+                            </a>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-togle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                <span class="count-cat-new-prof"><i class="icon-menyu svoe-icon"></i></span>
+                                <span class="text-category-new-prof">другое</span>
+                            </a>
+                            <ul class="dropdown-menu profheader-dropdown">
+                                <!-- Закладки -->
+                                <li role="presentation" class=""><a href="#tab-bookmarks" aria-controls="tab-bookmarks" role="tab" data-toggle="tab">Закладки</a></li>
+                                <!-- Музика -->
+                                <li role="presentation" class=""><a href="#tab-audio" aria-controls="tab-audio" role="tab" data-toggle="tab">Музыка</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <div class="profheader hidden">
         <div class="profheader-ava">
             <img src="{!! Theme::asset()->url('images/profheader/profheader-ava.jpg') !!}" alt="Ivan Ivanov" />
 
@@ -57,9 +163,7 @@
                 </div>
             </div>
         </div>
-
         <div class="clearfix"></div>
-
         <div class="profheader-bg" style="background-image: url({!! Theme::asset()->url('images/profheader/profheader-bg.jpg') !!})">
             <a href="#" class="btn btn-camera-cover change-cover">
                 <i class="fa fa-camera" aria-hidden="true"></i>
@@ -67,24 +171,19 @@
             </a>
             <div class="user-cover-progress hidden"></div>
         </div>
-
         <div class="profheader-content">
             <div class="profheader-text">
-
                 <div class="profheader-name">Катерина Казакова</div>
                 <div class="profheader-note">Ищу интересные типажи для tfp сьемок</div>
                 <div class="profheader-status online">В мережі 20:32</div>
-
             </div>
             <div class="profheader-nav">
-
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#profheader-navbar-collapse" aria-expanded="false">
                     <span class="sr-only">Toggle navigation</span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-
                 <div class="navbar-collapse collapse" id="profheader-navbar-collapse" aria-expanded="false">
                     <ul class="nav nav-tabs nav-justified" role="tablist">
                         <li role="presentation" class="active"><a class="life-line" href="#tab-1" aria-controls="tab-1" role="tab" data-toggle="tab">Життєпис</a></li>
@@ -108,10 +207,8 @@
                         </li>
                     </ul>
                 </div>
-
             </div>
         </div>
-
     </div>
 </div>
 
@@ -2105,6 +2202,40 @@
         $('.rating-block').barrating({
             theme: 'fontawesome-stars'
         });
+
+        // Fixed position Profile Header when scroll
+        function profHeaderFix() {
+            console.log($(this).scrollTop());
+            var $box = $('.new-content-prof .profheader-nav');
+            var $boxWrapper = $('.wrap-new-prof-header');
+            var topScroll = $('.wrap-new-prof-header').innerHeight() - 80;
+            var topOffset = 60;
+
+            if ($(window).scrollTop() > topScroll) {
+                $('body').addClass('profheader-fixed');
+                $box.css({
+                    'position': 'fixed',
+                    'top': topOffset + 'px',
+                    'left': $boxWrapper.offset().left,
+                    'width': $boxWrapper.width(),
+                    'zIndex':2
+                });
+            } else {
+                $('body').removeClass('profheader-fixed');
+                $box.css({
+                    'position': 'relative',
+                    'top': 'auto',
+                    'left': 'auto',
+                    'width': '',
+                    'zIndex':''
+                });
+            }
+        }
+        $(window).scroll(profHeaderFix);
+        $(window).resize(profHeaderFix);
+
+        profHeaderFix();
+
     });
 
 </script>

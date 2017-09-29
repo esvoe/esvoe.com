@@ -418,23 +418,23 @@
                         <!-- for TEST clipping date title -->
                         <!-- <span class="date-mess">17 чер 2014 23:08</span> -->
 
-                        <div class="wrap-block-mess" v-for="message in currentConversation.conversationMessages.data">
+                        <div v-show="showMessages" class="wrap-block-mess" v-for="message in currentConversation.conversationMessages.data">
 
                             <!-- for TEST clipping date title -->
                             {{--<span class="date-mess">@{{ message.sep_at }}</span>--}}
 
                             <span v-if="message.sep_at" class="date-mess">@{{ message.sep_at }}</span>
 
-                            <div v-if="{{ Auth::user()->id}}!== message.user.id"  class="wrap-other-mess-user">
+                            <div v-if="{{ Auth::user()->id}}!== message.user.id" id="@{{message.id}}"  class="wrap-other-mess-user">
 
                                 <div class="photo-user-mess"  v-bind:style="{ 'background-image': 'url(' + message.user.avatar + ')' }"></div>
 
                                 <div class="mess-wrapper">
                                     <div v-if="!message.deleted_at">
-                                        <div class="own-message-user">
+                                        <div class="own-message-user" >
                                             <p>@{{ message.body }}</p>
                                         </div>
-                                        <div v-if="statusRead(currentConversation,message)"  style="background-color: #3e8f3e; width: 10px; height: 10px;"></div>
+                                        <div class="noReadParticipants" v-if="!message.read_participants"  style="background-color: #3e8f3e; width: 10px; height: 10px;"></div>
                                     </div>
                                     <!-- TEMP START -->
                                     <div v-if="message.deleted_at">

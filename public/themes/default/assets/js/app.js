@@ -1,6 +1,6 @@
 document_title = document.title;
 $(function () {
-    
+
 
 
    var validFiles = [];       
@@ -1400,10 +1400,10 @@ $(function () {
     
 
     // Change avatar button click event
-    $(document).on('click','.change-avatar',function(e){
+/*    $(document).on('click','.change-avatar',function(e){
       e.preventDefault();
       $('.change-avatar-input').trigger('click');
-    });
+    });*/
 
     $(document).on('change','.change-avatar-input',function(e){
       e.preventDefault();
@@ -1543,7 +1543,7 @@ $(function () {
              if (responseText.status == 200) {
                 $('<img/>').attr('src', responseText.cover_url).on('load', function() {
                   $(this).remove(); 
-                  $('.profheader-bg').css('background-image', 'url(' + responseText.cover_url + ')');
+                  $('.profheader-bg,.wrap-new-prof-header').css('background-image', 'url(' + responseText.cover_url + ')');
                   $('.user-cover-progress').fadeOut('fast').addClass('hidden').html('');
                   $('.change-cover-input').val();
                 });

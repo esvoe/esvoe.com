@@ -317,24 +317,60 @@
                                 <!-- Содержимое 3 панели -->
                                 <div class="panel-body">
                                     <div class="border"></div>
-                                    <form action="">
+                                    <div class="start_form">
                                         <div class="col-xs-12 col-sm-6 ps-label">
                                             <label for="sell-summ">Сумма($):</label>
-                                            <input type="text" class="form-control" id="send-summ" placeholder="">
+                                            <input type="number" step="0.01" class="form-control" id="send_summ" placeholder="">
                                         </div>
                                         <div class="col-xs-12 col-sm-6 ps-label">
                                             <label for="send-to">ID пользователя:</label>
-                                            <input type="text" class="form-control" id="send-to" placeholder="">
+                                            <input type="text" class="form-control" id="send_to" placeholder="">
                                         </div>
                                         <div class="col-xs-12">
-                                            <button type="submit" class="btn btn-default ps-submit pull-right">
+                                            <button type="button" class="btn btn-default ps-submit pull-right transfer-user-by-id">
                                                 <i class="icon-vuvid svoe-lg svoe-icon"></i>
                                                 перевести
                                             </button>
                                         </div>
-                                    </form>
+                                    </div>
+                                    <div class="confirmation_form" style="display: none">
+                                        <div class="col-xs-12 col-sm-6 ps-label">
+                                            <label for="send-to">Код подтверждения:</label>
+                                            <input type="text" class="form-control" id="confirm_code" placeholder="">
+                                            <input type="hidden" id="transaction_id" placeholder="">
+                                        </div>
+                                        <div class="col-xs-12">
+                                            <button type="button" class="btn btn-default ps-submit pull-right confirm-transfer-user-by-id">
+                                                <i class="icon-vuvid svoe-lg svoe-icon"></i>
+                                                подтвердить
+                                            </button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
+
+                            {{--<div id="collapseThree" class="panel-collapse collapse">--}}
+                                {{--<!-- Содержимое 3 панели -->--}}
+                                {{--<div class="panel-body">--}}
+                                    {{--<div class="border"></div>--}}
+                                    {{--<form action="">--}}
+                                        {{--<div class="col-xs-12 col-sm-6 ps-label">--}}
+                                            {{--<label for="sell-summ">Сумма(UAH):</label>--}}
+                                            {{--<input type="text" class="form-control" id="send-summ" placeholder="">--}}
+                                        {{--</div>--}}
+                                        {{--<div class="col-xs-12 col-sm-6 ps-label">--}}
+                                            {{--<label for="send-to">ID пользователя:</label>--}}
+                                            {{--<input type="text" class="form-control" id="send-to" placeholder="">--}}
+                                        {{--</div>--}}
+                                        {{--<div class="col-xs-12">--}}
+                                            {{--<button type="submit" class="btn btn-default ps-submit pull-right">--}}
+                                                {{--<i class="icon-vuvid svoe-lg svoe-icon"></i>--}}
+                                                {{--перевести--}}
+                                            {{--</button>--}}
+                                        {{--</div>--}}
+                                    {{--</form>--}}
+                                {{--</div>--}}
+                            {{--</div>--}}
                         </div>
                         <div class="panel panel-default">
                             <!-- Заголовок 3 панели -->
@@ -852,28 +888,75 @@
                                     </a>
                                 </h4>
                             </div>
-                            <div id="collapseThree-usd" class="panel-collapse collapse">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a data-toggle="collapse" data-parent="#accordion-eur" aria-expanded="false" href="#collapse4-eur">
+                                        <i class="icon icon-left">
+                                            <i class="icon-perekaz svoe-lg svoe-icon"></i>
+                                        </i>
+                                        Перевод средств другому пользователю
+                                        <i class="fa fa-chevron-down icon-right" aria-hidden="true"></i>
+                                        <i class="fa fa-chevron-right icon-right " aria-hidden="true"></i>
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="collapse4-usd" class="panel-collapse collapse">
                                 <!-- Содержимое 3 панели -->
                                 <div class="panel-body">
                                     <div class="border"></div>
-                                    <form action="">
+                                    <div class="start_form">
                                         <div class="col-xs-12 col-sm-6 ps-label">
                                             <label for="sell-summ">Сумма($):</label>
-                                            <input type="text" class="form-control" id="send-summ" placeholder="">
+                                            <input type="number" step="0.01" class="form-control" id="send_summ" placeholder="">
                                         </div>
                                         <div class="col-xs-12 col-sm-6 ps-label">
                                             <label for="send-to">ID пользователя:</label>
-                                            <input type="text" class="form-control" id="send-to" placeholder="">
+                                            <input type="text" class="form-control" id="send_to" placeholder="">
                                         </div>
                                         <div class="col-xs-12">
-                                            <button type="submit" class="btn btn-default ps-submit pull-right">
+                                            <button type="button" class="btn btn-default ps-submit pull-right transfer-user-by-id">
                                                 <i class="icon-vuvid svoe-lg svoe-icon"></i>
                                                 перевести
                                             </button>
                                         </div>
-                                    </form>
+                                    </div>
+                                    <div class="confirmation_form" style="display: none">
+                                        <div class="col-xs-12 col-sm-6 ps-label">
+                                            <label for="send-to">Код подтверждения:</label>
+                                            <input type="text" class="form-control" id="confirm_code" placeholder="">
+                                            <input type="hidden" id="transaction_id" placeholder="">
+                                        </div>
+                                        <div class="col-xs-12">
+                                            <button type="button" class="btn btn-default ps-submit pull-right confirm-transfer-user-by-id">
+                                                <i class="icon-vuvid svoe-lg svoe-icon"></i>
+                                                подтвердить
+                                            </button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
+                            {{--<div id="collapseThree-usd" class="panel-collapse collapse">--}}
+                                {{--<!-- Содержимое 3 панели -->--}}
+                                {{--<div class="panel-body">--}}
+                                    {{--<div class="border"></div>--}}
+                                    {{--<form action="">--}}
+                                        {{--<div class="col-xs-12 col-sm-6 ps-label">--}}
+                                            {{--<label for="sell-summ">Сумма($):</label>--}}
+                                            {{--<input type="text" class="form-control" id="send-summ" placeholder="">--}}
+                                        {{--</div>--}}
+                                        {{--<div class="col-xs-12 col-sm-6 ps-label">--}}
+                                            {{--<label for="send-to">ID пользователя:</label>--}}
+                                            {{--<input type="text" class="form-control" id="send-to" placeholder="">--}}
+                                        {{--</div>--}}
+                                        {{--<div class="col-xs-12">--}}
+                                            {{--<button type="submit" class="btn btn-default ps-submit pull-right">--}}
+                                                {{--<i class="icon-vuvid svoe-lg svoe-icon"></i>--}}
+                                                {{--перевести--}}
+                                            {{--</button>--}}
+                                        {{--</div>--}}
+                                    {{--</form>--}}
+                                {{--</div>--}}
+                            {{--</div>--}}
                         </div>
                         <div class="panel panel-default">
                             <!-- Заголовок 3 панели -->
@@ -1023,77 +1106,6 @@
                                         </tr>
                                         </thead>
                                         <tbody >
-                                        <tr>
-                                            <td class="t-title">
-                                                <i class="icon">
-                                                    <svg xmlns="https://www.w3.org/2000/svg" width="17.969" height="15" viewBox="0 0 17.969 15"><metadata><?xpacket begin="﻿" id="W5M0MpCehiHzreSzNTczkc9d"?><x:xmpmeta xmlns:x="adobe:ns:meta/" x:xmptk="Adobe XMP Core 5.6-c138 79.159824, 2016/09/14-01:09:01        "><rdf:RDF xmlns:rdf="https://www.w3.org/1999/02/22-rdf-syntax-ns#"><rdf:Description rdf:about=""/></rdf:RDF></x:xmpmeta><?xpacket end="w"?></metadata><defs><style>.cls-1 {fill-rule: evenodd;}</style></defs><path id="Forma_1" data-name="Forma 1" class="cls-1" d="M310.614,464.839H300.122a0.4,0.4,0,0,0-.434.547l1.659,4.507a0.717,0.717,0,0,0,.646.44h6.879a0.713,0.713,0,0,0,.645-0.44l1.447-4.613A0.326,0.326,0,0,0,310.614,464.839Zm-9.543,9.231a1.459,1.459,0,1,1-1.569,1.455A1.516,1.516,0,0,1,301.071,474.07Zm6.641,0.019a1.459,1.459,0,1,1-1.569,1.454A1.515,1.515,0,0,1,307.712,474.089Zm1.885-2.275h-9.179l-3.675-9.8h-2.861a0.826,0.826,0,1,0,0,1.647h1.6l3.675,9.8H309.6A0.826,0.826,0,1,0,309.6,471.814Z" transform="translate(-293 -462)"/></svg>
-                                                </i>
-                                                <p>
-                                                    Оплата за квиток Квартал 95
-                                                </p>
-                                            </td>
-                                            <td class="summ">
-                                                700,00 еТокенов
-                                            </td>
-                                            <td class="table-date">
-                                                19/06/2017
-                                            </td>
-                                            <td>
-                                                Pay-card
-                                            </td>
-                                            <td class="status payed">
-                                                <i class="fa fa-check" aria-hidden="true"></i>
-                                                Оплачено
-                                            </td>
-                                        </tr>
-
-                                        <tr>
-                                            <td class="t-title">
-                                                <i class="icon">
-                                                    <svg xmlns="https://www.w3.org/2000/svg" width="18" height="11" viewBox="0 0 18 11"><metadata><?xpacket begin="﻿" id="W5M0MpCehiHzreSzNTczkc9d"?><x:xmpmeta xmlns:x="adobe:ns:meta/" x:xmptk="Adobe XMP Core 5.6-c138 79.159824, 2016/09/14-01:09:01        "><rdf:RDF xmlns:rdf="https://www.w3.org/1999/02/22-rdf-syntax-ns#"><rdf:Description rdf:about=""/></rdf:RDF></x:xmpmeta><?xpacket end="w"?></metadata><defs><style>.cls-1 {fill-rule: evenodd;}</style></defs><path id="Shape_1_copy_5" data-name="Shape 1 copy 5" class="cls-1" d="M299.2,349l-0.251,2.866h-3.477a0.465,0.465,0,0,0-.339.141,0.454,0.454,0,0,0-.143.333v2.575a0.454,0.454,0,0,0,.143.333,2.49,2.49,0,0,0,.339-0.387h3.477l0.251,3.13,4.806-4.5ZM308,353.4c1.846,0,2.51-1.506,2.684-2.743,0.215-1.524-.67-2.671-2.684-2.671s-2.9,1.147-2.683,2.671C305.486,351.893,306.149,353.4,308,353.4Zm4.994,3.586a8.387,8.387,0,0,0-.192-1.435,2.624,2.624,0,0,0-.9-1.785,5.658,5.658,0,0,0-1.22-.416c-0.2-.064-0.375-0.127-0.541-0.2a3.392,3.392,0,0,1-4.287,0c-0.167.071-.344,0.134-0.541,0.2a5.64,5.64,0,0,0-1.22.416,2.624,2.624,0,0,0-.9,1.785,8.387,8.387,0,0,0-.192,1.435c-0.016.371,0.21,0.423,0.592,0.536a7.309,7.309,0,0,0,8.8,0C312.779,357.408,313,357.356,312.989,356.985Z" transform="translate(-295 -348)"/></svg>
-                                                </i>
-                                                <p>
-                                                    Перевод еТокенов Андрею Савчину
-                                                </p>
-                                            </td>
-                                            <td class="summ">
-                                                1600,00 еТокенов
-                                            </td>
-                                            <td class="table-date">
-                                                19/06/2017
-                                            </td>
-                                            <td>
-                                                Pay-card
-                                            </td>
-                                            <td class="status payed">
-                                                <i class="fa fa-check" aria-hidden="true"></i>
-                                                Оплачено
-                                            </td>
-                                        </tr>
-
-                                        <tr>
-                                            <td class="t-title">
-                                                <i class="icon">
-                                                    <svg xmlns="https://www.w3.org/2000/svg" width="17.969" height="15" viewBox="0 0 17.969 15"><metadata><?xpacket begin="﻿" id="W5M0MpCehiHzreSzNTczkc9d"?><x:xmpmeta xmlns:x="adobe:ns:meta/" x:xmptk="Adobe XMP Core 5.6-c138 79.159824, 2016/09/14-01:09:01        "><rdf:RDF xmlns:rdf="https://www.w3.org/1999/02/22-rdf-syntax-ns#"><rdf:Description rdf:about=""/></rdf:RDF></x:xmpmeta><?xpacket end="w"?></metadata><defs><style>.cls-1 {fill-rule: evenodd;}</style></defs><path id="Forma_1" data-name="Forma 1" class="cls-1" d="M310.614,464.839H300.122a0.4,0.4,0,0,0-.434.547l1.659,4.507a0.717,0.717,0,0,0,.646.44h6.879a0.713,0.713,0,0,0,.645-0.44l1.447-4.613A0.326,0.326,0,0,0,310.614,464.839Zm-9.543,9.231a1.459,1.459,0,1,1-1.569,1.455A1.516,1.516,0,0,1,301.071,474.07Zm6.641,0.019a1.459,1.459,0,1,1-1.569,1.454A1.515,1.515,0,0,1,307.712,474.089Zm1.885-2.275h-9.179l-3.675-9.8h-2.861a0.826,0.826,0,1,0,0,1.647h1.6l3.675,9.8H309.6A0.826,0.826,0,1,0,309.6,471.814Z" transform="translate(-293 -462)"/></svg>
-                                                </i>
-                                                <p>
-                                                    Оплата за квиток Квартал 95
-                                                </p>
-                                            </td>
-                                            <td class="summ">
-                                                350,00 еТокенов
-                                            </td>
-                                            <td class="table-date">
-                                                19/06/2017
-                                            </td>
-                                            <td>
-                                                Pay-card
-                                            </td>
-                                            <td class="status cancel">
-                                                <i class="fa fa-times" aria-hidden="true"></i>
-                                                Отмена
-                                            </td>
-                                        </tr>
 
                                         </tbody>
                                     </table>
@@ -1566,77 +1578,6 @@
                                         </tr>
                                         </thead>
                                         <tbody >
-                                        <tr>
-                                            <td class="t-title">
-                                                <i class="icon">
-                                                    <svg xmlns="https://www.w3.org/2000/svg" width="17.969" height="15" viewBox="0 0 17.969 15"><metadata><?xpacket begin="﻿" id="W5M0MpCehiHzreSzNTczkc9d"?><x:xmpmeta xmlns:x="adobe:ns:meta/" x:xmptk="Adobe XMP Core 5.6-c138 79.159824, 2016/09/14-01:09:01        "><rdf:RDF xmlns:rdf="https://www.w3.org/1999/02/22-rdf-syntax-ns#"><rdf:Description rdf:about=""/></rdf:RDF></x:xmpmeta><?xpacket end="w"?></metadata><defs><style>.cls-1 {fill-rule: evenodd;}</style></defs><path id="Forma_1" data-name="Forma 1" class="cls-1" d="M310.614,464.839H300.122a0.4,0.4,0,0,0-.434.547l1.659,4.507a0.717,0.717,0,0,0,.646.44h6.879a0.713,0.713,0,0,0,.645-0.44l1.447-4.613A0.326,0.326,0,0,0,310.614,464.839Zm-9.543,9.231a1.459,1.459,0,1,1-1.569,1.455A1.516,1.516,0,0,1,301.071,474.07Zm6.641,0.019a1.459,1.459,0,1,1-1.569,1.454A1.515,1.515,0,0,1,307.712,474.089Zm1.885-2.275h-9.179l-3.675-9.8h-2.861a0.826,0.826,0,1,0,0,1.647h1.6l3.675,9.8H309.6A0.826,0.826,0,1,0,309.6,471.814Z" transform="translate(-293 -462)"/></svg>
-                                                </i>
-                                                <p>
-                                                    Оплата за квиток Квартал 95
-                                                </p>
-                                            </td>
-                                            <td class="summ">
-                                                700,00 еТокенов
-                                            </td>
-                                            <td class="table-date">
-                                                19/06/2017
-                                            </td>
-                                            <td>
-                                                Pay-card
-                                            </td>
-                                            <td class="status payed">
-                                                <i class="fa fa-check" aria-hidden="true"></i>
-                                                Оплачено
-                                            </td>
-                                        </tr>
-
-                                        <tr>
-                                            <td class="t-title">
-                                                <i class="icon">
-                                                    <svg xmlns="https://www.w3.org/2000/svg" width="18" height="11" viewBox="0 0 18 11"><metadata><?xpacket begin="﻿" id="W5M0MpCehiHzreSzNTczkc9d"?><x:xmpmeta xmlns:x="adobe:ns:meta/" x:xmptk="Adobe XMP Core 5.6-c138 79.159824, 2016/09/14-01:09:01        "><rdf:RDF xmlns:rdf="https://www.w3.org/1999/02/22-rdf-syntax-ns#"><rdf:Description rdf:about=""/></rdf:RDF></x:xmpmeta><?xpacket end="w"?></metadata><defs><style>.cls-1 {fill-rule: evenodd;}</style></defs><path id="Shape_1_copy_5" data-name="Shape 1 copy 5" class="cls-1" d="M299.2,349l-0.251,2.866h-3.477a0.465,0.465,0,0,0-.339.141,0.454,0.454,0,0,0-.143.333v2.575a0.454,0.454,0,0,0,.143.333,2.49,2.49,0,0,0,.339-0.387h3.477l0.251,3.13,4.806-4.5ZM308,353.4c1.846,0,2.51-1.506,2.684-2.743,0.215-1.524-.67-2.671-2.684-2.671s-2.9,1.147-2.683,2.671C305.486,351.893,306.149,353.4,308,353.4Zm4.994,3.586a8.387,8.387,0,0,0-.192-1.435,2.624,2.624,0,0,0-.9-1.785,5.658,5.658,0,0,0-1.22-.416c-0.2-.064-0.375-0.127-0.541-0.2a3.392,3.392,0,0,1-4.287,0c-0.167.071-.344,0.134-0.541,0.2a5.64,5.64,0,0,0-1.22.416,2.624,2.624,0,0,0-.9,1.785,8.387,8.387,0,0,0-.192,1.435c-0.016.371,0.21,0.423,0.592,0.536a7.309,7.309,0,0,0,8.8,0C312.779,357.408,313,357.356,312.989,356.985Z" transform="translate(-295 -348)"/></svg>
-                                                </i>
-                                                <p>
-                                                    Перевод еТокенов Андрею Савчину
-                                                </p>
-                                            </td>
-                                            <td class="summ">
-                                                1600,00 еТокенов
-                                            </td>
-                                            <td class="table-date">
-                                                19/06/2017
-                                            </td>
-                                            <td>
-                                                Pay-card
-                                            </td>
-                                            <td class="status payed">
-                                                <i class="fa fa-check" aria-hidden="true"></i>
-                                                Оплачено
-                                            </td>
-                                        </tr>
-
-                                        <tr>
-                                            <td class="t-title">
-                                                <i class="icon">
-                                                    <svg xmlns="https://www.w3.org/2000/svg" width="17.969" height="15" viewBox="0 0 17.969 15"><metadata><?xpacket begin="﻿" id="W5M0MpCehiHzreSzNTczkc9d"?><x:xmpmeta xmlns:x="adobe:ns:meta/" x:xmptk="Adobe XMP Core 5.6-c138 79.159824, 2016/09/14-01:09:01        "><rdf:RDF xmlns:rdf="https://www.w3.org/1999/02/22-rdf-syntax-ns#"><rdf:Description rdf:about=""/></rdf:RDF></x:xmpmeta><?xpacket end="w"?></metadata><defs><style>.cls-1 {fill-rule: evenodd;}</style></defs><path id="Forma_1" data-name="Forma 1" class="cls-1" d="M310.614,464.839H300.122a0.4,0.4,0,0,0-.434.547l1.659,4.507a0.717,0.717,0,0,0,.646.44h6.879a0.713,0.713,0,0,0,.645-0.44l1.447-4.613A0.326,0.326,0,0,0,310.614,464.839Zm-9.543,9.231a1.459,1.459,0,1,1-1.569,1.455A1.516,1.516,0,0,1,301.071,474.07Zm6.641,0.019a1.459,1.459,0,1,1-1.569,1.454A1.515,1.515,0,0,1,307.712,474.089Zm1.885-2.275h-9.179l-3.675-9.8h-2.861a0.826,0.826,0,1,0,0,1.647h1.6l3.675,9.8H309.6A0.826,0.826,0,1,0,309.6,471.814Z" transform="translate(-293 -462)"/></svg>
-                                                </i>
-                                                <p>
-                                                    Оплата за квиток Квартал 95
-                                                </p>
-                                            </td>
-                                            <td class="summ">
-                                                350,00 еТокенов
-                                            </td>
-                                            <td class="table-date">
-                                                19/06/2017
-                                            </td>
-                                            <td>
-                                                Pay-card
-                                            </td>
-                                            <td class="status cancel">
-                                                <i class="fa fa-times" aria-hidden="true"></i>
-                                                Отмена
-                                            </td>
-                                        </tr>
 
                                         </tbody>
                                     </table>

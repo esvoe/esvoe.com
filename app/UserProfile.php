@@ -24,6 +24,15 @@ class UserProfile extends Model
     }
 
     public function toArray() {
-        return parent::toArray();
+        $array= parent::toArray();
+
+        $avatar = empty($this->avatar)
+            ? 'default-' . $this->gender . '-avatar.png'
+            : $this->avatar;
+
+        $array['avatar'] = url('user/avatar/' . $avatar);
+
+        return $array;
     }
+
 }

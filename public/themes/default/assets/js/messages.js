@@ -3,6 +3,7 @@ var vue = new Vue({
     data: {
         conversations: [],
         searchConversion:{},
+        showMessages:false,
         group:{
             name:'',
             edit:false,
@@ -37,6 +38,29 @@ var vue = new Vue({
             }
         });
 
+        notifications.$on('read', function (event) {
+            var conversationIndex = _.findIndex(vm.conversations.data, ['id', event.params.threadId]);
+            var countMes=event.counters.unreadedMessagesCount;
+            if(event.params.threadId==vm.currentConversation.id){
+
+                var messAll=vm.currentConversation.conversationMessages.data;
+                var pardata=event.params.readedMessageIds;
+                for (var i = 0; i < event.params.readedMessageIds.length; ++i) {
+                    var index=_.findIndex(messAll, ['id', event.params.readedMessageIds[i].id]);
+                    if(index===-1){
+                        console.error('not found index');
+                        return false;
+                    }
+                    Vue.set(messAll[index], 'read_participants', true);
+                    Vue.set(messAll[index], 'read_at', pardata[i].read_at);
+                    console.log(index);
+                }
+            }
+            vm.conversations.data[conversationIndex].unreadedMessagesCount=countMes;
+
+        });
+
+
         notifications.$on('deleteMessage', function (event) {
 
             var conversationIndex = _.findIndex(vm.conversations.data, ['id', event.params.threadId]);
@@ -55,6 +79,7 @@ var vue = new Vue({
 
         notifications.$on('message', function (event) {
             if(event.action=='newMessage'){
+                console.log(0);
                 var conversationIndex = _.findIndex(vm.conversations.data, ['id', event.params.threadId]);
                 var countMes=event.counters.unreadedMessagesCount;
                 var conversation = _.pullAt(vm.conversations.data, conversationIndex)[0];
@@ -65,19 +90,17 @@ var vue = new Vue({
                 }
 
                 if(event.message.thread_id==vm.currentConversation.id){
-
                     vm.currentConversation.conversationMessages.data.push(event.message);
                     vm.currentConversation.text=event.message.body;
                     vm.conversations.data.unshift(conversation);
 
                     setTimeout(function(){
-                        //timeagoLng.timeSet("time.microtime");
                         vm.autoScroll('.coversations-thread');
                     },100)
 
                 }else{
-                    vm.conversations.data[conversationIndex].unreadedMessagesCount=countMes;
                     vm.conversations.data.unshift(conversation);
+                    vm.conversations.data[conversationIndex].unreadedMessagesCount=countMes;
                 }
             }
         });
@@ -231,17 +254,9 @@ var vue = new Vue({
 
                         this.changetime(this.currentConversation.conversationMessages.data);
                         this.afterRedirect();
+                        this.statusRead('showConversation');
+                        //$('.coversations-thread').animate({scrollTop: $('.coversations-thread')[0].scrollHeight + 600 }, 2000);
 
-
-
-                        vm = this;
-                        setTimeout(function(){
-                            vm.autoScroll('.coversations-thread');
-                        },100);
-
-                        if(this.statusRead(dataConversion,dataConversion.conversationMessages.data[0])){
-                            this.getMoreConversationMessages();
-                        };
                     });
                 }
                 else{
@@ -328,10 +343,51 @@ var vue = new Vue({
                 });
             }
         },
-        statusRead:function(currentConversation,message){
-            var lastRead= currentConversation.participants.last_read;
-            var createMes=message.created_at;
-            return (new Date(lastRead).getTime()>=new Date(createMes).getTime())?false:true;
+        setScroll:function(){
+            this.showMessages=true;
+            var vm=this;
+            setTimeout(function(){
+                var el=$(".wrap-other-mess-user .noReadParticipants:first").parents('.wrap-block-mess');
+                if(el.length>0){
+                    var heightEl=el.height();
+                    var offsetTop=el[0].offsetTop;
+                    $('.coversations-thread').animate({scrollTop: offsetTop-heightEl},function(){
+                        vm.elementsOfVision();
+                    });
+                }
+                else{
+                    //$('.coversations-thread').animate({scrollTop: $('.coversations-thread')[0].scrollHeight + 600 }, 2000);
+                }
+            },10);
+
+        },
+        statusRead:function(){
+            var moreCon=false;
+            var conMes=this.currentConversation.conversationMessages;
+
+            if(conMes.current_page == conMes.last_page){
+                this.showMessages=true;
+            }
+
+            for (var i = 0; i < conMes.data.length; ++i) {
+                moreCon=false;
+                var item = conMes.data[i];
+
+                if(item['read_participants'] !== undefined && !this.showMessages ){
+
+                    moreCon=(!item['read_participants'])?true:false;
+                    break;
+                }
+            }
+
+            if(moreCon){
+                this.getMoreConversationMessages();
+            }
+            else {
+                this.setScroll();
+            }
+
+
         },
         autoScroll : function(element) {
             $(element).animate({scrollTop: $(element)[0].scrollHeight + 600 }, 2000);
@@ -342,26 +398,40 @@ var vue = new Vue({
             },2000);
         },
         elementsOfVision:function(findEl,parentEl){
+            
+            clearTimeout(this.timerId);
+            var vm=this;
+            this.timerId = setTimeout(function() {
 
-            var parentEl = parentEl || '.coversations-thread';
-            var findEl = findEl || '.wrap-other-mess-user';
+                var parentEl = parentEl || '.coversations-thread';
+                var findEl = findEl || ".wrap-other-mess-user .noReadParticipants:first";
 
-            var scrollTop = $(parentEl).scrollTop();
-            var windowHeight = $(parentEl).height();
-            var currentEls = $(findEl);
-            var result = [];
-            currentEls.each(function(){
-                var el = $(this);
-                var offset = el.offset();
-                var offsetTop = el[0].offsetTop;
+                var scrollTop = $(parentEl).scrollTop();
+                var windowHeight = $(parentEl).height();
+                var currentEls = $(".wrap-other-mess-user .noReadParticipants").parents('.wrap-other-mess-user');
+                var result = [];
 
-                if(scrollTop <= offsetTop && ( offsetTop) < (scrollTop + windowHeight)){
-                    result.push(this);
-                }
+                currentEls.each(function(){
+                    var el = $(this);
+                    var offset = el.offset();
+                    var offsetTop = el[0].offsetTop;
+                    if(scrollTop <= offsetTop && ( offsetTop) < (scrollTop + windowHeight)){
+                        result.push($(this).attr('id'));
+                    }
+                });
 
-            });
 
-            console.log($(result));
+                if(result.length==0) return false;
+
+                vm.$http.post(base_url + 'ajax/messenger/read-status/'+vm.currentConversation.id,{messages:result}).then( function(response) {
+
+                });
+            }, 1000);
+
+
+
+
+
         },
         switchLoader:function(type,event){
             switch (type) {
@@ -393,12 +463,12 @@ var vue = new Vue({
 
             if (elem.scrollTop() > this.lastScrollTop){
                 //'scroll down'
+                this.elementsOfVision();
                 if(elem.data('type')=="threads")
                 {
                     if (elem[0].scrollHeight - elem.scrollTop() == elem.outerHeight()){
                         this.getMoreConversations();
                     }
-
                 }
             } else {
                 //'scroll up'
@@ -410,16 +480,18 @@ var vue = new Vue({
 
         },
         getMoreConversationMessages : function() {
-            if(this.loadThread || this.newConversation)return false;
+            /*if(this.loadThread || this.newConversation) return false;*/
+
             if(this.currentConversation.conversationMessages.data.length < this.currentConversation.conversationMessages.total)
             {
-
                 this.loadThread=true;
                 this.switchLoader('Thread','set');
 
                 this.$http.post(this.currentConversation.conversationMessages.next_page_url).then( function(response) {
                     var latestConversations = JSON.parse(response.body);
 
+
+                    this.currentConversation.conversationMessages.current_page =  latestConversations.conversationMessages.current_page;
 
                     this.currentConversation.conversationMessages.last_page =  latestConversations.conversationMessages.last_page;
                     this.currentConversation.conversationMessages.next_page_url =  latestConversations.conversationMessages.next_page_url;
@@ -428,20 +500,12 @@ var vue = new Vue({
 
                     this.switchLoader('Thread','remove');
                     var vm = this;
-
-
-
                     $.each(latestConversations.conversationMessages.data, function(i, latestConversation) {
                         vm.currentConversation.conversationMessages.data.unshift(latestConversation);
                     });
 
                     this.changetime();
-
-
-                    setTimeout(function(){
-                        $('.coversations-thread').animate({scrollTop: 40});
-                        /*timeagoLng.timeSet("time.microtime");*/
-                    },10);
+                    this.statusRead();
 
                     this.loadThread=false;
                 });
@@ -659,7 +723,7 @@ var vue = new Vue({
             this.$http.post(base_url + 'ajax/delete-message/' + mes.id).then( function(response) {
                 if(response.status)
                 {
-                    //console.log(response);
+
                 }
             });
 

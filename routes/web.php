@@ -87,6 +87,9 @@ Route::get('account/linkedin', 'Auth\RegisterController@linkedin');
 //sign in esvoe
 Route::get('/login_svoe', 'PageController@login_svoe');
 
+//page photo
+Route::get('/photo', 'PageController@pagePhoto');
+
 // Login
 Route::get('/login', 'Auth\LoginController@getLogin');
 Route::post('/login', 'Auth\LoginController@login');
@@ -213,6 +216,16 @@ Route::group(['prefix' => '/admin', 'middleware' => ['auth', 'role:admin']], fun
 | Games routes
 |--------------------------------------------------------------------------
 */
+
+Route::group(['prefix'=>'api/v1/apps', 'middleware'=>['cors'], 'namespace'=>'Applications', 'as'=>'applications.api'], function() {
+    Route::post('call.me', array('uses'=>'ApplicationAPIController@simple', 'as'=>'.simple'));
+    Route::post('internal', array('uses'=>'ApplicationAPIController@internal', 'as'=>'.internal'));
+    Route::match(['get', 'post'], '{group}/{method}', array('uses'=>'ApplicationAPIController@router', 'as'=>'.router'));
+});
+
+Route::group(['prefix'=>'application', 'middleware'=>['auth'], 'namespace'=>'Applications', 'as'=>'application'], function(){
+    Route::get('sample/{id}', array('uses'=>'ApplicationSampleController@index', 'as'=>'.sample'));
+});
 
 Route::group(['prefix'=>'apps', 'middleware'=>['auth'], 'namespace'=>'Applications', 'as'=>'applications.'], function() {
     Route::get('', array('uses'=>'CatalogController@index', 'as'=>'catalog.index'));
@@ -400,6 +413,7 @@ Route::group(['prefix' => '/{username}', 'middleware' => 'auth'], function ($use
     Route::get('/event-posts', 'TimelineController@getEventPosts');
     Route::get('/invite-guests', 'UserController@guestList');
     Route::get('/eventguests', 'TimelineController@displayGuests');
+    Route::post('/album/upload', 'TimelineController@saveImage')->name('user.album.upload');
     Route::get('/add-eventmembers', 'UserController@getEventGuests');
 
     Route::get('/audio-recordings', 'MusicController@audioRecording');
@@ -619,6 +633,7 @@ Route::group(['prefix' => 'ajax', 'middleware' => ['auth']], function () {
     });
     Route::get('get-threads', 'MessageController@getThreads');
     Route::get('messenger/filter', 'MessageController@filter');
+    Route::post('messenger/read-status/{id}', 'MessageController@readStatusMessage');
     Route::post('mark-readed-message', 'MessageController@markReadMessage');
     Route::post('thread/create-dialog', 'MessageController@createDialog');
     Route::post('thread/create-group', 'MessageController@createGroup');
@@ -627,6 +642,10 @@ Route::group(['prefix' => 'ajax', 'middleware' => ['auth']], function () {
     Route::post('thread/rename-group/{id}', 'MessageController@renameGroup');
     Route::get('get-unread-threads', 'MessageController@getUnreadThreads');
     Route::get('get-contacts', 'MessageController@getContacts');
+
+    Route::post('payment/transfer-to-another-user-by-id', 'PaymentController@transferToAnotherUserById');
+    Route::post('payment/confirm-transfer-to-another-user-by-id', 'PaymentController@confirmTransferToAnotherUserById');
+    Route::post('get-banners', 'AdvertisingController@getBanners');
 });
 
 

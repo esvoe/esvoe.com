@@ -86,10 +86,11 @@ class PaymentController extends AppBaseController
         Log::useDailyFiles(storage_path().'/logs/payment.log');
         $theme = Theme::uses(Setting::get('current_theme', 'default'))->layout('ajax');
 
-        $toUser = \App\Timeline::where('username', $request->input('to_user_id'));
-        if (!$toUser){
+        $toTimeline = \App\Timeline::where('username', $request->input('to_user_id'))->first();
+        if (!$toTimeline){
             return response()->json(['status' => '201', 'message' => 'User not found']);
         }
+
 
         $headers = ['Referer' => $request->url()];
         $client = new \GuzzleHttp\Client(['headers' => $headers]);
@@ -97,7 +98,7 @@ class PaymentController extends AppBaseController
         $data = [
             'order_nr' => time(),
             'from_pay_id' => Auth::user()->wallet->pay_id,
-            'to_pay_id' => Auth::user()->wallet->pay_id,
+            'to_pay_id' => $toTimeline->user->wallet->pay_id,
             'amount' => intval($request->input('sum')*100),
             'from_currency' => $request->input('currency'),
             'to_currency' => $request->input('currency'),
@@ -153,7 +154,7 @@ class PaymentController extends AppBaseController
         if($responseBody['status'] != '1')
             return response()->json(['status' => '201', 'message' => 'Error: status = 0']);
 
-        return response()->json(['status' => '200', 'message'=>'Перевод успешно завершен']);
+        return response()->json(['status' => '200', 'message'=>'РџРµСЂРµРІРѕРґ СѓСЃРїРµС€РЅРѕ Р·Р°РІРµСЂС€РµРЅ']);
     }
 
     public function fillingFields()

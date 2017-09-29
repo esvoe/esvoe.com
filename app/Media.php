@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Traits\Image;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
 
@@ -10,14 +11,15 @@ use Illuminate\Support\Facades\Storage;
 class Media extends Model
 {
     //use SoftDeletes;
+    use Image;
 
     // *
     //  * The attributes that should be mutated to dates.
     //  *
     //  * @var array
-     
+
     // protected $dates = ['deleted_at'];
-    
+
     protected $table = 'media';
 
     protected $fillable = ['title', 'type', 'source'];
@@ -49,7 +51,9 @@ class Media extends Model
 
     public function albumStore(string $username)
     {
-        if ($this->type !== 'image') return storage_path() . $this->source;
+        if ($this->type !== 'image') {
+            return storage_path() . $this->source;
+        }
 
         Storage::disk('albums')->makeDirectory(
             $username
@@ -59,8 +63,12 @@ class Media extends Model
         return Storage::disk('albums')->path($username . '/' . $this->source);
     }
 
-    public function albumUrl(string $username)
+    public function albumUrl(string $username, $width = false, $height = false)
     {
+        if ($width or $height) {
+            return $this->image($width, $height, 'albums', $username . '/' . $this->source);
+        }
+
         return Storage::disk('albums')->url($username . '/' . $this->source);
     }
 }

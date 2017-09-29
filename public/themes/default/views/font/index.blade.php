@@ -340,6 +340,14 @@
           <div class="svoe-icon svoe-2x icon-m-vidkryt"></div>
           <input type="text" readonly="readonly" value="m-vidkryt">
         </li>
+        <li>
+            <div class="svoe-icon svoe-2x icon-photo-last-friend"></div>
+            <input type="text" readonly="readonly" value="photo-last-friend">
+        </li>
+        <li>
+            <div class="svoe-icon svoe-2x icon-photo-favourite"></div>
+            <input type="text" readonly="readonly" value="photo-favourite">
+        </li>
     </ul>
 </div>
 <script>(function() {

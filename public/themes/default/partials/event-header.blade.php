@@ -117,8 +117,22 @@
                                 </ul>                                
                             </div>
 
-                            <a href="#" class="btn-profheader">
+                            <a href="#" class="btn-profheader" id="bay_ticket_button">
                                 <i class="icon-kvytky svoe-icon"></i>{{ trans('common.buy_ticket') }}
+                                <form id="bay_ticket_form" method="post" action="https://e-tickets.esvoe.com/event/test/order">
+                                    <input type="hidden" name="name" value="<?=Auth::user()->getNameAttribute('')?>">
+                                    <input type="hidden" name="birthday" value="<?=Auth::user()->getBirthdayAttribute('')?>">
+                                    <input type="hidden" name="email" value="<?=Auth::user()->email?>">
+                                    <input type="hidden" name="phone" value="">
+                                    <input type="hidden" name="event_link" value="<?=$event->eticket_event_id?>">
+                                    <input type="hidden" name="cancel_redirect" value="https://sand.esvoe.com/">
+                                    <input type="hidden" name="success_redirect" value="https://sand.esvoe.com/">
+                                    <input type="hidden" name="result_url" value="https://sand.esvoe.com/">
+                                    <input type="hidden" name="buy_access" value="true">
+                                    <input type="hidden" name="pay_id" value="<?=Auth::user()->wallet->pay_id?>">
+                                    <input type="hidden" name="userId" value="<?=Auth::user()->id?>">
+                                    <input type="hidden" name="img" value="{{ Auth::user()->avatar }}">
+                                </form>
                             </a>
                         </div> 
 

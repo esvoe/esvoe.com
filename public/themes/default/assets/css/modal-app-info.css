@@ -221,3 +221,55 @@
 .modal-app-info .close-modal-game i{
     color: #afc0cf;
 }
+
+
+/*.single-game-container*/
+
+.block-play-thumb {
+    display: block;
+    float: left;
+    width: 80px;
+    margin: 0 25px 0 0;
+}
+
+.block-play-thumb img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+.single-game-container .modal-app-info .wrap-modal-game {
+    padding: 0 20px 20px 20px;
+}
+
+.single-game-container .modal-app-info .wrap-own-modal-game > h3 {
+    margin-top: 20px;
+
+}
+
+.single-game-container .modal-app-info .modal-game-desc {
+    padding-top: 0;
+}
+
+.single-game-container .modal-app-info .block-play-rating-game .rating > div {
+    float: left;
+}
+
+.single-game-container .modal-app-info .gallery-modal-game li img {
+    height: auto;
+    max-width: 100%;
+    display: block;
+    margin: 0 auto;
+}
+
+.single-game-container .modal-app-info .gallery-modal-game .lSSlideOuter .lSPager.lSGallery {
+    height: auto;
+}
+
+.single-game-container .modal-app-info .gallery-modal-game .lSSlideOuter .lSPager.lSGallery li {
+    height: auto;
+    vertical-align: middle;
+    display: inline-block;
+    float: none;
+    text-align: center;
+}

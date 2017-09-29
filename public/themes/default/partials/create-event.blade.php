@@ -1,4 +1,4 @@
-<!-- <div class="main-content"> -->	
+<!-- <div class="main-content"> -->
 <div class="panel panel-default">
 	<div class="panel-heading no-bg panel-settings">
 		@if($group_id != null)
@@ -95,10 +95,20 @@
 					</div>
 				</fieldset>
 
+				<fieldset class="form-group required {{ $errors->has('eticket_event_id') ? ' has-error' : '' }}">
+					{{ Form::label('eticket_event_id', trans('auth.eticket_event_id'), ['class' => 'control-label']) }}
+					{{ Form::text('eticket_event_id', old('eticket_event_id'), ['class' => 'form-control', 'placeholder' => trans('common.eticket_event_id_title')]) }}
+					@if ($errors->has('eticket_event_id'))
+					<span class="help-block">
+						{{ $errors->first('eticket_event_id') }}
+					</span>
+					@endif
+				</fieldset>
+
 				<fieldset class="form-group">
 					{{ Form::label('about', trans('common.about'), ['class' => 'control-label']) }}							
 					{{ Form::textarea('about', old('about'), ['class' => 'form-control','placeholder' => trans('common.about')]) }}									
-				</fieldset>						
+				</fieldset>
 
 				{!! Form::hidden('group_id', $group_id) !!}		
 

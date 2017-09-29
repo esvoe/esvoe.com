@@ -14,9 +14,11 @@ class VerifyCsrfToken extends BaseVerifier
     protected $except = [
         'ajax/*',
         'api/v1/*',
+        'api/v2/*',
         'wallet/create/*',
         'wallet/update/*',
         '/exchange',
         '/payment/result',
+        'get-banners-test',
     ];
 }

@@ -13,7 +13,7 @@ class ApplicationUser extends Model
 
     use SoftDeletes;
 
-    protected $dates = ['deleted_at'];
+    protected $dates = ['deleted_at', 'auth_token_expire', 'session_token_expire'];
 
     protected $table = 'app_users';
 

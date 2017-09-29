@@ -24,7 +24,7 @@ class Event extends Model
    *
    * @var array
    */
-    protected $fillable = ['timeline_id', 'type', 'user_id', 'start_date', 'end_date', 'active', 'invite_privacy', 'timeline_post_privacy','location','group_id'];
+    protected $fillable = ['timeline_id', 'type', 'user_id', 'start_date', 'end_date', 'active', 'invite_privacy', 'timeline_post_privacy','location','group_id','eticket_event_id'];
 
     public function timeline()
     {

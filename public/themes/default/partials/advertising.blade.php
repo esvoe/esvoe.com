@@ -47,14 +47,20 @@
 
         <div class="wrap-commertion">
             <h4>{{ trans('common.advertising') }}<a href="">{{ trans('common.create_advertising') }}</a></h4>
-            <img class="img-responsive" src="{!! Theme::asset()->url('images/reklama-1.jpg') !!}" alt="">
-            <a href="http://zaxidfest.com/">Західфест 2017</a>
-            <p>Восхождение на Килиманджаро (5895 м), Сафари и Занзибар</p>
-            <img class="img-responsive" src="{!! Theme::asset()->url('images/laptop.jpg') !!}" alt="">
-            <a href="http://rozetka.com.ua/ua/hp_z2z61es/p17966112/">HP 250 G5 (Z2Z61ES) Black</a>
-            <p>Ноутбук HP 250 G5 дає змогу завжди залишатися на зв'язку</p>
+            <div class="advertising-place">
+            </div>
+
+            {{--<img class="img-responsive" src="{!! Theme::asset()->url('images/reklama-1.jpg') !!}" alt="">--}}
+            {{--<a href="http://zaxidfest.com/">Західфест 2017</a>--}}
+            {{--<p>Восхождение на Килиманджаро (5895 м), Сафари и Занзибар</p>--}}
+            {{--<img class="img-responsive" src="{!! Theme::asset()->url('images/laptop.jpg') !!}" alt="">--}}
+            {{--<a href="http://rozetka.com.ua/ua/hp_z2z61es/p17966112/">HP 250 G5 (Z2Z61ES) Black</a>--}}
+            {{--<p>Ноутбук HP 250 G5 дає змогу завжди залишатися на зв'язку</p>--}}
         </div>
 
 
     </div>
 </div>
+<script>
+    loadBannersOnMainPage(2, 300, 250);
+</script>

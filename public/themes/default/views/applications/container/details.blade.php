@@ -18,97 +18,128 @@
         <div class="col-lg-9 col-wallet">
 
             <div class="single-game-container">
-                <div class="game-head">
-                    <div class="row" style="margin: 0 -5px">
-                        <div class="col-xs-12 col-sm-8 col-md-6" style="padding:0 5px">
-                            <span class="">{{$application->name}}</span>
-                            <div class="rating">
-                                <span>3,7</span>
-                                <div class="stars stars-example-bootstrap">
-                                    <div class="br-wrapper br-theme-bootstrap-stars">
-                                        <select  name="rating" class="rating-block" autocomplete="off" style="display: none;">
-                                            <option value="1">1</option>
-                                            <option value="2">2</option>
-                                            <option value="3">3</option>
-                                            <option value="4">4</option>
-                                            <option value="5">5</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <span class="voted hidden-xs hidden-sm">(960)</span>
-                            </div>
-                        </div>
-                        <div class="col-xs-12 col-sm-4 col-md-6 " style="padding:0 5px">
-                            <div class="balance">
-                                Баланс:
-                                <span>
-                            0.00
-                        </span>
-                                $
-                                <a href="#">
-                                    <img src="{!! Theme::asset()->url('images/modal-full-screen.png') !!}" alt="full-screen">
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
 
                 <div class="panel panel-default">
-                    Permissions
-                @if (is_array($permissions))
-                    @foreach($permissions as $permission)
-                        <span class="rules-modal-game"><i style="left: 4px;" class="icon-informaciya  svoe-icon"></i>{{trans('application.permission.'.$permission)}}</span>
-                    @endforeach
-                @endif
-            </div>
 
-                <div class="gallery-modal-game">
-                    @if ($screenshots)
+                    <div class="modal-app-info">
+                        <div class="wrap-modal-game">
 
-                        <ul id="image-gallery-modal" class="gallery list-unstyled cS-hidden">
-                            @foreach($screenshots as $screenshot)
-                                <li style="background-image: url('{{static_uploads($screenshot->path)}}')" data-thumb="{{static_uploads($screenshot->path)}}"></li>
-                            @endforeach
-                        </ul>
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <div class="wrap-own-modal-game">
 
-                    @endif
-                </div>
+                                        <div class="block-play-thumb">
+                                            <img src="{{static_uploads($application->image_main)}}" />
+                                        </div>
 
-                <div class="game-body">
-                    <h2>{{$application->title}}</h2>
-                    <img src="{{static_uploads($application->image_main)}}" />
+                                        <h3>{{$application->title}}</h3>
+                                        <p>{{$application->category->title}}</p>
+                                        <span>{{$application->count_users}} Учасників</span>
 
-                    <div>
-                        <pre>
-                            {{$application->description}}
-                        </pre>
+                                        <div class="block-play-rating-game">
+                                            <div class="rating">
+                                                <div >
+                                                    <span class="rating-counter">
+                                                        @if($application->rate != 0)
+                                                            {{$application->rate}}
+                                                        @else
+                                                            {{0}}
+                                                        @endif
+                                                    </span>
+                                                </div>
+                                                <div class="stars stars-example-bootstrap">
+                                                    <div class="br-wrapper br-theme-bootstrap-stars">
+                                                        <select  name="rating" class="rating-block" autocomplete="off" style="display: none;">
+                                                            <option value="1-20">1</option>
+                                                            <option value="2-20">2</option>
+                                                            <option value="3-20" selected>3</option>
+                                                            <option value="4-20">4</option>
+                                                            <option value="5-20" >5</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            {!! Form::open([
+                                                'route' => array('applications.container.authorize', $application->id),
+                                                'method' => 'post',
+                                            ]) !!}
+                                            {!! Form::hidden('check', $link_hash) !!}
+
+                                            {!! Form::button('<i class="icon-igry svoe-lg svoe-icon"></i> Играть', ['type' => 'submit','class' => 'btn-play-game-modal']) !!}
+
+                                            {!! Form::close() !!}
+
+                                        </div>
+
+                                    </div>                                    
+                                </div>
+                                <div class="col-xs-12">
+
+                                    <div class="modal-game-desc">
+                                        <div class="title-modal-game">
+                                            Описание Игры
+                                        </div>
+                                        <p class="desc-modal-game">
+                                            {{$application->description}}
+                                        </p>
+                                        <div class="line-modal-game"></div>
+                                        <div class="title-modal-game">
+                                            Правила доступа
+                                        </div>
+                                        @if (is_array($permissions))
+                                            @foreach($permissions as $permission)
+                                                <span class="rules-modal-game"><i style="left: 4px;" class="icon-informaciya  svoe-icon"></i>{{trans('application.permission.'.$permission)}}</span>
+                                            @endforeach
+                                        @endif
+
+                                        <div>Приложение получит доступ к [!статика!]:</div>
+                                        <div>
+                                            <ul>
+                                                <li>Публичные данные профиля</li>
+                                                <li>Email адрес</li>
+                                                <li>Номер телефона</li>
+                                                <li>Список друзей</li>
+                                                <li>Чтение стены</li>
+                                                <li>Добавление записи на стену</li>
+                                                <li>Отправка уведомлений</li>
+                                            </ul>
+                                        </div>
+
+
+                                        <div class="line-modal-game"></div>
+                                        <span class="accept-rules-game">Запускаючи гру Ви пооджуєтеся з <a href="">правилами</a> гри</span>
+                                        <div class="line-modal-game"></div>
+                                        <div class="title-modal-game">
+                                            Официальная страница
+                                        </div>
+                                        <div class="official-page-game">
+                                            <div class="photo-official-game" style="background-image: url({!! Theme::asset()->url('images/set3/cS-1.jpg') !!})"></div>
+                                            <h4><a href="">My summer car</a></h4>
+                                            <span>Відео гра</span>
+                                        </div>
+                                    </div>                                   
+
+                                    @if ($screenshots)
+                                        <div class="gallery-modal-game">
+                                            <ul id="image-gallery-view" class="gallery list-unstyled cS-hidden">
+                                                @foreach($screenshots as $screenshot)
+                                                    <li data-thumb="{{static_uploads($screenshot->path)}}">
+                                                        <img src="{{static_uploads($screenshot->path)}}" alt="" />
+                                                    </li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                    @endif                                            
+
+                                </div>
+                            </div>
+
+                        </div>
                     </div>
-                    <div>users: {{$application->count_users}}</div>
-                    <div>rating: {{$application->rate}}</div>
+                    
+                </div>  
 
-                    <div>Приложение получит доступ к:</div>
-                    <div>
-                        <ul>
-                            <li>Публичные данные профиля</li>
-                            <li>Email адрес</li>
-                            <li>Номер телефона</li>
-                            <li>Список друзей</li>
-                            <li>Чтение стены</li>
-                            <li>Добавление записи на стену</li>
-                            <li>Отправка уведомлений</li>
-                        </ul>
-                    </div>
-                    <div>
-                        {!! Form::open([
-                            'route' => array('applications.container.authorize', $application->id),
-                            'method' => 'post',
-                        ]) !!}
-                        {!! Form::hidden('check', $link_hash) !!}
-                        {!! Form::submit('Grant and play >', array('class'=>'btn btn-primary')) !!}
-
-                        {!! Form::close() !!}
-                    </div>
-                </div>
             </div>
             <div>
                 @if(Request::root() != Request::url())
@@ -147,11 +178,30 @@
     </div>
 </div>
 
+<!-- <link rel="stylesheet" href="{{Theme::asset()->url('css/fontawesome-stars-o.css')}}"> -->
 
 <script type="text/javascript">
     $(function() {
+
         $('.rating-block').barrating({
-            theme: 'fontawesome-stars'
+            /*theme: 'fontawesome-stars'*/
+            initialRating: Number( @if($application->rate != 0){{$application->rate}}@else{{0}}@endif ).toFixed(1),
         });
+        $('.rating-block').barrating('readonly', true);
+
+        $('#image-gallery-view').lightSlider({
+            gallery:true,
+            item:1,
+            thumbItem:5,
+            slideMargin: 0,
+            speed:500,
+            auto:false,
+            loop:true,
+            adaptiveHeight: true,
+            onSliderLoad: function() {
+                $('#image-gallery-view').removeClass('cS-hidden');
+            }
+        });
+
     });
 </script>
