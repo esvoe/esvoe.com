@@ -23,10 +23,7 @@ class Application extends Model
     protected $casts = [
         'is_active' => 'boolean',
         'is_visible' => 'boolean',
-        'auth_dispatch_changes' => 'boolean',
-        //'permissions' => 'array',
         'settings' => 'array',
-        //'rating' => 'array',
     ];
 
     public function category()

@@ -54,7 +54,6 @@ var vue = new Vue({
                     }
                     Vue.set(messAll[index], 'read_participants', true);
                     Vue.set(messAll[index], 'read_at', pardata[i].read_at);
-                    console.log(index);
                 }
             }
             vm.conversations.data[conversationIndex].unreadedMessagesCount=countMes;
@@ -80,7 +79,7 @@ var vue = new Vue({
 
         notifications.$on('message', function (event) {
             if(event.action=='newMessage'){
-                console.log(0);
+
                 var conversationIndex = _.findIndex(vm.conversations.data, ['id', event.params.threadId]);
                 var countMes=event.counters.unreadedMessagesCount;
                 var conversation = _.pullAt(vm.conversations.data, conversationIndex)[0];
@@ -134,7 +133,7 @@ var vue = new Vue({
                 localStorage.removeItem("settingMes")
             }
             else {
-                console.log(this.conversations.data);
+                
                 var index = _.findIndex(this.conversations.data, function(el){
                     return el.id==idLoc;
                 });
@@ -372,7 +371,6 @@ var vue = new Vue({
             var moreCon=false;
             var conMes=this.currentConversation.conversationMessages;
 
-            console.log(showConversation);
             if(conMes.current_page == conMes.last_page){
                 this.showMessages=true;
             }

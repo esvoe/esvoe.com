@@ -10,11 +10,13 @@ var leftSidebar = new Vue({
         var vm = this;
 
         notifications.$on('message', function (event) {
-            vm.unreadedThreadsCount = event.counters.unreadedThreadsCount;
+            /*vm.unreadedThreadsCount = event.counters.unreadedThreadsCount;*/
+            vm.unreadedThreadsCount = event.counters.unreadedMessagesCount;
         });
 
         notifications.$on('read', function (event) {
-            vm.unreadedThreadsCount = event.counters.unreadedThreadsCount;
+            /*vm.unreadedThreadsCount = event.counters.unreadedThreadsCount;*/
+            vm.unreadedThreadsCount = event.counters.unreadedMessagesCount;
         });
 
         notifications.$on('deleteMessage', function (event) {

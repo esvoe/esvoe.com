@@ -234,5 +234,7 @@ return array (
   'rename'=>'Rename',
   'create'=>'Create',
   'add'=>'Add',
-  'close'=>'Close'
+  'close'=>'Close',
+
+  'not_read'=>'not read',
 );

@@ -977,7 +977,6 @@ body.page-messages .container-grid {
 
 .wrap-own-user-mess .mess-dropdown .dropdown-toggle {
     width: 29px;
-
 }
 
 .mess-dropdown .dropdown-menu {
@@ -1150,6 +1149,10 @@ body.page-messages .container-grid {
     font-size: 14px;
     position: relative;
     top: 2px;
+}
+
+.wrap-other-mess-user .mess-status .svoe-icon {
+    margin: 0 9px 0 0;
 }
 
 .mess-status .icon-bachymo {

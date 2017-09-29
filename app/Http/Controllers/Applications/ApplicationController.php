@@ -80,15 +80,17 @@ class ApplicationController extends Controller
         // back compability
         $gameName = $application->name;
 
-        if ( ! $applicationUser->session_token || ! $applicationUser->session_token_expire || $applicationUser->session_token_expire->timestamp <= time()) {
+        if ( ! $applicationUser->api_session_key || ! $applicationUser->api_session_key_expire || $applicationUser->api_session_key_expire->timestamp <= time()) {
             // create new token
-            $applicationUser->session_token = sha1(random_bytes(20));
-            $applicationUser->session_token_expire = time() + 60 * 30; // 30 minutes
+
+            $applicationUser->api_session_key = sha1(random_bytes(20));
+            $applicationUser->api_session_key_expire = time() + (60 * 30); // 30 minutes
+
             $applicationUser->update();
         }
 
-        $session_key = $applicationUser->session_token;
-        $session_secret_key = sha1($applicationUser->id . $applicationUser->session_token . $application->id . $application->api_key . '_secret_');
+        $session_key = $applicationUser->api_session_key;
+        $session_secret_key = sha1($applicationUser->id . $applicationUser->api_session_key . $application->id . $application->api_signing_key . $application->api_private_key . '_secret_');
 
         $web_channel = 'ch_'.bin2hex(random_bytes(8));
 
@@ -104,6 +106,8 @@ class ApplicationController extends Controller
         );
 
         $iframe_url = $this->buildUrl($application->url_main, $params);
+
+        $api_session_key = $session_key;
 
 
         Theme::asset()->add('name', 'js/api_server.js?t='.time());
@@ -242,12 +246,12 @@ class ApplicationController extends Controller
             $userLink->update();
 
             $application->count_users = $application->count_users + 1;
-            if ($application->auth_dispatch_changes) {
+
                 // todo: send signed auth notification to API url
                 $application->dispatchSocialEvent('user.authorize', array(
                     'user_id' => $user->id,
                 ));
-            }
+
             $application->save();
         }
 

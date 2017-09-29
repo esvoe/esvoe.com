@@ -30,6 +30,11 @@ class AppServiceProvider extends ServiceProvider
             }
             return true;
         });
+
+        Validator::extend('not_std_route', function($attribute, $value, $parameters)
+        {
+            return !in_array(strtolower($value),config('std_routers'));
+        });
         
 
         if (env('APP_ENV', 'local') !== 'local') {

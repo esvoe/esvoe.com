@@ -309,3 +309,12 @@
 .icon-zaputannya:before {
     content: "\5b";
 }
+.icon-media:before {
+  content: "\5d";
+}
+.icon-kramnytsya:before {
+  content: "\5e";
+}
+.icon-web:before {
+  content: "\5f";
+}

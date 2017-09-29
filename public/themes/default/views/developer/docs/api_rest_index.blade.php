@@ -20,7 +20,7 @@
                         <div class="panel-body" style="padding: 20px;">
 
                             <!-- begin content -->
-                            <a href="https://rawgit.com/AmaranthLIS/d3d300f5117b7f14d17e5ff50b1a90da/raw/e1ec5704b5243426f730ac9878e2472e80a66ba9/rest-api-esvoe.html" target="_blank" >REST Api (External link)</a>
+                            <a href="https://rawgit.com/AmaranthLIS/d3d300f5117b7f14d17e5ff50b1a90da/raw/9a39c39e5aa78c152f49f6423e2942964378e343/rest-api-esvoe.html" target="_blank" >REST Api (External link)</a>
                             <br />
                             <a href="https://rawgit.com/AmaranthLIS/f299a4290707ac4287ad648f05bb7ec8/raw/7061f4bf08b1f28425a72a1f756a53f2b967356c/api-client-esvoe.html" target="_blank" >REST Api Callback (External link)</a>
 

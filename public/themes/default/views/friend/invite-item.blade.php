@@ -18,9 +18,46 @@
         </div>
     @endforeach
 
+
+
+
     <div class="title-notifi-friend" style="border-top:1px solid #dfe7ee">
         <span>{{ trans('friend.people_may_you_know') }}</span>
     </div>
+
+    @if($suggested_users != "")
+        @foreach($suggested_users as $suggested_user)
+            <div class="wrap-own-invite">
+                <a href="{{ url($suggested_user->username) }}">
+                    <div class="photo-invite" style="background-image: url('{{ $suggested_user->avatar }}');" title="{{ $suggested_user->name }}">
+                        {{--@if($suggested_user->verified)
+                            <span class="verified-badge bg-success verified-medium">
+                                        <i class="icon-verifikaciya svoe-lg svoe-icon"></i>
+                                    </span>
+                        @endif--}}
+                    </div>
+                </a>
+                <h4><a href="{{ url($suggested_user->username) }}">{{ $suggested_user->name }}</a></h4>
+                <p>{{$suggested_user->city}} &nbsp;</p>
+                <span><a href="#"></a>&nbsp;</span>
+                <div class="action-invite-friend js-follow-links">
+                    <div class="">
+                        <a href="" class="hypothetically-friend follow" rel="{{$suggested_user->id}}" ><i class="icon-dodaty-druzi svoe-lg svoe-icon"></i> <span>{{ trans('friend.add_to_friends') }}</span></a>
+                    </div>
+                    <div class="hidden">
+                        <a href="" style="background-color: #f59d1a !important;" class="hypothetically-friend unfollow" rel="{{$suggested_user->id}}" ><i class="icon-vidpysatys svoe-lg svoe-icon"></i> <span>{{ trans('friend.cancel_request') }}</span></a>
+                    </div>
+                    {{--<span>
+                        <i class="icon-zakrutu svoe-icon"></i>
+                    </span>--}}
+                </div>
+            </div>
+        @endforeach
+    @else
+        <div class="alert alert-warning">
+            {{ trans('messages.no_suggested_users') }}
+        </div>
+    @endif
     {{--<div class="own-mess-notifi-friend">
         <div class="photo-mess-notifi-friend" style="background-image: url('{!! Theme::asset()->url('images/test-img-modal.png') !!}')"></div>
         <p><a href="">Оксана Габалевич</a></p>

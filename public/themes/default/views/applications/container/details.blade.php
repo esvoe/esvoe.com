@@ -78,14 +78,14 @@
 
                                     <div class="modal-game-desc">
                                         <div class="title-modal-game">
-                                            Описание Игры
+                                            Описание Приложения
                                         </div>
                                         <p class="desc-modal-game">
                                             {{$application->description}}
                                         </p>
                                         <div class="line-modal-game"></div>
                                         <div class="title-modal-game">
-                                            Правила доступа
+                                            Права доступа
                                         </div>
                                         @if (is_array($permissions))
                                             @foreach($permissions as $permission)
@@ -93,19 +93,8 @@
                                             @endforeach
                                         @endif
 
-                                        <div>Приложение получит доступ к [!статика!]:</div>
-                                        <div>
-                                            <ul>
-                                                <li>Публичные данные профиля</li>
-                                                <li>Email адрес</li>
-                                                <li>Номер телефона</li>
-                                                <li>Список друзей</li>
-                                                <li>Чтение стены</li>
-                                                <li>Добавление записи на стену</li>
-                                                <li>Отправка уведомлений</li>
-                                            </ul>
-                                        </div>
 
+                                        {{--
 
                                         <div class="line-modal-game"></div>
                                         <span class="accept-rules-game">Запускаючи гру Ви пооджуєтеся з <a href="">правилами</a> гри</span>
@@ -118,6 +107,7 @@
                                             <h4><a href="">My summer car</a></h4>
                                             <span>Відео гра</span>
                                         </div>
+                                        --}}
                                     </div>                                   
 
                                     @if ($screenshots)

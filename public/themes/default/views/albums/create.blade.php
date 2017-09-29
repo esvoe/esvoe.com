@@ -1,13 +1,13 @@
 <!-- main-section -->	
-<div class="container">
+<div class="container container-grid">
 	<div class="row">              
-		<div class="col-md-8 col-lg-8">
-			<div class="panel panel-default">
-{{--
+		<div class="col-md-8 col-lg-8 col-wallet">
+			<div class="panel panel-default panel-create-album">
+
 				<div class="panel-heading no-bg panel-settings">
 					<h3 class="panel-title">{{ trans('common.create_album') }}</h3>
 				</div>
---}}
+
 				<div class="panel-body nopadding">  
 					<div class="socialite-form">
 						@include('flash::message')                         
@@ -50,21 +50,23 @@
 								{{ Form::file('album_photos[]', ['multiple' => 'multiple', 'accept' =>  'image/jpeg,image/png,image/gif']) }}
 							</fieldset>--}}
 
-							<div id="dropzone" class="dropzone"></div>
+							<div id="dropzone" class="dropzone">
+								<i class="icon-photo svoe-2x svoe-icon"></i>
+							</div>
 
-							<fieldset class="form-group">
-								<div class="pull-right">
-									<a href="#" class="add-youtube-input">{{ '+ '.trans('common.one_more') }}</a>
-								</div>
-								{{ Form::label('album_videos[]', trans('common.youtube_links'), ['class' => 'control-label']) }}
-								<div class="youtube-videos">
-									{{ Form::text('album_videos[]', null, ['class' => 'form-control youtube_link', 'placeholder' => trans('common.copy_paste_youtube_link')] ) }}
-								</div>
-							</fieldset>
+							{{--<fieldset class="form-group">--}}
+								{{--<div class="pull-right">--}}
+									{{--<a href="#" class="add-youtube-input">{{ '+ '.trans('common.one_more') }}</a>--}}
+								{{--</div>--}}
+								{{--{{ Form::label('album_videos[]', trans('common.youtube_links'), ['class' => 'control-label']) }}--}}
+								{{--<div class="youtube-videos">--}}
+									{{--{{ Form::text('album_videos[]', null, ['class' => 'form-control youtube_link', 'placeholder' => trans('common.copy_paste_youtube_link')] ) }}--}}
+								{{--</div>--}}
+							{{--</fieldset>--}}
 							
-							<fieldset class="form-group">
+							<fieldset class="form-group create-btn-album">
 								<div class="pull-right">
-									{{ Form::submit(trans('common.create_album'), ['class' => 'btn btn-success']) }}
+									<a href="{{ url('/'.Auth::user()->username.'/albums') }}">Отменить</a>{{ Form::submit(trans('common.create_album'), ['class' => 'btn btn-success']) }}
 								</div>
 							</fieldset>
 
@@ -75,7 +77,7 @@
 			</div><!-- /panel -->		
 		</div><!-- /col-md-8 -->
 
-		<div class="col-md-4 col-lg-4">
+		<div class="col-md-5  col-lg-4  col-grid-2">
 			{!! Theme::partial('home-rightbar',compact('suggested_users','suggested_groups','suggested_pages','timeline')) !!}
 		</div>
 	</div>

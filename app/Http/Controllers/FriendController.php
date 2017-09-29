@@ -40,12 +40,33 @@ class FriendController extends Controller
 
     public function index($username)
     {
-        $timeline = Timeline::where('username', $username)->first();        
-        
-        $theme = Theme::uses(Setting::get('current_theme', 'default'))->layout('default');        
-        $trending_tags = trendingTags();
-                
-        return $theme->scope('friend/index', compact('timeline', 'trending_tags', 'balance'))->render();
+        $theme = Theme::uses(Setting::get('current_theme', 'default'))->layout('default');
+        $relations = [];
+        $relations['friends'] = Auth::user()->following()
+            ->where('type_friend', config('friend.type.approve'))
+            ->latest()->get()
+            ->map(function ($user) {
+                return TimelineController::getRelationOf($user);
+            });
+
+        $relations['followers'] = Auth::user()->following()
+            ->where('is_follower', '1')
+            ->latest()->get()
+            ->map(function ($user) {
+                return TimelineController::getRelationOf($user);
+            });
+        $relations['family'] = Auth::user()->following()
+            ->whereNotNull('relative_id')
+            ->latest()->get()
+            ->map(function ($user) {
+                return TimelineController::getRelationOf($user);
+            });
+
+        $available_relative = TimelineController::getRelative(Auth::user()->profile->gender);
+        $inviteList = $this->loadFriend(Auth::user()->id);
+        $suggested_users = suggestedUsers();
+
+        return $theme->scope('friend/index', compact('relations', 'available_relative', 'inviteList', 'suggested_users'))->render();
     }
 
     public function tempShowInviteFriends() {
@@ -69,9 +90,10 @@ class FriendController extends Controller
         if ($countRequests > 5) {
             $inviteList = array_slice($inviteList, 0, 5);
         }
+        $suggested_users = suggestedUsers();
 
         $theme = Theme::uses('default')->layout('ajax');
-        return $theme->scope('friend/invite-item', compact('inviteList', 'countRequests'))->render();
+        return $theme->scope('friend/invite-item', compact('inviteList', 'countRequests', 'suggested_users'))->render();
 //        return Theme::uses('default')->partial('friend/invite-item', compact('inviteList', 'countRequests'))->render();//take from partial
     }
 
@@ -215,6 +237,7 @@ class FriendController extends Controller
     }
 
     public function setStatus(Request $request) {
+//        return response()->json(['status' => '200', 'accepted' => true, 'result' => 'true']);
         return $this->prepareJson($this->client->get($this->domain.'friend/status/add/'.Auth::user()->id.'/to/'.$request->user_id.'/'.$request->status));
     }
 

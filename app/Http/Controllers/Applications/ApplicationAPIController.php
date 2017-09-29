@@ -12,6 +12,8 @@ namespace App\Http\Controllers\Applications;
 use App\Application;
 use App\ApplicationUser;
 use App\Http\Controllers\Controller;
+use App\User;
+use DB;
 use Illuminate\Http\Request;
 
 class ApplicationAPIController extends Controller
@@ -61,10 +63,8 @@ class ApplicationAPIController extends Controller
     }
 
     public function simple() {
-        return response()->json(array(
-            'status' => 200,
-            'data' => 'simple'
-        ));
+        $this->apiParams = $this->request->all();
+        return $this->authorizeRequest();
     }
 
     public function internal() {
@@ -74,13 +74,17 @@ class ApplicationAPIController extends Controller
         ));
     }
 
+    public function router($group, $method)
+    {
+        $this->apiParams = $this->request->all();
+        $this->apiParams['method'] = $group . '.' . $method;
 
+        return $this->authorizeRequest();
+    }
 
-    public function router($group, $method) {
+    private function authorizeRequest() {
 
-        // Some kind of validation
-
-        // add app-key
+        $params = $this->apiParams;
 
         $auth_params = array ( 'app-id' => null, 'app-key' => null, 'access-token' => null, 'session-key' => null, 'session-secret-key' => null, 'sign' => null, 'timestamp' => null );
         foreach ( $auth_params as $key => $val ) {
@@ -136,16 +140,16 @@ class ApplicationAPIController extends Controller
                 $this->applicationUser = ApplicationUser::where('app_id', $this->application->id)
                     ->where('authorized', true)
                     ->where('banned', false)
-                    ->where('session_token', $auth_params['session-key'])
-                    ->where('session_token_expire', '>', time())
+                    ->where('api_session_key', $auth_params['session-key'])
+                    ->where('api_session_key_expire', '>', time())
                     ->first();
             }
             else if ($auth_params['access-token']) {
                 $this->applicationUser = ApplicationUser::where('app_id', $this->application->id)
                     ->where('authorized', true)
                     ->where('banned', false)
-                    ->where('auth_token', $auth_params['access-token'])
-                    ->where('auth_token_expire', '>', time())
+                    ->where('api_access_token', $auth_params['access-token'])
+                    ->where('api_access_token_expire', '>', time())
                     ->first();
             }
 
@@ -172,7 +176,7 @@ class ApplicationAPIController extends Controller
                         'code' => 1001,
                         'data' => 'parameters.damaged',
                         'message' => 'session.missmatch',
-                        'valid' => sha1($this->applicationUser->id . $this->applicationUser->api_session_key . $this->application->id . $this->application->api_signing_key . $this->application->api_private_key . '_secret_')
+                        //'valid' => sha1($this->applicationUser->id . $this->applicationUser->api_session_key . $this->application->id . $this->application->api_signing_key . $this->application->api_private_key . '_secret_')
                     ), 400);
                 }
                 $this->apiLevel = 3;
@@ -182,9 +186,6 @@ class ApplicationAPIController extends Controller
 
         }
 
-
-        $params = $this->request->all();
-        $params['method'] = $group . '.' . $method;
         ksort($params);
         $paramsString = '';
         foreach ($params as $k=>$v) {
@@ -198,22 +199,137 @@ class ApplicationAPIController extends Controller
                 'code' => 1001,
                 'data' => 'parameters.damaged',
                 'message' => 'signature.missmatch',
-                'valid' => sha1($paramsString)
+                //'valid' => sha1($paramsString)
             ), 400);
         }
 
-        $this->apiMethod = $group . '.' . $method;
-        $this->apiParams = $params;
+        $this->apiMethod = $this->apiParams['method'];
 
-
-        
-
-        // do routing !
-
-        //->header('Access-Control-Allow-Origin', '*')
-            //->header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+        return $this->processRequest();
     }
 
+    private function processRequest() {
 
+        if ($this->apiMethod === 'user.info') {
+
+            // check ip filters
+            // check access level
+            // check something more
+
+            // collect data
+            $user = User::where('id', $this->applicationUser->user_id)
+                ->with('profile')
+                ->first();
+
+            if ( ! $user) {
+                return response()->json(array(
+                    'code' => 1100,
+                    'data' => 'user.not.found',
+                    'msg' => 'user_not_found'
+                ), 200);
+            }
+
+            // update only if not expired
+
+            $this->applicationUser->api_session_key_expire = time() + (60 * 30); // 30 minutes
+            $this->applicationUser->update();
+
+            return response()->json(array(
+                "name" => $user->profile->firstname,
+                "firstname" => $user->profile->firstname,
+                "lastname" => $user->profile->lastname,
+                "lang" => $user->language,
+                "avatar" => $user->avatar,
+            ), 200);
+        }
+
+        if ($this->apiMethod === 'user.profile') {
+
+            // must access level
+            // must have appUser
+            // must permissions profile,
+
+            $user = User::where('id', $this->applicationUser->user_id)
+                ->with('profile')
+                ->first();
+
+            if ( ! $user) {
+                return response()->json(array(
+                    'code' => 1100,
+                    'data' => 'user.not.found',
+                    'msg' => 'user_not_found'
+                ), 200);
+            }
+
+            $this->applicationUser->api_session_key_expire = time() + (60 * 30); // 30 minutes
+            $this->applicationUser->update();
+
+            return response()->json(array(
+                "user_id" => $user->id,
+                "firstname" => $user->profile->firstname,
+                "lastname" => $user->profile->lastname,
+                "avatar" => $user->avatar,
+                "country" => $user->profile->country,
+                "city" => $user->profile->city,
+                "gender" => $user->profile->gender,
+                "birthday" => $user->profile->birthday,
+                "hobbies" => $user->profile->hobbies,
+                "interests" => $user->profile->interests,
+                "lang" => $user->language,
+            ), 200);
+
+        }
+
+        if ($this->apiMethod === 'friend.list') {
+
+            // must access level
+            // must have appUser
+            // must permissions profile,
+
+            $user = $this->applicationUser->user;
+
+            if ( ! $user) {
+                return response()->json(array(
+                    'code' => 1100,
+                    'data' => 'user.not.found',
+                    'msg' => 'user_not_found'
+                ), 200);
+            }
+
+            // update only if not expired
+
+            $this->applicationUser->api_session_key_expire = time() + (60 * 30); // 30 minutes
+            $this->applicationUser->update();
+
+            $ids = DB::table('followers')
+                ->where('follower_id', $user->id)
+                ->where('type_friend', config('friend.type.approve'))
+                ->pluck('leader_id')->toArray();
+
+            $users = User::whereIn('id', $ids)
+                ->with('profile')
+                ->get();
+
+            $friend_list = [];
+
+            foreach( $users as $friend ) {
+                $friend_data = array(
+                    'user_id' => $friend->id,
+                    'userId' => $friend->id,
+                    'name' => $friend->profile->firstname, //deprecated
+                    'firstname' => $friend->profile->firstname,
+                    'lastname' => $friend->profile->lastname,
+                    'avatar' => $friend->avatar
+                );
+                $friend_list[] = $friend_data;
+            }
+
+            return response()->json(array(
+                "friends" => $friend_list,
+            ), 200);
+
+        }
+
+    }
 
 }

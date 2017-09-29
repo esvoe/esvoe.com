@@ -562,10 +562,11 @@ class UserController extends AppBaseController
     protected function generalSettingsValidator(array $data)
     {
         return Validator::make($data, [
-            'username'  => 'required|max:16|min:5|alpha_num|unique:timelines,username,'.Auth::user()->timeline->id.'|regex:/[-a-zA-Z0-9]/u',
+            'username'  => 'required|not_std_route|max:16|min:5|alpha_num|unique:timelines,username,'.Auth::user()->timeline->id.'|regex:/[-a-zA-Z0-9]/u',
             'firstname' => 'required',
             'email'     => 'unique:users,email,'.Auth::id(),
-        ]);
+        ],['username.not_std_route' => trans('auth.reg_req_not_std_route')]);
+
     }
 
     public function saveUserGeneralSettings(Request $request)

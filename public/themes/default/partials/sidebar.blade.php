@@ -3,7 +3,7 @@
 		<li class="{!! (Request::segment(2)=='friends' ? 'active' : '') !!}">
 			<a data-change-logo="friend" href="{{ url(Auth::user()->username.'/friends') }}" {{--style="color: #d7dfe7;pointer-events: none;"--}}>
 				<i style="top: 5px; left: 18px;" class="icon-druzi svoe-2x svoe-icon"></i>
-				<span class="count-block-side">+2</span>
+				@if(Auth::user()->profile->count_invite > 0)<span class="count-block-side">+{{Auth::user()->profile->count_invite}}</span>@endif
 				<span>{{ trans('sidebar.my_friends') }}</span></a>
 		</li>
 		<li class="{!! (Request::segment(1)=='messages' ? 'active' : '') !!}"><a data-change-logo="mess" href="{{ url('messages') }}">
@@ -37,15 +37,15 @@
 				<span>{{ trans('sidebar.my_wallet') }}</span></a>
 		</li>
 		<li data-li-setting="photos" class="{!! (Request::segment(2)=='photos' ? 'active' : '') !!}">
-			<a data-change-logo="photo" href="{{ url('/'.Auth::user()->username.'/photos') }}" >
+			<a data-change-logo="photo" href="{{ url('/'.Auth::user()->username.'/albums') }}" >
 				<i class="icon-photo svoe-lg svoe-icon"></i>
 				<span>{{ trans('sidebar.my_photos') }}</span></a>
 		</li>
-		<li data-li-setting="videos" class="{!! (Request::segment(2)=='videos' ? 'active' : '') !!}">
-			<a data-change-logo="video" href="{{ url(Auth::user()->username.'/videos') }}">
-				<i class="icon-video svoe-lg svoe-icon"></i>
-				<span>{{ trans('sidebar.my_videos') }}</span></a>
-		</li>
+		{{--<li data-li-setting="videos" class="{!! (Request::segment(2)=='videos' ? 'active' : '') !!}">--}}
+			{{--<a data-change-logo="video" href="{{ url(Auth::user()->username.'/videos') }}">--}}
+				{{--<i class="icon-video svoe-lg svoe-icon"></i>--}}
+				{{--<span>{{ trans('sidebar.my_videos') }}</span></a>--}}
+		{{--</li>--}}
 		<li data-li-setting="audio-recordings" class="{!! (Request::segment(2)=='audio-recordings' ? 'active' : '') !!}" style="display: none">
 			<a data-change-logo="audio" href="{{ url(Auth::user()->username.'/audio-recordings') }}">
 				<i class="icon-audio svoe-lg svoe-icon"></i>

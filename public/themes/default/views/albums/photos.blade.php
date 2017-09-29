@@ -26,9 +26,11 @@
 						<li class="active">
 							<a href="{{ url('/'.$timeline->username.'/photos') }}">{{ trans('common.photos') }}</a>
 						</li>
+{{--
 						<li>
 							<a href="{{ url('/'.$timeline->username.'/videos') }}">{{ trans('common.videos') }}</a>
 						</li>
+--}}
 					</ul>
 					<div class="clearfix"></div>
 				</div>
@@ -80,12 +82,12 @@
 								<div class="widget-card preview">
 									<div class="widget-card-bg">	
 										<div class="photo-holder">
-											<img src="{!! $image->albumUrl($timeline->username,230,226) !!}" alt="{{ $image->name }}">
+											<img src="{!! $image->albumUrl($user->id,230,226) !!}" alt="{{ $image->name }}">
 										</div>	
 									</div>
 									<div class="widget-card-project">
 										<div class="bridge-text text-center ">
-											<a data-sub-html="<h4>{{ $image->title }}</h4>" href="{!! $image->albumUrl($timeline->username) !!}"  class="btn lightgallery-item btn-info btn-preview btn-sm"><i class="fa fa-search"></i> View Image</a>
+											<a data-sub-html="<h4>{{ $image->title }}</h4>" href="{!! $image->albumUrl($user->id) !!}"  class="btn lightgallery-item btn-info btn-preview btn-sm"><i class="fa fa-search"></i> View Image</a>
 										</div>
 									</div>{{-- /widget-card-project --}}
 								</div>

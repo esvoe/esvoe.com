@@ -60,6 +60,7 @@
 							<div id="dropzone" class="dropzone"></div>
 
 
+{{--
 							<fieldset class="form-group">
 								<div class="pull-right">
 									<a href="#" class="add-youtube-input">{{ '+ '.trans('common.one_more') }}</a>
@@ -70,6 +71,7 @@
 								{{ Form::text('album_videos[]', null, ['class' => 'form-control youtube_link', 'placeholder' => trans('common.copy_paste_youtube_link')] ) }}
 								</div>
 							</fieldset>
+--}}
 
 							<fieldset class="form-group">
 								<div class="pull-right">

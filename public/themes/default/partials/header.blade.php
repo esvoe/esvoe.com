@@ -11,6 +11,7 @@
 			</button>
 			<a class="navbar-brand" href="{{ url('/') }}">
 				<img src="{!! Theme::asset()->url('images/logo-svg.svg') !!}" alt="{{ Setting::get('site_name') }}" title="{{ Setting::get('site_name') }}">
+                <img class="beta-img" src="{!! Theme::asset()->url('images/beta.svg') !!}" alt="beta-svg">
 				<span class="logo-text">своє!</span>
                 <span style="display: none;" data-logo-text="friend" class="logo-text other-logo">{{ trans('common.friends') }}!</span>
                 <span style="display: none;" data-logo-text="photo" class="logo-text other-logo">{{ trans('common.photos') }}!</span>

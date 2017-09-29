@@ -229,7 +229,7 @@ class AuthController extends Controller
                 $this->authSession['time'].
                 $this->authSession['hash'].
                 $this->authSession['user_id'].
-                $application->api_key
+                $application->api_key //fimxe: private_key
             );
 
             $payload = array(
@@ -279,7 +279,7 @@ class AuthController extends Controller
         );
 
         // replace auth token with existed
-        $this->authSession['auth_token'] = $applicationUser->auth_token;
+        $this->authSession['auth_token'] = $applicationUser->api_access_token;
         // todo: extend auth_token life
 
         $payload = array(
@@ -447,7 +447,7 @@ class AuthController extends Controller
                     );
 
                     // replace with exist token
-                    $this->authSession['auth_token'] = $applicationUser->auth_token;
+                    $this->authSession['auth_token'] = $applicationUser->api_access_token;
                     // todo: extend auth_token life
 
                     $payload = array(
@@ -643,8 +643,8 @@ class AuthController extends Controller
 
         $applicationUser->authorized = true;
 
-        $applicationUser->auth_token = sha1(random_bytes(20));
-        $applicationUser->auth_token_expire = time() + 86400 * 5;
+        $applicationUser->api_access_token = sha1(random_bytes(20));
+        $applicationUser->api_access_token_expire = time() + (86400 * 5);
 
         $applicationUser->save();
 
@@ -658,7 +658,7 @@ class AuthController extends Controller
             $application->api_key
         );
 
-        $this->authSession['auth_token'] = $applicationUser->auth_token;
+        $this->authSession['auth_token'] = $applicationUser->api_access_token;
 
         $payload = array(
             'status' => $status,

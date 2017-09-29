@@ -5,6 +5,7 @@
             <a href="#" class="btn btn-camera-cover change-cover"> <i class="icon-photo svoe-icon"></i>
                 <span class="change-cover-text">{{ trans('common.change_cover') }}</span> </a>
         @endif
+        <input type="hidden" id="currentUserId" value="{{$user->id}}">
         <div class="user-cover-progress hidden"></div>
 
         <div class="shadow-new-prof"></div>
@@ -22,7 +23,9 @@
                     {{ $user->name }}
                     {!! verifiedBadge($timeline) !!}
                 </div>
+                @if((($user->about != NULL) && ($user->about != 'write something about yourself')) || $isMe)
                 <div class="profheader-note">{{ $user->about }}</div>
+                @endif
                 <div class="profheader-status @if($user->online) online @endif">В мережі {{ date('H:i', $user->last_online) }}</div>
             </div>
             <div class="profheader-nav">
@@ -99,7 +102,7 @@
                                                     <li class="profheader-ctrl-submenu-item">
                                                         <label for="{{$status}}">
 		                            			<span class="wrap-checker-sett">
-		                            				<input data-action="status" type="checkbox" name="status" id="{{$status}}" value="{{$status}}" @if(isset($curStatuses) AND strpos($curStatuses, $status)!==false) checked="checked" @endif />
+		                            				<input data-action="status" data-action-friend-status="{{$status}}" type="checkbox" name="status" value="{{$status}}" @if(isset($curStatuses) AND strpos($curStatuses, $status)!==false) checked="checked" @endif />
 		                            			</span>
                                                             {{ trans('friend.status_'.$status) }}
                                                         </label>
@@ -120,7 +123,7 @@
                                                         <li class="profheader-ctrl-submenu-item">
                                                             <label for="{{$rl}}">
 		                            			<span class="wrap-checker-sett">
-		                            				<input data-action="relative" type="radio" name="relative" id="{{$rl}}" value="{{$rl}}" @if($rlValue == $curRelative) checked="checked" @endif />
+		                            				<input data-action="relative" type="radio" name="relative" data-action-friend-relative="{{$rl}}" value="{{$rl}}" @if($rlValue == $curRelative) checked="checked" @endif />
 		                            			</span>
                                                                 {{ trans('friend.rl_'.$rl) }}
                                                             </label>
@@ -210,12 +213,14 @@
                                 <span class="text-category-new-prof">{{ trans('common.albums') }} <span>/ {{ trans('sidebar.my_photos') }}</span></span>
                             </a>
                         </li>
+{{--
                         <li role="presentation" >
                             <a href="#tab-videos" aria-controls="tab-5" role="tab" data-toggle="tab">
                                 <span class="count-cat-new-prof">{{ $counters['videos'] }}</span>
                                 <span class="text-category-new-prof">{{ trans('sidebar.my_videos') }}</span>
                             </a>
                         </li>
+--}}
                         <li role="presentation">
                             <a href="#tab-groups" aria-controls="tab-6" role="tab" data-toggle="tab">
                                 <span class="count-cat-new-prof">{{ $counters['groups'] }}</span>
@@ -349,7 +354,8 @@
 
         // USER ACTION
 
-        var userid = $('#profheader').data('userid');
+//        var userid = $('#profheader').data('userid');
+        var userid = $('#currentUserId').val();
         token = $('meta[name="csrf_token"]').attr('content');
 
         var $btnAddToFriend = $('.profheader-ctrl-item[data-role="add-to-friend"]'),

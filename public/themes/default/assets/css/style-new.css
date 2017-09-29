@@ -6,6 +6,7 @@
 @import "modal-app-info.css";
 @import "rating-block.css";
 @import "app-auth-page.css";
+@import "app-cat-page.css";
 
 @font-face{
     font-family: "OpenSans Regular";

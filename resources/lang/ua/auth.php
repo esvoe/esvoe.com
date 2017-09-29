@@ -81,4 +81,5 @@ return array (
   'reg_req_password_min' => 'Пароль занадто короткий',
   'reg_req_gender' => 'Виберіть стать',
   'reg_req_username' => 'Введіть Iм\'я Користувача',
+  'reg_req_not_std_route' => 'Введене ім\'я заборонено.',
 );

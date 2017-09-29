@@ -221,17 +221,12 @@ Route::group(['prefix' => '/admin', 'middleware' => ['auth', 'role:admin']], fun
 */
 
 Route::group(['prefix'=>'api/v1/apps', 'middleware'=>['cors'], 'namespace'=>'Applications', 'as'=>'applications.api'], function() {
-    Route::post('call.me', array('uses'=>'ApplicationAPIController@simple', 'as'=>'.simple'));
-    Route::post('internal', array('uses'=>'ApplicationAPIController@internal', 'as'=>'.internal'));
+    Route::match(['get', 'post'], 'call.me', array('uses'=>'ApplicationAPIController@simple', 'as'=>'.simple'));
     Route::match(['get', 'post'], '{group}/{method}', array('uses'=>'ApplicationAPIController@router', 'as'=>'.router'));
 });
 
-Route::group(['prefix'=>'application', 'middleware'=>['auth'], 'namespace'=>'Applications', 'as'=>'application'], function(){
-    Route::get('sample/{id}', array('uses'=>'ApplicationSampleController@index', 'as'=>'.sample'));
-});
-
 Route::group(['prefix'=>'apps', 'middleware'=>['auth'], 'namespace'=>'Applications', 'as'=>'applications.'], function() {
-    Route::get('', array('uses'=>'CatalogController@index', 'as'=>'catalog.index'));
+    Route::get('', array('uses'=>'CatalogController@globalCatalog', 'as'=>'catalog.index'));
     Route::get('games', array('uses'=>'CatalogController@index', 'as'=>'catalog.category.games'));
     Route::get('global', array('uses'=>'CatalogController@globalCatalog', 'as'=>'catalog.global'));
     Route::get('section/{id}', array('uses'=>'CatalogController@section', 'as'=>'catalog.section'));

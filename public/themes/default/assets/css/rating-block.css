@@ -1,6 +1,9 @@
 .ratingblock {
     position: relative;
-    z-index: 11; /*temp only on hover*/
+}
+
+.ratingblock.haspopover:hover {
+    z-index: 11;
 }
 
 .ratingblock-total,
@@ -144,15 +147,15 @@
     /* content: '\f005'; */
 }
 
-.ratingblock .br-theme-fontawesome-stars-o .br-widget a.br-selected:after {
+.ratingblock .br-theme-fontawesome-stars-o .br-widget .br-selected:after {
     color: #2296ed;
 }
 
-.ratingblock .br-theme-fontawesome-stars-o .br-widget a.br-active:after {
+.ratingblock .br-theme-fontawesome-stars-o .br-widget .br-active:after {
     color: #f59d1a;
 }
 
-.ratingblock .br-theme-fontawesome-stars-o .br-widget a.br-fractional:after {
+.ratingblock .br-theme-fontawesome-stars-o .br-widget .br-fractional:after {
     color: #2296ed;
     /* content: '\f005'; */
 }
@@ -160,4 +163,41 @@
 .ratingblock .stars-example-fontawesome-o {
     float: left;
     margin: 1px 0 0 2px;
+}
+.ratingblock .ratingblock-value,
+.games-grid .ratingblock .ratingblock-value {
+    float: left;
+    color: #2296ed;
+    font-size: 16px;
+    font-weight: bold;
+    margin-right: 10px;
+    vertical-align: top;
+    font-family: "OpenSans Regular";
+    margin-left: 15px;
+}
+
+
+.ratingblock .br-theme-fontawesome-stars-o .br-widget span,
+.games-grid .ratingblock .br-theme-fontawesome-stars-o .br-widget span {
+    font: normal normal normal 13px/13px FontAwesome;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.ratingblock .br-theme-fontawesome-stars-o .br-widget span:after,
+.games-grid .ratingblock .br-theme-fontawesome-stars-o .br-widget span:after {
+    content: '\f006';
+    color: #d2d2d2;    
+}
+
+.ratingblock .br-theme-fontawesome-stars-o .br-widget span.br-selected:after,
+.games-grid .ratingblock .br-theme-fontawesome-stars-o .br-widget span.br-selected:after {
+    content: '\f005';
+    color: #2296ed;
+}
+
+.ratingblock .br-theme-fontawesome-stars-o .br-widget span.br-fractional:after,
+.games-grid .ratingblock .br-theme-fontawesome-stars-o .br-widget span.br-fractional:after {
+    content: '\f123';    
+    color: #2296ed;
 }

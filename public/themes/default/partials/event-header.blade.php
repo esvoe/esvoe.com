@@ -224,17 +224,6 @@
 </form>
 
 
-
-<!-- Tab panes -->
-<!-- <div class="container container-grid section-container"> -->
-    <div class="tab-content profheader-tab-content">
-        <div role="tabpanel" class="tab-pane fade in active" id="tab-1">Tab 1 ...</div>
-        <div role="tabpanel" class="tab-pane fade" id="tab-2">Tab 2 ...</div>
-    </div>
-<!-- </div> -->
-
-
-
 <script type="text/javascript">
 
     $(function(){

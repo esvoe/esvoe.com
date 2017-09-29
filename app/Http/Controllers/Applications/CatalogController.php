@@ -34,6 +34,59 @@ class CatalogController extends Controller
 
     public function index() {
 
+        $categories = ApplicationCategory::getTree();
+
+        foreach( $categories as $category) {
+
+            $sub_ids = ApplicationCategory::where('parent_id', $category->id)->pluck('id')->toArray();
+
+            $category['applications'] = Application::where('is_active', true)
+                ->whereIn('category_id', $sub_ids)
+                ->limit(5)
+                ->get();
+
+        }
+
+        $catalog = $categories;
+
+        return $this->renderView('applications/catalog/global', compact('categories', 'catalog'));
+
+    }
+
+
+    public function showUserApps() {
+        $annexes_promo = Application::where('is_active',true)->inRandomOrder()->limit(10)->get();
+
+        $annexes_recent = Application::where('is_active', true)->orderBy('created_at','desc')->limit(10)->get();
+
+        $active_tab = 1;
+
+        return $this->renderView('applications/catalog', compact('annexes_promo', 'annexes_recent', 'active_tab'));
+
+    }
+
+    public function globalCatalog() {
+
+        $categories = ApplicationCategory::getTree();
+
+        foreach( $categories as $category) {
+
+            $sub_ids = ApplicationCategory::where('parent_id', $category->id)->pluck('id')->toArray();
+
+            $category['applications'] = Application::where('is_active', true)
+                ->whereIn('category_id', $sub_ids)
+                ->limit(5)
+                ->get();
+
+        }
+
+        $catalog = $categories;
+
+        return $this->renderView('applications/catalog/global', compact('categories', 'catalog'));
+    }
+
+    public function section($id) {
+
         // todo: state check
 
         $annexes_promo = Application::where('type',1)
@@ -53,42 +106,6 @@ class CatalogController extends Controller
         $active_tab = 0;
 
         return $this->renderView('applications/catalog', compact('annexes_promo', 'annexes_recent', 'active_tab'));
-
-    }
-
-    public function showUserApps() {
-        $annexes_promo = Application::where('is_active',true)->inRandomOrder()->limit(10)->get();
-
-        $annexes_recent = Application::where('is_active', true)->orderBy('created_at','desc')->limit(10)->get();
-
-        $active_tab = 1;
-
-        return $this->renderView('applications/catalog', compact('annexes_promo', 'annexes_recent', 'active_tab'));
-
-    }
-
-    public function globalCatalog() {
-
-        $categories = ApplicationCategory::getTree();
-
-        $apps_promo10 = Application::where('is_active',true)->inRandomOrder()->limit(10)->get();
-
-        $apps_recent10 = Application::where('is_active', true)->orderBy('created_at','desc')->limit(10)->get();
-
-        return $this->renderView('applications/catalog/global', compact('categories', 'apps_promo10', 'apps_recent10'));
-    }
-
-    public function section($id) {
-
-        $categories = ApplicationCategory::getTree();
-
-        $apps_promo10 = Application::where('is_active',true)->inRandomOrder()->limit(10)->get();
-
-        $apps_recent10 = Application::where('is_active', true)->orderBy('created_at','desc')->limit(10)->get();
-
-        $section_categories = ApplicationCategory::where('parent_id', $id)->get();
-
-        return $this->renderView('applications/catalog/global', compact('categories', 'apps_promo10', 'apps_recent10', 'section_categories'));
     }
 
     public function sectionGames($id) {

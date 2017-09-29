@@ -1,0 +1,99 @@
+.games-search-box_cat {
+    margin: 0 0 10px 0;
+}
+
+.games-search-box .games-box-head {
+    padding: 0;
+    margin: -15px 0 0 0;
+    border: none;
+    border-bottom: 1px solid #d9d9d9;
+    line-height: 50px;
+    position: relative;
+}
+
+.games-box-head-title {
+    font-family: "OpenSans Bold";
+    font-size: 16px;
+    color: #335287;
+}
+
+.games-box-head-title .svg-ico {
+    display: inline-block;
+    width: 22px;
+    height: 22px;
+    line-height: 22px;
+    fill: #335287;
+    vertical-align: middle;
+    position: relative;
+    top: -2px;
+    margin: 0 2px 0 0;
+}
+
+.games-box-head-title .svoe-icon {
+    display: inline-block;
+    color: #335287;
+    vertical-align: middle;
+    position: relative;
+    top: -3px;
+    margin: 0 8px 0 0;
+    font-size: 22px;
+}
+
+.games-box-head-link {
+    font-size: 14px;
+    display: block;
+    float: right;
+    position: absolute;
+    top: 0;
+    right: 0;
+    color: #a5a5a5;
+    text-decoration: none;
+    transition: color .2s ease;
+}
+
+.games-box-head-link .svoe-icon {
+    transform: rotate(-90deg);
+    position: relative;
+    top: -1px;
+    vertical-align: middle;
+    margin: 0 0 0 6px;
+    font-size: 10px;
+    transition: color .2s ease;
+}
+
+.games-box-head-link:hover,
+.games-box-head-link:hover .svoe-icon {
+    color: #2195ed;
+    text-decoration: none;
+}
+
+.games-box-empty {
+    display: block;
+    text-align: center;
+    padding: 79px 20px 54px 20px;
+    font-family: "OpenSans Regular";
+    font-size: 14px;
+    line-height: 16px;
+    color: #9d9d9d;
+}
+
+.games-box-empty .svg-pic {
+    display: block;
+    width: 110px;
+    height: auto;
+    margin: 0 auto 13px auto; 
+    fill: #9d9d9d;
+}
+
+.games-search-box .games-grid .ratingblock {
+    margin-bottom: -5px;
+}
+
+.games-grid .ratingblock .ratingblock-value {
+    margin-left: 0;
+}
+
+.games-search-box .games-grid .ratingblock .br-widget {
+    margin-left: 0;
+}
+

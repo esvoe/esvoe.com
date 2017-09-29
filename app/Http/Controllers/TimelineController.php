@@ -222,9 +222,9 @@ class TimelineController extends AppBaseController
                 ->get(['id', 'name'])
                 ->map(function ($album) use ($user, &$counters) {
                     if (!empty($album->previewImage()->first())) {
-                        $preview = $album->previewImage()->first()->albumUrl($user->username);
+                        $preview = $album->previewImage()->first()->albumUrl($user->id);
                     } elseif (!empty($album->photos()->where('media.type', 'image')->first())) {
-                        $preview = $album->photos()->where('media.type', 'image')->first()->albumUrl($user->username);
+                        $preview = $album->photos()->where('media.type', 'image')->first()->albumUrl($user->id);
                     } else {
                         $preview = '#';
                     }
@@ -255,7 +255,7 @@ class TimelineController extends AppBaseController
                 ->take(4)
                 ->get(['source'])
                 ->map(function ($media) use ($user) {
-                    return $media->albumUrl($user->username);
+                    return $media->albumUrl($user->id);
                 });
             // followers, friends, mutual friends and family
             $relations = [];
@@ -309,7 +309,7 @@ class TimelineController extends AppBaseController
             if (!$isMe) {
                 $groups_last->where('groups.type', '<>', 'secret');
             }
-            $groups_last = $groups_last->latest()->take(2)->get()
+            $groups_last = $groups_last->latest()->get()
                 ->map(function ($group) {
                     $friends = collect();
                     $members = $group->users()->where('status', 'approved')->pluck('users.id')->all();
@@ -430,7 +430,7 @@ class TimelineController extends AppBaseController
                 'group_events', 'ongoing_events', 'upcoming_events', 'dialog_id'))->render();
     }
 
-    private function getRelationOf(User $user)
+    public static function getRelationOf(User $user)
     {
         $follower = DB::table('followers')
             ->where('follower_id', '=', Auth::id())
@@ -456,7 +456,7 @@ class TimelineController extends AppBaseController
         return $user;
     }
 
-    private function getRelative($sex)
+    public static function getRelative($sex)
     {
         if ($sex != 'female') {
             $isMan = true;
@@ -1853,10 +1853,13 @@ class TimelineController extends AppBaseController
     protected function groupPageValidator(array $data)
     {
         $rules = [
-            'name' => 'required',
+            'name' => 'required|not_std_route',
             'username' => 'required|max:16|min:5|alpha_num|unique:timelines|unique:users,esvoe_id'
         ];
-        return Validator::make($data, $rules);
+        $messages=[
+            'name.not_std_route' => trans('auth.reg_req_not_std_route'),
+        ];
+        return Validator::make($data, $rules,$messages);
     }
 
     public function createGroupPage(Request $request)
@@ -2921,6 +2924,7 @@ class TimelineController extends AppBaseController
     public function allAlbums($username)
     {
         $timeline = Timeline::where('username', $username)->first();
+        $user = User::where('timeline_id', $timeline['id'])->first();
         $albums = $timeline->albums()->with('photos')->get();
 
         $trending_tags = trendingTags();
@@ -2928,12 +2932,13 @@ class TimelineController extends AppBaseController
         $theme = Theme::uses(Setting::get('current_theme', 'default'))->layout('default');
         $theme->setTitle(Auth::user()->name . ' ' . Setting::get('title_seperator') . ' ' . trans('common.albums') . ' ' . Setting::get('title_seperator') . ' ' . Setting::get('site_title') . ' ' . Setting::get('title_seperator') . ' ' . Setting::get('site_tagline'));
 
-        return $theme->scope('albums/index', compact('timeline', 'albums', 'trending_tags'))->render();
+        return $theme->scope('albums/index', compact('timeline', 'user', 'albums', 'trending_tags'))->render();
     }
 
     public function allPhotos($username)
     {
         $timeline = Timeline::where('username', $username)->first();
+        $user = User::where('timeline_id', $timeline['id'])->first();
         $albums = $timeline->albums()->get();
 
         if (count($albums) > 0) {
@@ -2951,12 +2956,13 @@ class TimelineController extends AppBaseController
         $theme = Theme::uses(Setting::get('current_theme', 'default'))->layout('default');
         $theme->setTitle(Auth::user()->name . ' ' . Setting::get('title_seperator') . ' ' . trans('common.photos') . ' ' . Setting::get('title_seperator') . ' ' . Setting::get('site_title') . ' ' . Setting::get('title_seperator') . ' ' . Setting::get('site_tagline'));
 
-        return $theme->scope('albums/photos', compact('timeline', 'images', 'trending_tags'))->render();
+        return $theme->scope('albums/photos', compact('timeline', 'user', 'images', 'trending_tags'))->render();
     }
 
     public function allVideos($username)
     {
         $timeline = Timeline::where('username', $username)->first();
+        $user = User::where('timeline_id', $timeline['id'])->first();
         if (Setting::get('announcement') != null) {
             $election = Announcement::find(Setting::get('announcement'));
         }
@@ -2979,12 +2985,13 @@ class TimelineController extends AppBaseController
         $theme = Theme::uses(Setting::get('current_theme', 'default'))->layout('default');
         $theme->setTitle(Auth::user()->name . ' ' . Setting::get('title_seperator') . ' ' . trans('common.photos') . ' ' . Setting::get('title_seperator') . ' ' . Setting::get('site_title') . ' ' . Setting::get('title_seperator') . ' ' . Setting::get('site_tagline'));
 
-        return $theme->scope('albums/videos', compact('timeline', 'videos', 'trending_tags', 'election'))->render();
+        return $theme->scope('albums/videos', compact('timeline', 'user','videos', 'trending_tags', 'election'))->render();
     }
 
     public function viewAlbum($username, $id)
     {
         $timeline = Timeline::where('username', $username)->first();
+        $user = User::where('timeline_id', $timeline['id'])->first();
         $album = Album::where('id', $id)->with('photos')->first();
 
         $trending_tags = trendingTags();
@@ -2992,7 +2999,7 @@ class TimelineController extends AppBaseController
         $theme = Theme::uses(Setting::get('current_theme', 'default'))->layout('default');
         $theme->setTitle($album->name . ' ' . Setting::get('title_seperator') . ' ' . Setting::get('site_title') . ' ' . Setting::get('title_seperator') . ' ' . Setting::get('site_tagline'));
 
-        return $theme->scope('albums/show', compact('timeline', 'album', 'trending_tags'))->render();
+        return $theme->scope('albums/show', compact('timeline', 'user', 'album', 'trending_tags'))->render();
     }
 
     public function albumPhotoEdit(Request $request)
@@ -3005,7 +3012,7 @@ class TimelineController extends AppBaseController
         }
     }
 
-    public function createAlbum($username)
+    public function createAlbum()
     {
         $suggested_users = suggestedUsers();
         $suggested_groups = suggestedGroups();
@@ -3030,6 +3037,7 @@ class TimelineController extends AppBaseController
 
     public function saveImage(Request $request, $username)
     {
+        if ($username != Auth::user()->username) return;
 
         $this->validate($request, [
             'file' => 'mimes:jpeg,bmp,png|dimensions:min_width=200,min_height=200'
@@ -3049,8 +3057,8 @@ class TimelineController extends AppBaseController
             });
         }
 
-        Storage::disk('albums')->makeDirectory($username . '/tmp');
-        $photo->save(storage_path("uploads/albums/{$username}/tmp/{$photoName}"), 60);
+        Storage::disk('albums')->makeDirectory(Auth::id() . '/tmp');
+        $photo->save(storage_path("uploads/albums/" . Auth::id() . "/tmp/{$photoName}"), 60);
 
     }
 
@@ -3063,8 +3071,11 @@ class TimelineController extends AppBaseController
         //           ->withInput($request->all())
         //           ->withErrors($validator->errors());
         // }
+        if ($username != Auth::user()->username) {
+            return redirect()->back();
+        }
 
-        $files = Storage::disk('albums')->files($username . '/tmp');
+        $files = Storage::disk('albums')->files(Auth::id() . '/tmp');
 
         if (count($files) < 1 || $request->name == null || $request->privacy == null) {
             Flash::error(trans('messages.album_validation_error'));
@@ -3082,7 +3093,7 @@ class TimelineController extends AppBaseController
             $photoName = date('Y-m-d-H-i-s') . $strippedName;
             $photoName = implode('/', array_slice(explode('-', $photoName), 0, 5)) . '/' . $photoName;
 
-            Storage::disk('albums')->move($album_photo, $username . "/" . $photoName);
+            Storage::disk('albums')->move($album_photo, Auth::id() . "/" . $photoName);
 
             $media = Media::create([
                 'title' => $fileName,
@@ -3118,11 +3129,11 @@ class TimelineController extends AppBaseController
             }
         }
 
-        Storage::disk('albums')->deleteDirectory($username . '/tmp');
+        Storage::disk('albums')->deleteDirectory(Auth::id() . '/tmp');
 
         if ($album) {
             Flash::success(trans('messages.create_album_success'));
-            return redirect('/' . $username . '/album/show/' . $album->id);
+            return redirect('/' . Auth::id() . '/album/show/' . $album->id);
         } else {
             Flash::error(trans('messages.create_album_error'));
         }
@@ -3150,6 +3161,10 @@ class TimelineController extends AppBaseController
         //           ->withInput($request->all())
         //           ->withErrors($validator->errors());
         // }
+        if ($username != Auth::user()->username) {
+            return redirect()->back();
+        }
+
         if ($request->name == null || $request->privacy == null) {
             Flash::error(trans('messages.album_validation_error'));
             return redirect()->back();
@@ -3159,7 +3174,7 @@ class TimelineController extends AppBaseController
         $input = $request->except('_token', 'album_photos');
         $album->update($input);
 
-        $files = Storage::disk('albums')->files($username . '/tmp');
+        $files = Storage::disk('albums')->files(Auth::id() . '/tmp');
 
         if (count($files)) {
             $maxDims = config('image.max_user_image_dimensions');
@@ -3170,7 +3185,7 @@ class TimelineController extends AppBaseController
                 $photoName = date('Y-m-d-H-i-s') . $strippedName;
                 $photoName = implode('/', array_slice(explode('-', $photoName), 0, 5)) . '/' . $photoName;
 
-                Storage::disk('albums')->move($album_photo, $username . "/" . $photoName);
+                Storage::disk('albums')->move($album_photo, Auth::id() . "/" . $photoName);
 
                 $media = Media::create([
                     'title' => $fileName,
@@ -3206,11 +3221,11 @@ class TimelineController extends AppBaseController
             }
         }
 
-        Storage::disk('albums')->deleteDirectory($username . '/tmp');
+        Storage::disk('albums')->deleteDirectory(Auth::id() . '/tmp');
 
         if ($album) {
             Flash::success(trans('messages.update_album_success'));
-            return redirect('/' . $username . '/album/show/' . $album->id);
+            return redirect('/' . Auth::id() . '/album/show/' . $album->id);
         } else {
             Flash::error(trans('messages.update_album_error'));
         }

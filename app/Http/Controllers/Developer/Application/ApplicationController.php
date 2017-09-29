@@ -95,7 +95,11 @@ class ApplicationController extends Controller
         $application->save();
 
         $application->name = 'app'.$application->id;
-        $application->api_key = $this->createApiKey();
+
+        $key_priv = $this->createApiKey();
+
+        $application->api_key = $key_priv;
+        $application->api_private_key = $key_priv;
 
         if ( ! LOCAL_DEV_MODE()) {
 
@@ -693,7 +697,10 @@ class ApplicationController extends Controller
             ]);
         }
 
-        $application->api_key = $this->createApiKey();
+        $key_priv = $this->createApiKey();
+
+        $application->api_key = $key_priv;
+        $application->api_private_key = $key_priv;
         $application->save();
 
         return response()->json([

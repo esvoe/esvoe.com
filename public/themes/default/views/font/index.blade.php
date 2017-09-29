@@ -352,6 +352,18 @@
             <div class="svoe-icon svoe-2x icon-zaputannya"></div>
             <input type="text" readonly="readonly" value="zaputannya">
         </li>
+        <li>
+          <div class="svoe-icon svoe-2x icon-media"></div>
+          <input type="text" readonly="readonly" value="media">
+        </li>
+        <li>
+          <div class="svoe-icon svoe-2x icon-kramnytsya"></div>
+          <input type="text" readonly="readonly" value="kramnytsya">
+        </li>
+        <li>
+          <div class="svoe-icon svoe-2x icon-web"></div>
+          <input type="text" readonly="readonly" value="web">
+        </li>
     </ul>
 </div>
 <script>(function() {

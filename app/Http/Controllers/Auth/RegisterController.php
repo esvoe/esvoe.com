@@ -44,7 +44,7 @@ class RegisterController extends Controller
 
     public $rules = [
         'sename'    => 'required|max:255',
-        'name'      => 'required|max:255',
+        'name'      => 'required|max:255|not_std_route',
         'birthday'  => 'required',
         'email'     => 'required|email|max:255|unique:users',
         'password'  => 'required|min:6',
@@ -60,6 +60,7 @@ class RegisterController extends Controller
         if(empty($messages)){
              $messages=[
                  'name.required' => trans('auth.reg_req_name'),
+                 'name.not_std_route' => trans('auth.reg_req_not_std_route'),
                  'sename.required' => trans('auth.reg_req_sename'),
                  'birthday.required' => trans('auth.reg_req_birthday'),
                  'email.required' => trans('auth.reg_req_email'),

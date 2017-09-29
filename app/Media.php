@@ -63,12 +63,12 @@ class Media extends Model
         return Storage::disk('albums')->path($username . '/' . $this->source);
     }
 
-    public function albumUrl(string $username, $width = false, $height = false)
+    public function albumUrl(int $userId, $width = false, $height = false)
     {
         if ($width or $height) {
-            return $this->image($width, $height, 'albums', $username . '/' . $this->source);
+            return $this->image($width, $height, 'albums', $userId . '/' . $this->source);
         }
 
-        return Storage::disk('albums')->url($username . '/' . $this->source);
+        return Storage::disk('albums')->url($userId . '/' . $this->source);
     }
 }

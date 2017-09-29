@@ -77,6 +77,13 @@
                                     </tr>
 
                                     <tr>
+                                        <td class="label-td">Public</td>
+                                        <td class="form-control-field">
+                                            {{ Form::checkbox('is_visible', '1', ($application->is_visible == 1), array('class' => 'form-control text-input')) }}
+                                        </td>
+                                    </tr>
+
+                                    <tr>
                                         <td class="label-td">Icon image:</td>
                                         <td class="form-control-field">
                                             <img src="{{static_uploads($application->image_icon)}}"/>

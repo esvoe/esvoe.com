@@ -3,7 +3,7 @@
         <div class="row">
             <div class=" col-sm-7 col-md-8 col-lg-8">
                 <a href="{{ url('/') }}" class="logo-login">
-                    <img src="{!! Theme::asset()->url('images/elogo.svg') !!}" alt="{{ Setting::get('site_name') }}" title="{{ Setting::get('site_name') }}">
+                    <img src="{!! Theme::asset()->url('images/beta_logo.svg') !!}" alt="{{ Setting::get('site_name') }}" title="{{ Setting::get('site_name') }}">
                 </a>
                 {!! Theme::partial('intro-circle') !!}
             </div>
@@ -77,7 +77,7 @@
                         <div class="panel-body nopadding">
                             <div class="login-bottom">
                                 <div class="quick-reg">
-                                    {{trans('auth.quick_reg')}}
+                                    {{trans('auth.quick_reg')}} <span>{{trans('common.beta_test')}}</span>
                                 </div>
                                 <ul class="signup-errors text-danger list-unstyled"></ul>
 

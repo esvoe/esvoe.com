@@ -31,60 +31,44 @@
 											<i class="icon-informaciya svoe-icon" style="top: 2px;"></i>
 											{{ trans('timeline.info') }}
 										</div>
-										<div class="count-friend-photo-block">
-											<div class="row">
-												<div class="col-xs-4">
-													<span>{{ $counters['friends'] }}</span>
-													<p>{{ trans('timeline.of_friends_ucf') }}</p>
-												</div>
-												<div class="col-xs-4">
-													<span>{{ $counters['followers'] }}</span>
-													<p>{{ trans('timeline.of_followers') }}</p>
-												</div>
-												<div class="col-xs-4">
-													<span>{{ $counters['photos'] }}</span>
-													<p>{{ trans('timeline.of_photos') }}</p>
-												</div>
-											</div>
-										</div>
 										<div class="info-contact-prof">
-											@if($user->about != NULL)
+											@if((($user->about != NULL) && ($user->about != 'write something about yourself')) || $isMe)
 												<div class="own-info-contact more-info-span-tab">
 													<span><i class="fa fa-user" aria-hidden="true"></i>{{ trans('common.bio') }}:</span>
 													<span>{{ $user->about }}</span>
 												</div>
 											@endif
-											@if($user->hobbies != NULL)
+											@if($user->hobbies != NULL || $isMe)
 											<div class="own-info-contact more-info-span-tab">
 												<span><i class="fa fa-gamepad" aria-hidden="true"></i>{{ trans('common.hobbies') }}:</span>
 												<span>{{ $user->hobbies }}</span>
 											</div>
 											@endif
-											@if($user->interests != NULL)
+											@if($user->interests != NULL || $isMe)
 											<div class="own-info-contact more-info-span-tab">
 												<span><i class="fa fa-question" aria-hidden="true"></i>{{ trans('common.interests') }}:</span>
 												<span>{{ $user->interests }}</span>
 											</div>
 											@endif
-											@if($user->designation != NULL)
+											@if($user->designation != NULL || $isMe)
 											<div class="own-info-contact">
 												<span><i class="fa fa-graduation-cap" aria-hidden="true"></i>{{ trans('common.designation') }}:</span>
 												<span>{{ $user->designation }}</span>
 											</div>
 											@endif
-											@if($user->birthday != NULL)
+											@if($user->birthday != NULL || $isMe)
 											<div class="own-info-contact">
 												<span><i class="fa fa-birthday-cake " style="top: 10px;" aria-hidden="true"></i>{{ trans('timeline.birthday') }}:</span>
 												<span>{{ $user->birthday }}</span>
 											</div>
 											@endif
-											@if($user->country != NULL)
+											@if($user->country != NULL || $isMe)
 											<div class="own-info-contact">
 												<span><i class="fa fa-globe " aria-hidden="true"></i>{{ trans('common.country') }}:</span>
 												<span>{{ $user->country }}</span>
 											</div>
 											@endif
-											@if($user->city != NULL)
+											@if($user->city != NULL || $isMe)
 											<div class="own-info-contact">
 												<span><i class="fa fa-home" aria-hidden="true"></i>{{ trans('timeline.city') }}:</span>
 												<span>{{ $user->city }}</span>
@@ -114,14 +98,6 @@
 													<span>{{ $user->custom_option4 }}</span>
 												</div>
 											@endif
-											<div class="own-info-contact">
-												<span><i class="fa fa-mobile " style="left: 4px;" aria-hidden="true"></i>{{ trans('common.phone') }}:</span>
-												<span></span>
-											</div>
-											<div class="own-info-contact">
-												<span><i class="fa fa-skype " aria-hidden="true"></i>Skype:</span>
-												<span></span>
-											</div>
 											<div class="own-info-contact social-link-prof">
 												@if($user->facebook_link != NULL)
 													<a target="_blank" href="{{ $user->facebook_link }}" class="btn btn-facebook" style="background-color: #334f8d;"><i class="fa fa-facebook"></i></a>
@@ -151,24 +127,22 @@
 										<a href="#">
 											<i class="icon-photoalbomy svoe-icon" style="top: 23px;"></i>
 											{{ trans('timeline.last_photos') }}
-											<span>({{ $counters['photos'] }} {{ trans('timeline.photo_lcf') }})</span>
+											<span onclick="location='{{ url('/'.Auth::user()->username.'/photos') }}'">{{ trans('common.all_photos') }}</span>
 										</a>
 									</div>
 									<div class="last-photo-prof">
 										<div class="row">
-											<div class="col-xs-12">
-												<div class="chronicle">
-													@foreach($photos_last as $url)
-														<img class="img-responsive" src="{{ $url }}" alt="" />
-													@endforeach
-												</div>
+											@foreach($photos_last as $url)
+											<div class="col-xs-6">
+												<div class="chronicle" style="background-image: url('{{ $url }}');"></div>
 											</div>
+											@endforeach
 										</div>
 									</div>
 								</div>
 								<div class="wrap-panel-prof">
 									<div class="title-link-album">
-										<a href="#">
+										<a href="{{ url('/'.Auth::user()->username.'/albums') }}">
 											<i class="icon-photoalbomy svoe-icon" style="top: 22px;"></i>
 											{{ trans('timeline.photoalbums') }}
 											<span>({{ $counters['albums'] }} {{ trans('timeline.of_photoalbums') }})</span>
@@ -334,24 +308,6 @@
 										@if($timeline->type == "user" && $timeline_post == true)
 											{!! Theme::partial('create-post',compact('timeline','user_post')) !!}
 
-										@elseif($timeline->type == "page")
-											@if(($page->timeline_post_privacy == "only_admins" && $page->is_admin(Auth::user()->id)) || ($page->timeline_post_privacy == "everyone"))
-												{!! Theme::partial('create-post',compact('timeline','user_post')) !!}
-											@elseif($page->timeline_post_privacy == "everyone")
-												{!! Theme::partial('create-post',compact('timeline','user_post')) !!}
-											@endif
-
-										@elseif($timeline->type == "group")
-											@if(($group->post_privacy == "only_admins" && $group->is_admin(Auth::user()->id))|| ($group->post_privacy == "members" && Auth::user()->get_group($group->id) == 'approved') || $group->post_privacy == "everyone")
-												{!! Theme::partial('create-post',compact('timeline','user_post','username')) !!}
-											@endif
-
-										@elseif($timeline->type == "event")
-											@if(($event->timeline_post_privacy == 'only_admins' && $event->is_eventadmin(Auth::user()->id, $event->id)) || ($event->timeline_post_privacy == 'only_guests' && Auth::user()->get_eventuser($event->id)))
-												{!! Theme::partial('create-post',compact('timeline','user_post')) !!}
-											@endif
-										@endif
-
 										<div class="timeline-posts">
 											@if($user_post == "user" || $user_post == "page" || $user_post == "group")
 												@if(count($posts) > 0)
@@ -377,6 +333,7 @@
 												@endif
 											@endif
 										</div>
+										@endif
 
 							</div>
 							<div class="visible-lg col-lg-3 hide-1">
@@ -525,7 +482,7 @@
 																										<label for="{{$status}}">
 																											<span class="wrap-checker-sett">
 																												<div class="jq-checkbox" id="{{$status}}-styler">
-																													<input data-action="status" type="checkbox" name="status" id="{{$status}}" value="{{$status}}" @if(isset($friend->curStatuses) AND strpos($friend->curStatuses, $status)!==false) checked="checked" @endif /><div class="jq-checkbox__div"></div>
+																													<input data-action="status" type="checkbox" name="status" data-action-friend-status="{{$status}}" value="{{$status}}" @if(isset($friend->curStatuses) AND strpos($friend->curStatuses, $status)!==false) checked="checked" @endif /><div class="jq-checkbox__div"></div>
 																												</div>
 																											</span>
 																											{{ trans('friend.status_'.$status) }}
@@ -547,7 +504,7 @@
 																											<label for="{{$rl}}">
 		                            																			<span class="wrap-checker-sett">
 																													<div class="jq-radio" id="{{$rl}}-styler">
-		                            																					<input data-action="relative" type="radio" name="relative" id="{{$rl}}" value="{{$rl}}" @if($rlValue == $friend->curRelative) checked="checked" @endif /><div class="jq-radio__div"></div>
+		                            																					<input data-action="relative" type="radio" name="relative" data-action-friend-relative="{{$rl}}" value="{{$rl}}" @if($rlValue == $friend->curRelative) checked="checked" @endif /><div class="jq-radio__div"></div>
 																													</div>
 		                            																			</span>
 																													{{ trans('friend.rl_'.$rl) }}
@@ -762,6 +719,20 @@
 									<div role="tabpanel" class="tab-pane fade in active" id="tab-photo-1">
 										<div class="wrap-album-tab">
 											<div class="row">
+												<div class="col-album">
+													<div class="own-album-tab">
+														<div class="photo-album-tab-border album-main">
+															<div class="create-album-tab">
+																<i class="icon-prisoidenitsa svoe-sort svoe-icon"></i>
+																<span>{{ trans('common.create-album') }}</span>
+															</div>
+														</div>
+														<div class="title-album-count create-empty">
+															<a href="#">&nbsp;</a>
+															<span>&nbsp;</span>
+														</div>
+													</div>
+												</div>
 												@foreach($albums_last as $album)
 												<div class="col-album">
 													<div class="own-album-tab">
@@ -874,6 +845,7 @@
 														<i class="icon-pereytu  svoe-icon"></i>
 														{{ trans('timeline.visit') }}
 													</a>
+{{--
 													<a href="#" class="btn-action-hover show-action-hover hidden-action-hover @if($event->subscribed) hidden @endif">
 														<i class="icon-pidpysatysya  svoe-icon"></i>
 														{{ trans('friend.subscribe') }}
@@ -882,6 +854,7 @@
 														<i class="icon-vidpysatys  svoe-icon"></i>
 														{{ trans('friend.unsubscribe') }}
 													</a>
+--}}
 												</div>
 												<span>{{ number_format($event->users_count, 0, '', ' ') }} {{ trans('timeline.of_participants') }}</span>
 											</div>
@@ -1022,11 +995,162 @@
 					$('.last-photo-mosaic-1').jMosaic({items_type: "li", margin: 1});
 				});
 			</script>
+		@elseif($timeline->type == "page")
+
+				<div class="row">
+					<div class="col-xs-12 profile-col">
+						<!-- Tab panes -->
+						<!-- <div class="container container-grid section-container"> -->
+						<div class="tab-content profheader-tab-content">
+							<div role="tabpanel" class="tab-pane fade in active" id="tab-chronicle">
+								<div class="row">
+									<div class="col-md-7  col-lg-5  col-grid-1">
+
+										@if(($page->timeline_post_privacy == "only_admins" && $page->is_admin(Auth::user()->id)) || ($page->timeline_post_privacy == "everyone"))
+											{!! Theme::partial('create-post',compact('timeline','user_post')) !!}
+										@elseif($page->timeline_post_privacy == "everyone")
+											{!! Theme::partial('create-post',compact('timeline','user_post')) !!}
+										@endif
+
+										<div class="timeline-posts">
+											@if($user_post == "user" || $user_post == "page" || $user_post == "group")
+												@if(count($posts) > 0)
+													@foreach($posts as $post)
+														{!! Theme::partial('post',compact('post','timeline','next_page_url','user')) !!}
+													@endforeach
+												@else
+													<div class="no-posts alert alert-warning">{{ trans('messages.no_posts') }}</div>
+												@endif
+											@endif
+
+											@if($user_post == "event")
+												@if($event->type == 'private' && Auth::user()->get_eventuser($event->id) || $event->type == 'public')
+													@if(count($posts) > 0)
+														@foreach($posts as $post)
+															{!! Theme::partial('post',compact('post','timeline','next_page_url','user')) !!}
+														@endforeach
+													@else
+														<div class="no-posts alert alert-warning">{{ trans('messages.no_posts') }}</div>
+													@endif
+												@else
+													<div class="no-posts alert alert-warning">{{ trans('messages.private_posts') }}</div>
+												@endif
+											@endif
+										</div>
+									</div>
+									<div class="visible-lg col-lg-3 hide-1">
+										{!! Theme::partial('advertising') !!}
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+		@elseif($timeline->type == "group")
+				<div class="row">
+					<div class="col-xs-12 profile-col">
+						<!-- Tab panes -->
+						<!-- <div class="container container-grid section-container"> -->
+						<div class="tab-content profheader-tab-content">
+							<div role="tabpanel" class="tab-pane fade in active" id="tab-chronicle">
+								<div class="row">
+									<div class="col-md-7  col-lg-5  col-grid-1">
+
+										@if(($group->post_privacy == "only_admins" && $group->is_admin(Auth::user()->id))|| ($group->post_privacy == "members" && Auth::user()->get_group($group->id) == 'approved') || $group->post_privacy == "everyone")
+											{!! Theme::partial('create-post',compact('timeline','user_post','username')) !!}
+										@endif
+
+										<div class="timeline-posts">
+											@if($user_post == "user" || $user_post == "page" || $user_post == "group")
+												@if(count($posts) > 0)
+													@foreach($posts as $post)
+														{!! Theme::partial('post',compact('post','timeline','next_page_url','user')) !!}
+													@endforeach
+												@else
+													<div class="no-posts alert alert-warning">{{ trans('messages.no_posts') }}</div>
+												@endif
+											@endif
+
+											@if($user_post == "event")
+												@if($event->type == 'private' && Auth::user()->get_eventuser($event->id) || $event->type == 'public')
+													@if(count($posts) > 0)
+														@foreach($posts as $post)
+															{!! Theme::partial('post',compact('post','timeline','next_page_url','user')) !!}
+														@endforeach
+													@else
+														<div class="no-posts alert alert-warning">{{ trans('messages.no_posts') }}</div>
+													@endif
+												@else
+													<div class="no-posts alert alert-warning">{{ trans('messages.private_posts') }}</div>
+												@endif
+											@endif
+										</div>
+									</div>
+									<div class="visible-lg col-lg-3 hide-1">
+										{!! Theme::partial('advertising') !!}
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+		@elseif($timeline->type == "event")
+
+				<div class="row">
+					<div class="col-xs-12 profile-col">
+						<!-- Tab panes -->
+						<!-- <div class="container container-grid section-container"> -->
+						<div class="tab-content profheader-tab-content">
+							<div role="tabpanel" class="tab-pane fade in active" id="tab-chronicle">
+								<div class="row">
+									<div class="col-md-7  col-lg-5  col-grid-1">
+
+										@if(($event->timeline_post_privacy == 'only_admins' && $event->is_eventadmin(Auth::user()->id, $event->id)) || ($event->timeline_post_privacy == 'only_guests' && Auth::user()->get_eventuser($event->id)))
+											{!! Theme::partial('create-post',compact('timeline','user_post')) !!}
+										@endif
+
+										<div class="timeline-posts">
+											@if($user_post == "user" || $user_post == "page" || $user_post == "group")
+												@if(count($posts) > 0)
+													@foreach($posts as $post)
+														{!! Theme::partial('post',compact('post','timeline','next_page_url','user')) !!}
+													@endforeach
+												@else
+													<div class="no-posts alert alert-warning">{{ trans('messages.no_posts') }}</div>
+												@endif
+											@endif
+
+											@if($user_post == "event")
+												@if($event->type == 'private' && Auth::user()->get_eventuser($event->id) || $event->type == 'public')
+													@if(count($posts) > 0)
+														@foreach($posts as $post)
+															{!! Theme::partial('post',compact('post','timeline','next_page_url','user')) !!}
+														@endforeach
+													@else
+														<div class="no-posts alert alert-warning">{{ trans('messages.no_posts') }}</div>
+													@endif
+												@else
+													<div class="no-posts alert alert-warning">{{ trans('messages.private_posts') }}</div>
+												@endif
+											@endif
+										</div>
+									</div>
+									<div class="visible-lg col-lg-3 hide-1">
+										{!! Theme::partial('advertising') !!}
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
 		@endif
 {{--
-		<div class="row">				 
+		<div class="row">
 			<div class="col-md-10">
-				
+
 				<div class="row">
 					<div class="timeline">
 
@@ -1046,50 +1170,50 @@
 
 							@if($timeline->type == "user" && $timeline_post == true)
 								{!! Theme::partial('create-post',compact('timeline','user_post')) !!}
-								
+
 							@elseif($timeline->type == "page")
 								@if(($page->timeline_post_privacy == "only_admins" && $page->is_admin(Auth::user()->id)) || ($page->timeline_post_privacy == "everyone"))
 									{!! Theme::partial('create-post',compact('timeline','user_post')) !!}
-								@elseif($page->timeline_post_privacy == "everyone")	
+								@elseif($page->timeline_post_privacy == "everyone")
 									{!! Theme::partial('create-post',compact('timeline','user_post')) !!}
 								@endif
-								
-							@elseif($timeline->type == "group")						
-								@if(($group->post_privacy == "only_admins" && $group->is_admin(Auth::user()->id))|| ($group->post_privacy == "members" && Auth::user()->get_group($group->id) == 'approved') || $group->post_privacy == "everyone")									
+
+							@elseif($timeline->type == "group")
+								@if(($group->post_privacy == "only_admins" && $group->is_admin(Auth::user()->id))|| ($group->post_privacy == "members" && Auth::user()->get_group($group->id) == 'approved') || $group->post_privacy == "everyone")
 									{!! Theme::partial('create-post',compact('timeline','user_post','username')) !!}
 								@endif
 
-							@elseif($timeline->type == "event")	
-								@if(($event->timeline_post_privacy == 'only_admins' && $event->is_eventadmin(Auth::user()->id, $event->id)) || ($event->timeline_post_privacy == 'only_guests' && Auth::user()->get_eventuser($event->id)))													
-									{!! Theme::partial('create-post',compact('timeline','user_post')) !!}								
+							@elseif($timeline->type == "event")
+								@if(($event->timeline_post_privacy == 'only_admins' && $event->is_eventadmin(Auth::user()->id, $event->id)) || ($event->timeline_post_privacy == 'only_guests' && Auth::user()->get_eventuser($event->id)))
+									{!! Theme::partial('create-post',compact('timeline','user_post')) !!}
 								@endif
-							@endif					
+							@endif
 
-							<div class="timeline-posts">								
+							<div class="timeline-posts">
 								@if($user_post == "user" || $user_post == "page" || $user_post == "group")
 									@if(count($posts) > 0)
-	 									@foreach($posts as $post)									
-	 										{!! Theme::partial('post',compact('post','timeline','next_page_url','user')) !!}					
+	 									@foreach($posts as $post)
+	 										{!! Theme::partial('post',compact('post','timeline','next_page_url','user')) !!}
 	 									@endforeach
  									@else
  										<div class="no-posts alert alert-warning">{{ trans('messages.no_posts') }}</div>
- 									@endif	
+ 									@endif
  								@endif
 
  								@if($user_post == "event")
  									@if($event->type == 'private' && Auth::user()->get_eventuser($event->id) || $event->type == 'public')
- 										@if(count($posts) > 0)	
-		 									@foreach($posts as $post)									
-		 										{!! Theme::partial('post',compact('post','timeline','next_page_url','user')) !!}					
+ 										@if(count($posts) > 0)
+		 									@foreach($posts as $post)
+		 										{!! Theme::partial('post',compact('post','timeline','next_page_url','user')) !!}
 		 									@endforeach
 	 									@else
 	 										<div class="no-posts alert alert-warning">{{ trans('messages.no_posts') }}</div>
-	 									@endif	
+	 									@endif
  									@else
  										<div class="no-posts alert alert-warning">{{ trans('messages.private_posts') }}</div>
- 									@endif	
- 								@endif								
-							</div>	
+ 									@endif
+ 								@endif
+							</div>
 						</div>
 					</div>
 				</div><!-- /row -->

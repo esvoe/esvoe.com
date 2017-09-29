@@ -81,5 +81,6 @@ return array (
   'reg_req_password' => 'Enter your Password',
   'reg_req_password_min' => 'Password is too short',
   'reg_req_gender' => 'Select gender',
-  'reg_req_username' => 'Enter Username',
+  'reg_req_username' => 'Enter Username', 
+  'reg_req_not_std_route' => 'The name you entered is not allowed.',
 );

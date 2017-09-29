@@ -313,6 +313,7 @@
 		@foreach(App\StaticPage::active() as $staticpage)
 			<a href="{{ url('page/'.$staticpage->slug) }}">{{ trans('common.'.$staticpage->title.'_footer') }}</a>
 		@endforeach
+			<a href="/faq">Faq</a>
 		<p>
 			<a class="copy" href="/">{{ Setting::get('site_name') }} </a>
 			<span>&copy; {{ date('Y') }}</span>
