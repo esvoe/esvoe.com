@@ -348,6 +348,10 @@
             <div class="svoe-icon svoe-2x icon-photo-favourite"></div>
             <input type="text" readonly="readonly" value="photo-favourite">
         </li>
+        <li>
+            <div class="svoe-icon svoe-2x icon-zaputannya"></div>
+            <input type="text" readonly="readonly" value="zaputannya">
+        </li>
     </ul>
 </div>
 <script>(function() {

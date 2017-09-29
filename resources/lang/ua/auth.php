@@ -61,7 +61,7 @@ return array (
   'signup_to_dashboard' => 'Зареєструватися!',
   'already_have_an_account' => 'У вас уже є обліковий запис',
   'sign_in' => 'Увійти Вже!',
-  'quick_reg' => 'Зареєструватися!',
+  'quick_reg' => 'Зареєструватися',
   'subject' => 'Предмет',
   'register' => 'Реєстрація',
   'verify_email' => 'Будь ласка, перевірте свою електронну пошту.',

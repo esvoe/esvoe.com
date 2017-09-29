@@ -61,7 +61,7 @@ return array (
   'select_gender' => 'Select gender',
   'send_password_reset_link' => 'Send Password Reset Link',
   'sign_in' => 'Sign In',
-  'quick_reg' => 'Register!',
+  'quick_reg' => 'Register',
   'signin_to_dashboard' => 'Sign in',
   'signup_to_dashboard' => 'Sign up',
   'verify_email' => 'Please verify your email.',

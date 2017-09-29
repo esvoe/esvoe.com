@@ -61,7 +61,7 @@ return array (
   'select_gender' => 'Выбрать из списка',
   'send_password_reset_link' => 'Отправить ссылку на восстановление пароля',
   'sign_in' => 'Войти',
-  'quick_reg' => 'Зарегистрироваться!',
+  'quick_reg' => 'Зарегистрироваться',
   'signin_to_dashboard' => 'Войти',
   'signup_to_dashboard' => 'Зарегистрироваться!',
   'verify_email' => 'Пожалуйста, проверьте свою электронную почту.',

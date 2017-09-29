@@ -1,5 +1,10 @@
 <?php
 return array(
+    'my-photo'=> 'Мои фото',
+    'beta_test'=> 'на beta-тест:',
+    'favourite-photo'=> 'Улюблені',
+    'popular-photo'=>'Популярые фото єСвоє',
+    'create-album'=> 'Создать новый альбом',
     'save'                               =>'Сохранить',
     'choose_lang'                        =>'Выберите Ваш язык',
     'home'                               => 'Главная',
@@ -456,4 +461,5 @@ return array(
     'tofollow' => 'Следить',
     'not_interested' => 'Не интересно',
     'buy_ticket' => 'Купить билет',
+    'my_advertising' => 'Моя реклама',
 );

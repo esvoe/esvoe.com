@@ -126,19 +126,19 @@ class PageController extends Controller
 
     public function font()
     {
-
         $theme = Theme::uses(Setting::get('current_theme', 'default'))->layout('default');
-
         return $theme->scope('/font/index')->render();
     }
 
     public function pagePhoto()
     {
-
         $theme = Theme::uses(Setting::get('current_theme', 'default'))->layout('default');
-
         return $theme->scope('/pages/photo')->render();
     }
-
+    public function faq()
+    {
+        $theme = Theme::uses(Setting::get('current_theme', 'default'))->layout('default');
+        return $theme->scope('/pages/faq')->render();
+    }
 
 }

@@ -306,3 +306,6 @@
 .icon-photo-favourite:before {
     content: "\40";
 }
+.icon-zaputannya:before {
+    content: "\5b";
+}

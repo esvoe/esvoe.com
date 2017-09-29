@@ -90,7 +90,7 @@
                                     <div class="usersearch-categories_ico">
                                         <i class="icon-druzi svoe-icon"></i>
                                     </div>
-                                    <div class="usersearch-categories_title">{{ trans('sidebar.my_friends') }}</div>
+                                    <div class="usersearch-categories_title">{{ trans('messages.friends') }}</div>
                                 </div>
                                 <div v-for="data in searchConversion.friend">
                                     <a class="usersearch-item" href="#" @click.prevent="postNewConversationDialog(data,$event)">
@@ -111,7 +111,7 @@
                                     <div class="usersearch-categories_ico">
                                         <i class="icon-grupy svoe-icon"></i>
                                     </div>
-                                    <div class="usersearch-categories_title">Диалог</div>
+                                    <div class="usersearch-categories_title">{{ trans('messages.people') }}</div>
                                 </div>
                                 <div v-for="data in searchConversion.dialog">
                                     <a class="usersearch-item" href="#" @click.prevent="showConversation(data,true)">
@@ -132,7 +132,7 @@
                                     <div class="usersearch-categories_ico">
                                         <i class="icon-grupy svoe-icon"></i>
                                     </div>
-                                    <div class="usersearch-categories_title">Группа</div>
+                                    <div class="usersearch-categories_title">{{ trans('messages.group') }}</div>
                                 </div>
                                 <div v-for="data in searchConversion.group">
                                     <a class="usersearch-item" href="#" @click.prevent="showConversation(data,true)">
@@ -152,7 +152,7 @@
                                     <div class="usersearch-categories_ico">
                                         <i class="icon-grupy svoe-icon"></i>
                                     </div>
-                                    <div class="usersearch-categories_title">Люди</div>
+                                    <div class="usersearch-categories_title">{{ trans('messages.dialog') }}</div>
                                 </div>
                                 <div v-for="data in searchConversion.newuser">
                                     <a class="usersearch-item" href="#" @click.prevent="postNewConversationDialog(data,$event)">
@@ -227,8 +227,8 @@
                                         </div>
 
                                     </div>
-
-                                    <div class="dropdown mess-dropdown">
+                                <!---Return------>
+                                    {{--<div class="dropdown mess-dropdown">
                                         <button class="dropdown-toggle" type="button" id="dropdownMenu-mess" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                                             <i class="icon-menyu svoe-icon"></i>
                                         </button>
@@ -251,7 +251,8 @@
                                                 </a>
                                             </li>
                                         </ul>
-                                    </div>
+                                    </div>--}}
+
                                 </div>
 
                                 <div  v-if="conversation.type=='group'"  v-bind:class="[ conversation.unread ? 'unseen-message' : '', (conversation.id==currentConversation.id) ? 'active-message-user' : '',  ]"  class="wrap-own-user-mess wrap-group-mess">
@@ -263,7 +264,10 @@
                                             <span class="default"><i class="icon-grupy svoe-icon"></i></span>
                                             <span v-bind:style="{ 'background-image': 'url(' + conversation.avatar[2] + ')' }"></span>
                                         </div>
-
+                                        
+                                        <div v-if="conversation.unreadedMessagesCount"  class="count-mess-new">
+                                            @{{ conversation.unreadedMessagesCount }}
+                                        </div>
                                         <div class="name-text-user-list">
                                             <a href="#">@{{ conversation.subject }}</a>
                                             <p><a href="#">Васьок:</a> @{{ conversation.text }}</p>
@@ -275,7 +279,8 @@
                                         </div>
                                     </div>
 
-                                    <div class="dropdown mess-dropdown">
+                                    <!---Return------>
+                                    {{--<div class="dropdown mess-dropdown">
                                         <button class="dropdown-toggle" type="button" id="dropdownMenu-mess" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                                             <i class="icon-menyu svoe-icon"></i>
                                         </button>
@@ -304,7 +309,8 @@
                                                 </a>
                                             </li>
                                         </ul>
-                                    </div>
+                                    </div>--}}
+
                                 </div>
                             </div>
 
@@ -324,7 +330,7 @@
                             <div class="form-group">
 
 
-                                <textarea    :disabled=newConversation class="form-control post-message"  placeholder="Введіть текст" autocomplete="off" name="message" v-on:keyup.enter="postMessage(currentConversation)" v-model="messageBody" ></textarea>
+                                <textarea :disabled=newConversation class="form-control post-message"  placeholder="{{ trans('messages.enterText') }}" autocomplete="off" name="message" v-on:keyup.enter="postMessage(currentConversation)" v-model="messageBody" ></textarea>
 
                                 <div class="what-new-add">
                                     <span data-add-new="smile" class="svoe-icon icon-emotsiyi"></span>
@@ -333,7 +339,7 @@
                                 </div>
 
 
-                                <button :disabled=newConversation class="button-post-new" type="button" v-on:click="postMessage(currentConversation)" >Опублікувати</button>
+                                <button :disabled=newConversation class="button-post-new" type="button" v-on:click="postMessage(currentConversation)">{{ trans('messages.publish') }}</button>
 
                             </div>
                         </div>
@@ -369,14 +375,14 @@
                                 <i class="icon-filtr-a svoe-icon"></i>
                             </div>
 
-                            <div class="header-dialog-btn dropdown" id="dropdownSettingMes">
+                            <div  class="header-dialog-btn dropdown" id="dropdownSettingMes">
                                 <button class="dropdown-toggle mess-dialog-menu" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                                     <i class="icon-menyu svoe-icon"></i>
                                 </button>
                                 <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                                    <li><a href="http://proto.esvoe.com/messenger.html#"><i class="fa fa-eye-slash" aria-hidden="true"></i>Приховати</a></li>
-                                    <li><a href="http://proto.esvoe.com/messenger.html#"><i class="fa fa-flag" aria-hidden="true"></i>Поскаржитись</a></li>
-                                    <li v-if="currentConversation.type=='group'" v-on:click="renameGroup(currentConversation)"><a href="#"><i class="fa fa-flag" aria-hidden="true"></i>Переименовать</a></li>
+                                    {{--<li><a href="http://proto.esvoe.com/messenger.html#"><i class="fa fa-eye-slash" aria-hidden="true"></i>Приховати</a></li>
+                                    <li><a href="http://proto.esvoe.com/messenger.html#"><i class="fa fa-flag" aria-hidden="true"></i>Поскаржитись</a></li>--}}
+                                    <li v-if="currentConversation.type=='group'" v-on:click="renameGroup(currentConversation)"><a href="#"><i class="fa fa-flag" aria-hidden="true"></i>{{ trans('messages.rename') }}</a></li>
                                 </ul>
                             </div>
                             
@@ -391,7 +397,7 @@
                         </div>
                         <div class="create-conversation-btns">
                             <a v-if="newConversation && !editConversation" v-on:click="postNewConversationGroup()" href="#" class="btn btn-success pull-right create-album-btn">
-                                Создать
+                                {{ trans('messages.create') }}
                             </a>
                             <!--when we can edit already added users----->
                             {{--<a v-if="newConversation && editConversation" v-on:click="postEditConversationGroup()" href="#" class="btn btn-success pull-right create-album-btn">
@@ -400,12 +406,12 @@
 
 
                             <a v-if="newConversation && editConversation" v-on:click="postAddParticipants()" href="#" class="btn btn-success pull-right create-album-btn">
-                                Добавить
+                                {{ trans('messages.add') }}
                             </a>
 
 
                             <a v-on:click="clearConversation()" href="#" class="btn btn-success pull-right create-album-btn">
-                                Закрыть
+                                {{ trans('messages.close') }}
                             </a>
                         </div>
                     </div>
@@ -450,25 +456,25 @@
                                     </span>
                                 </div>
 
-                                <div v-if="!message.deleted_at">
-                                <div class="dropdown mess-dropdown">
-                                    <button class="dropdown-toggle" type="button" id="dropdownMenu-mess" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                        <i class="icon-menyu svoe-icon"></i>
-                                    </button>
-                                    <ul class="dropdown-menu profheader-ctrl-dropdown" aria-labelledby="dropdownMenu-mess">
-                                        <li>
-                                            <a  href="#" class="">
-                                                <i class="icon-vydalyty svoe-icon"></i>{{ trans('common.delete') }}
-                                            </a>
-                                        </li>
-                                        <li class="divider"></li>
-                                        <li>
-                                            <a href="#" class="">
-                                                <i class="icon-zablokuvaty svoe-icon"></i>{{ trans('common.block') }}
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
+                                {{--<div v-if="!message.deleted_at">
+                                    <div class="dropdown mess-dropdown">
+                                        <button class="dropdown-toggle" type="button" id="dropdownMenu-mess" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                            <i class="icon-menyu svoe-icon"></i>
+                                        </button>
+                                        <ul class="dropdown-menu profheader-ctrl-dropdown" aria-labelledby="dropdownMenu-mess">
+                                            <li>
+                                                <a  href="#" class="">
+                                                    <i class="icon-vydalyty svoe-icon"></i>{{ trans('common.delete') }}
+                                                </a>
+                                            </li>
+                                            <li class="divider"></li>
+                                            <li>
+                                                <a href="#" class="">
+                                                    <i class="icon-zablokuvaty svoe-icon"></i>{{ trans('common.block') }}
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
                                 </div>
                                 <div v-if="message.deleted_at">
                                     <div class="dropdown mess-dropdown">
@@ -483,7 +489,7 @@
                                             </li>
                                         </ul>
                                     </div>
-                                </div>
+                                </div>--}}
 
                             </div>
 

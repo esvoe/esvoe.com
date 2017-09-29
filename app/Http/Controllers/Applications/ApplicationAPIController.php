@@ -80,29 +80,42 @@ class ApplicationAPIController extends Controller
 
         // Some kind of validation
 
-        $auth_params = array ( 'app-id' => null, 'app-key' => null, 'access-token' => null, 'session-key' => null, 'session-secret-key' => null, 'sign' => null );
+        // add app-key
+
+        $auth_params = array ( 'app-id' => null, 'app-key' => null, 'access-token' => null, 'session-key' => null, 'session-secret-key' => null, 'sign' => null, 'timestamp' => null );
         foreach ( $auth_params as $key => $val ) {
             if ($this->request->has($key)) $auth_params[$key] = $this->request->get($key);
             if (in_array($key, ['sign', 'access-token', 'session-key', 'session-secret-key'])) {
                 if ($this->request->headers->has($key)) $auth_params[$key] = $this->request->headers->get($key);
             }
         }
-        $auth_params['app-id'] = (int)$auth_params['app-id'];
+        $auth_params['app-id'] = (int) $auth_params['app-id'];
+        $auth_params['timestamp'] = (int) $auth_params['timestamp'];
 
         // second validation
-        if ( $auth_params['app-id'] <= 0 || ! $auth_params['sign'] || ( ! $auth_params['access-token'] && ! $auth_params['session-key'] ) ) {
+        if ( $auth_params['app-id'] <= 0 || ! $auth_params['sign'] ) {
             return response()->json(array(
                 'code' => 1001,
                 'data' => 'parameters.damaged',
-                'message' => 'missing.auth.parameters'
+                'message' => 'missing.auth.parameters.app_or_sign'
             ), 400);
         }
 
-        $application = Application::where('id', $auth_params['app-id'])
+        if ( $auth_params['timestamp'] <= 0) {
+            return response()->json(array(
+                'code' => 1001,
+                'data' => 'parameters.damaged',
+                'message' => 'missing.auth.parameters.timestamp'
+            ), 400);
+        }
+
+        // timestamp no late more than 12 hours
+
+        $this->application = Application::where('id', $auth_params['app-id'])
             ->where('is_active', true)
             ->first();
 
-        if ( ! $application ) {
+        if ( ! $this->application ) {
             return response()->json(array(
                 'code' => 1001,
                 'data' => 'parameters.damaged',
@@ -110,50 +123,65 @@ class ApplicationAPIController extends Controller
             ), 400);
         }
 
-        $applicationUser = null;
-        if ($auth_params['session-key']) {
+        if ( ! $auth_params['access-token'] && ! $auth_params['session-key'] ) {
+            // SERVER RELATED REQUESTS
+            $auth_params['session-secret-key'] = $this->application->api_private_key;
+            $this->apiLevel = 1; // server-server
 
-            $applicationUser = ApplicationUser::where('app_id', $application->id)
-                ->where('authorized', true)
-                ->where('banned', false)
-                ->where('session_token', $auth_params['session-key'])
-                ->where('session_token_expire', '>', time())
-                ->first();
+            // server requests validates here
         }
         else {
-            $applicationUser = ApplicationUser::where('app_id', $application->id)
-                ->where('authorized', true)
-                ->where('banned', false)
-                ->where('auth_token', $auth_params['session-key'])
-                ->where('auth_token_expire', '>', time())
-                ->first();
-        }
-
-        if ( ! $applicationUser ) {
-            return response()->json(array(
-                'code' => 1001,
-                'data' => 'parameters.damaged',
-                'message'=>'user.link.not.found'
-            ), 400);
-        }
-
-        if ( ! $auth_params['session-secret-key']) {
-            if ( ! $auth_params['session-key']) {
-                $auth_params['session-secret-key'] = $application->api_key;
+            // USER RELATED REQUESTS
+            if ($auth_params['session-key']) {
+                $this->applicationUser = ApplicationUser::where('app_id', $this->application->id)
+                    ->where('authorized', true)
+                    ->where('banned', false)
+                    ->where('session_token', $auth_params['session-key'])
+                    ->where('session_token_expire', '>', time())
+                    ->first();
             }
-            else {
-                $auth_params['session-secret-key'] = sha1(strtolower($auth_params['access-token']) . $application->api_key);
+            else if ($auth_params['access-token']) {
+                $this->applicationUser = ApplicationUser::where('app_id', $this->application->id)
+                    ->where('authorized', true)
+                    ->where('banned', false)
+                    ->where('auth_token', $auth_params['access-token'])
+                    ->where('auth_token_expire', '>', time())
+                    ->first();
             }
-        } else {
-            if ($auth_params['session-secret-key'] !== sha1($applicationUser->id . $applicationUser->session_token . $application->id . $application->api_key . '_secret_')) {
+
+            if ( ! $this->applicationUser ) {
                 return response()->json(array(
                     'code' => 1001,
                     'data' => 'parameters.damaged',
-                    'message' => 'session.missmatch',
-                    'valid' => sha1($applicationUser->id . $applicationUser->session_token . $application->id . $application->api_key . '_secret_')
+                    'message'=>'user.link.not.found'
                 ), 400);
             }
+
+            if ( ! $auth_params['session-secret-key'] ) {
+                if ( ! $auth_params['session-key'] ) {
+                    $auth_params['session-secret-key'] = $this->application->api_private_key;
+                    $this->apiLevel = 1; // server-server
+                }
+                else {
+                    $auth_params['session-secret-key'] = sha1(strtolower($auth_params['access-token']) . $this->application->api_signing_key);
+                    $this->apiLevel = 2; // application-sever (using access token)
+                }
+            } else {
+                if ($auth_params['session-secret-key'] !== sha1($this->applicationUser->id . $this->applicationUser->api_session_key . $this->application->id . $this->application->api_signing_key . $this->application->api_private_key . '_secret_')) {
+                    return response()->json(array(
+                        'code' => 1001,
+                        'data' => 'parameters.damaged',
+                        'message' => 'session.missmatch',
+                        'valid' => sha1($this->applicationUser->id . $this->applicationUser->api_session_key . $this->application->id . $this->application->api_signing_key . $this->application->api_private_key . '_secret_')
+                    ), 400);
+                }
+                $this->apiLevel = 3;
+            }
+
+            // client requests validates here.
+
         }
+
 
         $params = $this->request->all();
         $params['method'] = $group . '.' . $method;
@@ -174,13 +202,11 @@ class ApplicationAPIController extends Controller
             ), 400);
         }
 
-        return response()->json(array(
-            'code' => 0,
-            'data' => 'valid'
-        ), 200);
+        $this->apiMethod = $group . '.' . $method;
+        $this->apiParams = $params;
 
 
-
+        
 
         // do routing !
 

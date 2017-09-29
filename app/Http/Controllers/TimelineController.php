@@ -196,21 +196,20 @@ class TimelineController extends AppBaseController
             $own_groups = $user->own_groups();
             $liked_pages = $user->pageLikes()->get();
             $joined_groups = $user->groups()->get();
-            $joined_groups_count = $user->groups()->where('role_id', '!=', $admin_role_id->id)->where('status', '=',
-                'approved')->get()->count();
+            $joined_groups_count = $user->groups()->where('role_id', '!=', $admin_role_id->id)
+                ->where('status', '=', 'approved')->get()->count();
             $user_events = $user->events()->whereDate('end_date', '>=', date('Y-m-d', strtotime(Carbon::now())))->get();
             $guest_events = $user->getEvents();
 
-            $following_count = $user->following()->where('is_follower', '=', '1')->get()->count();
-            //$followers_count = $user->followers()->where('is_follower', '=', '1')->get()->count();
+            $following_count = $user->profile->count_following;
             $followRequests = $user->followers()->where('type_friend', '=', '2')->get();
 
             $counters = [
                 'albums' => 0,
                 'photos' => 0,
                 'videos' => 0,
-                'friends' => $user->count_friend,
-                'followers' => $user->count_follower,
+                'friends' => $user->profile->count_friend,
+                'followers' => $user->profile->count_follower,
                 'pages' => 0,
                 'groups' => 0,
                 'events' => 0,
@@ -224,22 +223,15 @@ class TimelineController extends AppBaseController
                 ->map(function ($album) use ($user, &$counters) {
                     if (!empty($album->previewImage()->first())) {
                         $preview = $album->previewImage()->first()->albumUrl($user->username);
-                    } elseif (!empty($album->photos()->first())) {
-                        $preview = $album->photos()->first()->albumUrl($user->username);
+                    } elseif (!empty($album->photos()->where('media.type', 'image')->first())) {
+                        $preview = $album->photos()->where('media.type', 'image')->first()->albumUrl($user->username);
                     } else {
                         $preview = '#';
                     }
-                    $photos_count = 0;
-                    $photos = [];
-                    $album->photos()->where('media.type', 'image')
-                        ->whereNotNull('media.source')
-                        ->get()
-                        ->each(function ($image) use (&$photos, &$photos_count) {
-                            $year = date_create($image->created_at)->format('Y');
-                            $photos["$year"][] = $image;
-                            $photos_count++;
-                        });
-                    $videos = $album->photos()->where('media.type', '=', 'youtube')->get();
+                    $photos_count = $album->photos()->where('media.type', 'image')
+                        ->whereNotNull('media.source')->count();
+                    $videos = $album->photos()->where('media.type', 'youtube')
+                        ->whereNotNull('media.source')->get();
                     $videos_count = $videos->count();
                     $counters['photos'] += $photos_count;
                     $counters['videos'] += $videos_count;
@@ -247,7 +239,6 @@ class TimelineController extends AppBaseController
                         'name' => $album->name,
                         'preview' => $preview,
                         'href' => url($user->username . '/album/show/' . $album->id),
-                        'photos' => $photos,
                         'videos' => $videos,
                         'photos_count' => $photos_count,
                         'videos_count' => $videos_count
@@ -266,22 +257,46 @@ class TimelineController extends AppBaseController
                 ->map(function ($media) use ($user) {
                     return $media->albumUrl($user->username);
                 });
-            // friends
-            $friends_last = $this->getFriendUsersOf($user->id, 6);
             // followers, friends, mutual friends and family
             $relations = [];
-            $relations['friends'] = $this->getFriendUsersOf($user->id);
-            $relations['followers'] = $user->followers()->where('is_follower', '=', '1')->get();
-            $relations['mutual_friends'] = $this->getFriendUsersOf(Auth::id(), 0,
-                $relations['friends']->pluck('id')->all());
-            //$relations['family'] = [];
-            $counters['friends'] = $relations['friends']->count();
-            $counters['followers'] = $relations['followers']->count();
+            $relations['friends'] = $user->following()
+                ->where('type_friend', config('friend.type.approve'))
+                ->latest()->get()
+                ->map(function ($user) {
+                    return $this->getRelationOf($user);
+                });
+            $friends_last = $relations['friends']->take(6);
+            $relations['followers'] = $user->followers()
+                ->where('is_follower', '1')
+                ->latest()->get()
+                ->map(function ($user) {
+                    return $this->getRelationOf($user);
+                });
+            $relations['mutual_friends'] = Auth::user()->following()
+                ->where('type_friend', config('friend.type.approve'))
+                ->whereIn('leader_id', $relations['friends']->pluck('id')->all())
+                ->latest()->get()
+                ->map(function ($user) {
+                    return $this->getRelationOf($user);
+                });
+            $relations['family'] = $user->following()
+                ->whereNotNull('relative_id')
+                ->latest()->get()
+                ->map(function ($user) {
+                    return $this->getRelationOf($user);
+                });
             // pages
             $counters['pages'] = $user->pages()->count();
-            $pages_last = $user->pages()->latest()->take(2)->get();
+            $pages_last = $user->pages()->withCount('likes')->latest()->take(2)->get()
+                ->map(function ($page) {
+                    $page->liked = $page->likes->contains(Auth::id());
+                    $page->subscribed = $page->users->contains(Auth::id());
+                    return $page;
+                });
             $pages_cat = [];
-            foreach ($user->pages()->latest()->get() as $page) {
+            foreach ($user->pages()->withCount('likes')->latest()->get() as $page) {
+                $page->liked = $page->likes->contains(Auth::id());
+                $page->subscribed = $page->users->contains(Auth::id());
                 $pages_cat[$page->category->name][] = $page;
             }
             // groups
@@ -298,18 +313,20 @@ class TimelineController extends AppBaseController
                 ->map(function ($group) {
                     $friends = collect();
                     $members = $group->users()->where('status', 'approved')->pluck('users.id')->all();
-                    $isMember = in_array(Auth::id(), $members);
                     if (!empty($members)) {
-                        $friends = $this->getFriendUsersOf(Auth::id(), 7, $members);
+                        $friends = Auth::user()->following()
+                            ->where('type_friend', config('friend.type.approve'))
+                            ->whereIn('leader_id', $members)
+                            ->latest()->get();
                     }
                     return [
                         'name' => $group->name,
                         'username' => $group->username,
                         'cover' => empty($group->cover) ? 'default-cover-group.png' : $group->cover,
                         'type' => $group->type,
-                        'friends' => $friends,
-                        'notMember' => !$isMember,
-                        'friends_count' => empty($friendIds) ? 0 : number_format($friendIds->count(), 0, '', ' '),
+                        'friends' => $friends->take(7),
+                        'isMember' => in_array(Auth::id(), $members),
+                        'friends_count' => empty($friends) ? 0 : number_format($friends->count(), 0, '', ' '),
                         'members_count' => number_format(count($members), 0, '', ' ')
                     ];
                 });
@@ -319,6 +336,7 @@ class TimelineController extends AppBaseController
                     $event->cover = empty($event->cover) ? 'default-cover-event.png' : $event->cover;
                     $event->start_date = date_create($event->start_date);
                     $event->users = $event->users()->take(7)->get();
+                    $event->subscribed = $event->users->contains(Auth::id());
                     $counters['events']++;
                     return $event;
                 });
@@ -366,7 +384,8 @@ class TimelineController extends AppBaseController
                 }
 
                 // dialog_id
-                $dialog_id = Thread::between([Auth::id(), $user->id])->value('id');
+                $dialog_id = Thread::between([Auth::id(), $user->id])
+                    ->where('type', 'dialog')->value('id');
                 if (empty($dialog_id)) {
                     $dialog_id = 0;
                 }
@@ -411,80 +430,30 @@ class TimelineController extends AppBaseController
                 'group_events', 'ongoing_events', 'upcoming_events', 'dialog_id'))->render();
     }
 
-    private function getFriendUsersOf(int $userId, int $limit = 0, array $inScope = [])
+    private function getRelationOf(User $user)
     {
-        if (empty($userId)) {
-            return collect();
+        $follower = DB::table('followers')
+            ->where('follower_id', '=', Auth::id())
+            ->where('leader_id', '=', $user->id)
+            ->first();
+        $following = DB::table('followers')
+            ->where('follower_id', '=', $user->id)
+            ->where('leader_id', '=', Auth::id())
+            ->first();
+
+        if ($follower) {
+            $user->type_friend = $follower->type_friend;
+            $user->is_follower = $follower->is_follower;
+            $user->curRelative = $follower->relative_id;
+            $user->curStatuses = isset($follower->statuses) ? '' : $follower->statuses;
         }
 
-        $friendIdsQuery = DB::table('followers')
-            ->where('type_friend', config('friend.type.approve'));
-
-        if (empty($inScope)) {
-            $friendIdsQuery->where(function ($query) use ($userId) {
-                $query->where('leader_id', $userId)
-                    ->orWhere('follower_id', $userId);
-            });
-        } else {
-            $friendIdsQuery->where(function ($query) use ($userId, $inScope) {
-                $query->where(function ($query) use ($userId, $inScope) {
-                    $query->where('leader_id', $userId)
-                        ->whereIn('follower_id', $inScope);
-                })
-                    ->orWhere(function ($query) use ($userId, $inScope) {
-                        $query->whereIn('leader_id', $inScope)
-                            ->where('follower_id', $userId);
-                    });
-            });
+        if ($following && $following->type_friend == 1) {
+            $user->requestInviteMe = 1;
+            $user->type_friend = 4;
         }
 
-        $friendIdsQuery->latest();
-        if (!empty($limit)) {
-            $friendIdsQuery->take($limit * 3);
-        }
-        $friendIds = $friendIdsQuery->get(['leader_id', 'follower_id'])
-            ->flatMap(function ($ids) {
-                return [$ids->leader_id, $ids->follower_id];
-            })
-            ->unique()
-            ->filter(function ($id) use ($userId) {
-                return $id != $userId;
-            });
-
-        if (!empty($limit)) {
-            $friendIds = $friendIds->take($limit);
-        }
-        $friends = User::find($friendIds->all());
-
-        // looking for relation and mutual friends of current user
-        if ($userId != Auth::id()) {
-            $friends->transform(function ($user) {
-                $follower = DB::table('followers')
-                    ->where('follower_id', '=', Auth::user()->id)
-                    ->where('leader_id', '=', $user->id)
-                    ->first();
-                $following = DB::table('followers')
-                    ->where('follower_id', '=', $user->id)
-                    ->where('leader_id', '=', Auth::user()->id)
-                    ->first();
-
-                if ($follower) {
-                    $user->type_friend = $follower->type_friend;
-                    $user->is_follower = $follower->is_follower;
-                    $user->curRelative = $follower->relative_id;
-                    $user->curStatuses = isset($follower->statuses) ? '' : $follower->statuses;
-                }
-
-                if ($following && $following->type_friend == 1) {
-                    $user->requestInviteMe = 1;
-                    $user->type_friend = 4;
-                }
-
-                return $user;
-            });
-        }
-
-        return $friends;
+        return $user;
     }
 
     private function getRelative($sex)

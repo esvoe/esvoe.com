@@ -1,6 +1,11 @@
 <?php
 
 return array (
+  'beta_test'=> 'на beta-тест:',
+  'my-photo'=> 'Мої фото',
+  'create-album'=> 'Створити новий альбом',
+  'favourite-photo'=> 'Улюблені',
+  'popular-photo'=>'Популярні фото єСвоє',
   'save'=>'Зберегти',
   'choose_lang'=>'Оберіть Вашу мову',
   'username' => 'Ім\'я користувача',
@@ -83,6 +88,7 @@ return array (
   'label_confirm_request' => 'Підтверджувати запит, коли хтось хоче Підписатися на Вас',
   'yes' => 'так',
   'no' => 'Ні',
+  'transaction_to'=> 'Кому',
   'label_follow_privacy' => 'Хто може підписатися на мене',
   'people_i_follow' => 'Ті на кого я Підписаний',
   'label_comment_privacy' => 'Хто може коментувати Ваші пости',
@@ -449,4 +455,5 @@ return array (
     'tofollow' => 'Стежити',
     'not_interested' => 'Не цікаво',
     'buy_ticket' => 'Купити квиток',
+    'my_advertising' => 'Моя реклама',
 );

@@ -90,6 +90,9 @@ Route::get('/login_svoe', 'PageController@login_svoe');
 //page photo
 Route::get('/photo', 'PageController@pagePhoto');
 
+//faq
+Route::get('/faq', 'PageController@faq');
+
 // Login
 Route::get('/login', 'Auth\LoginController@getLogin');
 Route::post('/login', 'Auth\LoginController@login');

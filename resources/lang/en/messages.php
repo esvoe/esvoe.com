@@ -225,4 +225,14 @@ return array (
   'readed' => 'Read',
   'sent' => 'Sent',
   'notsent' => 'Not sent',
+
+  'friends'=>'Friends',
+  'people'=>'People',
+  'dialog'=>'Dialog',
+  'enterText'=>'Enter Text',
+  'publish'=>'Publish',
+  'rename'=>'Rename',
+  'create'=>'Create',
+  'add'=>'Add',
+  'close'=>'Close'
 );

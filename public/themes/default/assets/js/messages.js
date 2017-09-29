@@ -4,6 +4,7 @@ var vue = new Vue({
         conversations: [],
         searchConversion:{},
         showMessages:false,
+        getMoreConver:false,
         group:{
             name:'',
             edit:false,
@@ -224,8 +225,6 @@ var vue = new Vue({
             this.$http.get(base_url + 'ajax/get-threads').then( function(response) {
                 this.conversations = JSON.parse(response.body);
                 this.showConversation(this.conversations.data[0]);
-
-
                 this.changetime(this.conversations.data,'threads');
                 /*setTimeout(function(){
                  timeagoLng.timeSet("time.microtime");
@@ -239,13 +238,14 @@ var vue = new Vue({
             this.searchUserString='';
             this.searchConversion={};
 
-
             if(conversation)
             {
                 if(conversation.id != this.currentConversation.id)
                 {
                     conversation.unread = false;
                     this.$http.post(base_url + 'ajax/get-conversation/' + conversation.id).then( function(response) {
+
+
                         var dataConversion= JSON.parse(response.body);
                         dataConversion.conversationMessages.data.reverse();
 
@@ -255,7 +255,7 @@ var vue = new Vue({
                         this.changetime(this.currentConversation.conversationMessages.data);
                         this.afterRedirect();
                         this.statusRead('showConversation');
-                        //$('.coversations-thread').animate({scrollTop: $('.coversations-thread')[0].scrollHeight + 600 }, 2000);
+
 
                     });
                 }
@@ -356,15 +356,23 @@ var vue = new Vue({
                     });
                 }
                 else{
-                    //$('.coversations-thread').animate({scrollTop: $('.coversations-thread')[0].scrollHeight + 600 }, 2000);
+                    if(!vm.getMoreConver){
+
+                        $('.coversations-thread').animate({scrollTop: $('.coversations-thread')[0].scrollHeight + 600 }, 2000);
+                    }
+                    else {
+                        $('.coversations-thread').animate({scrollTop: 40}, 10);
+                    }
+                    vm.getMoreConver=false;
                 }
             },10);
 
         },
-        statusRead:function(){
+        statusRead:function(showConversation){
             var moreCon=false;
             var conMes=this.currentConversation.conversationMessages;
 
+            console.log(showConversation);
             if(conMes.current_page == conMes.last_page){
                 this.showMessages=true;
             }
@@ -382,10 +390,10 @@ var vue = new Vue({
 
             if(moreCon){
                 this.getMoreConversationMessages();
-            }
-            else {
+            }else {
                 this.setScroll();
             }
+
 
 
         },
@@ -506,6 +514,7 @@ var vue = new Vue({
 
                     this.changetime();
                     this.statusRead();
+                    this.getMoreConver=true;
 
                     this.loadThread=false;
                 });

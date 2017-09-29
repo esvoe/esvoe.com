@@ -1,6 +1,11 @@
 <?php
 
 return array (
+  'beta_test'=> 'on beta-test:',
+  'my-photo'=> 'My photo',
+  'favourite-photo'=> 'Улюблені',
+  'popular-photo'=>'Popular photo eSvoe',
+  'create-album'=> 'Create new album',
   'save'=>'Save',
   'choose_lang'=>'Choose your language',
   'home' => 'Home',
@@ -106,6 +111,7 @@ return array (
   'label_post_privacy' => 'Who can see your posts',
   'yes' => 'Yes',
   'no' => 'No',
+  'transaction_to'=> 'To',
   'everyone' => 'Everyone',
   'people_i_follow' => 'People I follow',
   'no_one' => 'No one',
@@ -429,4 +435,5 @@ return array (
     'tofollow' => 'Follow',
     'not_interested' => 'Not interested',
     'buy_ticket' => 'Buy a ticket',
+    'my_advertising' => 'My advertising',
 );
