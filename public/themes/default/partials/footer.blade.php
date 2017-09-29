@@ -23,11 +23,9 @@
 			<div class="col-xs-12 col-sm-5 col-md-4 col-lg-5">
 				<ul class="link-service">
 
-					@foreach(App\StaticPage::active() as $staticpage)
-						<li><a href="{{ url('page/'.$staticpage->slug) }}">{{ trans('common.'.$staticpage->title.'_footer')   }}</a></li>
-					@endforeach
+
 					<li>
-						<a href="{{url('/contact')}}">{{ trans('common.contact') }}</a>
+						<a href="#terms-modal" data-toggle="modal">{{ trans('auth.terms') }}</a>
 					</li>
 				</ul>
 			</div>

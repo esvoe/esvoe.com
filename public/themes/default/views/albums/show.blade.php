@@ -89,18 +89,18 @@
 																<a href="{{ url('/'.Auth::user()->username.'/album-preview/'.$album->id.'/'.$photo->id) }}" class="btn btn-success btn-sm">
 																	{{ trans('common.set_as_preview') }}
 																</a>
-																<a href="{!! $photo->albumUrl($timeline->username) !!}" class="btn btn-sm btn-lightgallery btn-primary">
+																<a href="{!! $photo->albumUrl(Auth::id()) !!}" class="btn btn-sm btn-lightgallery btn-primary">
 																	<img src="{!! Theme::asset()->url('images/view-photo-img.png') !!}" alt="">
 																</a>
 															</div>
-															<img src="{!! $photo->albumUrl($timeline->username,230,226) !!}"  class="btn btn-default btn-sm">
+															<img src="{!! $photo->albumUrl(Auth::id(),230,226) !!}"  class="btn btn-default btn-sm">
 														@else
 															<div class="photo_options">
-																<a href="{!! $photo->albumUrl($timeline->username) !!}" class="btn btn-sm btn-primary btn-lightgallery">
+																<a href="{!! $photo->albumUrl($user->id) !!}" class="btn btn-sm btn-primary btn-lightgallery">
 																	<img src="{!! Theme::asset()->url('images/view-photo-img.png') !!}" alt="">
 																</a>
 															</div>
-															<img src="{!! $photo->albumUrl($timeline->username,230,226) !!}"  class="btn btn-default btn-sm">
+															<img src="{!! $photo->albumUrl($user->id,230,226) !!}"  class="btn btn-default btn-sm">
 														@endif
 
 													</div>

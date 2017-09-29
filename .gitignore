@@ -1,3 +1,4 @@
+/.svn
 /node_modules
 /vendor
 
@@ -11,4 +12,4 @@ Homestead.yaml
 Homestead.json
 
 .env
-.htaccess
+/.htaccess

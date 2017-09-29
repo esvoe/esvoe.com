@@ -70,13 +70,6 @@
                                     </tr>
 
                                     <tr>
-                                        <td class="label-td">Enabled</td>
-                                        <td class="form-control-field">
-                                            {{ Form::checkbox('is_active', '1', ($application->is_active == 1), array('class' => 'form-control text-input')) }}
-                                        </td>
-                                    </tr>
-
-                                    <tr>
                                         <td class="label-td">Public</td>
                                         <td class="form-control-field">
                                             {{ Form::checkbox('is_visible', '1', ($application->is_visible == 1), array('class' => 'form-control text-input')) }}
@@ -99,6 +92,16 @@
                                     </tr>
                                 </table>
                             {!! Form::close() !!}
+
+                            <div class="panel panel-warning">
+                                <pre>
+                                    Приложение должно пройти проверку.
+                                    Для запроса проверки своего приложения модераторами,
+                                    отправьте письмо с указанным ID приложения на
+                                    адрес app-support@esvoe.com
+                                </pre>
+                            </div>
+
                         </div>
                     </div>
 

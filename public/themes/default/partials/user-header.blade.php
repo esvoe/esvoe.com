@@ -41,12 +41,12 @@
                                     <span class="profheader-ctrl-text">{{ trans('friend.want_friend') }}</span> </a>
                                 <ul class="dropdown-menu profheader-ctrl-dropdown dropdown-unclosed">
                                     <li>
-                                        <a data-action="friend-accept" href="#" class="">
+                                        <a data-action="friend-accept" href="#" class="ctrlFriend" data-user-id="{{$user->id}}">
                                             <i class="icon-prinyat svoe-icon"></i>{{ trans('friend.accept') }}
                                         </a>
                                     </li>
                                     <li>
-                                        <a data-action="friend-cancel" href="#" class="">
+                                        <a data-action="friend-cancel" href="#" class="ctrlFriend" data-user-id="{{$user->id}}">
                                             <i class="icon-vidpysatys svoe-icon"></i>{{ trans('friend.decline') }}
                                         </a>
                                     </li>
@@ -56,7 +56,7 @@
 
                         <!-- case 1 : add to friend -->
                         <div class="profheader-ctrl-item" data-role="add-to-friend" @if($type_friend != 0) style="display: none;" @endif>
-                            <a data-action="add" href="#" class="profheader-ctrl-btn profheader-ctrl-togglewidth profheader-ctrl-addtofriend">
+                            <a data-action="add" data-user-id="{{$user->id}}" href="#" class="ctrlFriend profheader-ctrl-btn profheader-ctrl-togglewidth profheader-ctrl-addtofriend">
                                 <i class="icon-dodaty-druzi svoe-lg svoe-icon"></i>
                                 <span class="profheader-ctrl-text">{{ trans('friend.add_to_friends') }}</span> </a>
                         </div>
@@ -69,7 +69,7 @@
                                     <span class="profheader-ctrl-text">{{ trans('friend.not_confirmed') }}</span> </a>
                                 <ul class="dropdown-menu profheader-ctrl-dropdown">
                                     <li>
-                                        <a data-action="cancel" href="#" class="">
+                                        <a data-action="cancel" data-user-id="{{$user->id}}" href="#" class="ctrlFriend">
                                             <i class="icon-vidpysatys svoe-icon"></i>{{ trans('friend.cancel_request') }}
                                         </a>
                                     </li>
@@ -85,7 +85,7 @@
                                     <span class="profheader-ctrl-text">{{ trans('friend.in_your_friends') }}</span> </a>
                                 <ul class="dropdown-menu profheader-ctrl-dropdown">
                                     <li>
-                                        <a data-action="delete" href="#" class="dropdown-unclosed">
+                                        <a data-action="delete" data-user-id="{{$user->id}}" href="#" class="ctrlFriend dropdown-unclosed">
                                             <i class="icon-vidpysatys svoe-icon"></i>{{ trans('friend.delete_from_friends') }}
                                         </a>
                                     </li>
@@ -102,7 +102,7 @@
                                                     <li class="profheader-ctrl-submenu-item">
                                                         <label for="{{$status}}">
 		                            			<span class="wrap-checker-sett">
-		                            				<input data-action="status" data-action-friend-status="{{$status}}" type="checkbox" name="status" value="{{$status}}" @if(isset($curStatuses) AND strpos($curStatuses, $status)!==false) checked="checked" @endif />
+		                            				<input data-action="status" data-user-id="{{$user->id}}" data-action-friend-status="{{$status}}" class="ctrlFriend" type="checkbox" name="status" value="{{$status}}" @if(isset($curStatuses) AND strpos($curStatuses, $status)!==false) checked="checked" @endif />
 		                            			</span>
                                                             {{ trans('friend.status_'.$status) }}
                                                         </label>
@@ -123,7 +123,7 @@
                                                         <li class="profheader-ctrl-submenu-item">
                                                             <label for="{{$rl}}">
 		                            			<span class="wrap-checker-sett">
-		                            				<input data-action="relative" type="radio" name="relative" data-action-friend-relative="{{$rl}}" value="{{$rl}}" @if($rlValue == $curRelative) checked="checked" @endif />
+		                            				<input data-action="relative" data-user-id="{{$user->id}}" type="radio" name="relative" class="ctrlFriend" data-action-friend-relative="{{$rl}}" value="{{$rl}}" @if($rlValue == $curRelative) checked="checked" @endif />
 		                            			</span>
                                                                 {{ trans('friend.rl_'.$rl) }}
                                                             </label>
@@ -155,13 +155,13 @@
                                 <ul class="dropdown-menu profheader-ctrl-dropdown dropdown-unclosed">
 
                                     <li>
-                                        <a data-action="subscribe" href="#" @if($is_follower) style="display: none;" @endif>
+                                        <a data-action="subscribe" class="ctrlFriend" data-user-id="{{$user->id}}" href="#" @if($is_follower) style="display: none;" @endif>
                                             <i class="icon-pidpysatysya svoe-icon"></i>{{ trans('friend.subscribe') }}
                                         </a>
                                     </li>
 
                                     <li>
-                                        <a data-action="unsubscribe" href="#" @if(!$is_follower) style="display: none;" @endif>
+                                        <a data-action="unsubscribe" data-user-id="{{$user->id}}" class="ctrlFriend" href="#" @if(!$is_follower) style="display: none;" @endif>
                                             <i class="icon-vidpysatys svoe-icon"></i>{{ trans('friend.unsubscribe') }}
                                         </a>
                                     </li>
@@ -170,12 +170,12 @@
                                     @if($type_friend == 2)
                                         <li class="divider"></li>
                                         <li>
-                                            <a data-action="claim" href="#" class="sub">
+                                            <a data-action="claim" href="#" class="ctrlFriend sub">
                                                 <i class="icon-poskarzhytysya svoe-icon"></i>{{ trans('friend.report') }}
                                             </a>
                                         </li>
                                         <li>
-                                            <a data-action="block" href="#" class="sub">
+                                            <a data-action="block" data-user-id="{{$user->id}}" href="#" class="ctrlFriend sub">
                                                 <i class="icon-zablokuvaty svoe-icon"></i>{{ trans('friend.block') }}
                                             </a>
                                         </li>
@@ -213,14 +213,12 @@
                                 <span class="text-category-new-prof">{{ trans('common.albums') }} <span>/ {{ trans('sidebar.my_photos') }}</span></span>
                             </a>
                         </li>
-{{--
                         <li role="presentation" >
                             <a href="#tab-videos" aria-controls="tab-5" role="tab" data-toggle="tab">
                                 <span class="count-cat-new-prof">{{ $counters['videos'] }}</span>
                                 <span class="text-category-new-prof">{{ trans('sidebar.my_videos') }}</span>
                             </a>
                         </li>
---}}
                         <li role="presentation">
                             <a href="#tab-groups" aria-controls="tab-6" role="tab" data-toggle="tab">
                                 <span class="count-cat-new-prof">{{ $counters['groups'] }}</span>
@@ -387,25 +385,26 @@
         var userRelativeCache;
 
         // click n close dropdown
-        $('.profheader-ctrl').on('click', 'a[data-action]', function (e) {
-            userAction($(this).data('action'));
+        var $frEv = $('.ctrlFriend');
+        $frEv.on('click', 'a[data-action]', function (e) {
+            userAction($(this).data('action'), $(this).data('user-id'));
             e.preventDefault();
+        });
+
+        // input
+        $frEv.on('change', 'input[data-action]', function (e) {
+            userAction($(this).data('action'), $(this).data('user-id'));
         });
 
         // click but not close dropdown (.dropdown-unclosed)
         $('.profheader-ctrl .dropdown-menu').click(function (e) {
             if ($(e.target).is('.dropdown-unclosed') || $(e.target).is('.dropdown-unclosed *')) {
-                if ($(e.target).is('a[data-action]')) userAction($(e.target).data('action'));
+                if ($(e.target).is('a[data-action]')) userAction($(e.target).data('action'), $(this).data('user-id'));
                 e.stopPropagation();
             }
         });
 
-        // input
-        $('.profheader-ctrl').on('change', 'input[data-action]', function (e) {
-            userAction($(this).data('action'));
-        });
-
-        function userAction(event) {
+        function userAction(event, userid) {
             console.log('user-action: ' + event);
 
             switch (event) {
@@ -460,7 +459,7 @@
         }
 
         var user = {
-            add: function () {
+            add: function (userid) {
                 console.log('Request url: reqUrlUserAdd');
                 $btnAddToFriend.addClass('wait');
                 userRequest = $.ajax({
@@ -490,7 +489,7 @@
 
             }, // user.add()
 
-            cancel: function () {
+            cancel: function (userid) {
                 console.log('Request url: reqUrlUserCancel');
                 $btnNotAllowed.addClass('wait');
                 userRequest = $.ajax({
@@ -511,7 +510,7 @@
                 });
             }, // user.cancel()
 
-            subscribe: function () {
+            subscribe: function (userid) {
                 console.log('Request url: reqUrlUserSubscribe');
                 $btnSubscribe.addClass('wait');
                 userRequest = $.ajax({
@@ -532,7 +531,7 @@
                 });
             }, // user.subscribe()
 
-            unsubscribe: function () {
+            unsubscribe: function (userid) {
                 console.log('Request url: reqUrlUserUnsubscribe');
                 $btnUnsubscribe.addClass('wait');
                 userRequest = $.ajax({
@@ -553,7 +552,7 @@
                 });
             }, // user.unsubscribe()
 
-            claim: function () {
+            claim: function (userid) {
                 console.log('Request url: reqUrlUserClaim');
                 $btnClaim.addClass('wait');
                 userRequest = $.ajax({
@@ -574,7 +573,7 @@
                 });
             }, // user.claim()
 
-            block: function () {
+            block: function (userid) {
                 console.log('Request url: reqUrlUserBlock');
                 $btnBlock.addClass('wait');
                 userRequest = $.ajax({
@@ -596,7 +595,7 @@
 
             }, // user.block()
 
-            delete: function () {
+            delete: function (userid) {
                 console.log('Request url: reqUrlUserDelete');
                 $btnDelete.addClass('wait');
                 userRequest = $.ajax({
@@ -620,7 +619,7 @@
 
             }, // user.delete()
 
-            status: function () {
+            status: function (userid) {
                 console.log('Request url: reqUrlUserStatus');
                 var $form = $('form[name="user-status-form"]');
                 $form.addClass('wait');
@@ -638,7 +637,7 @@
                 });
             }, // user.status()
 
-            relative: function () {
+            relative: function (userid) {
                 console.log('Request url: reqUrlUserRelative');
                 var $form = $('form[name="user-relative-form"]');
                 if (userRelativeCache != $form.serialize()) {
@@ -660,7 +659,7 @@
 
             }, // user.relative()
 
-            friendAccept: function () {
+            friendAccept: function (userid) {
                 console.log('Request url: reqUrlUserFriendAccept');
                 $btnFriendAccept.addClass('wait');
                 userRequest = $.ajax({
@@ -683,7 +682,7 @@
 
             }, // user.friendAccept()
 
-            friendCancel: function () {
+            friendCancel: function (userid) {
                 console.log('Request url: reqUrlUserFriendCancel');
                 $btnFriendCancel.addClass('wait');
                 userRequest = $.ajax({

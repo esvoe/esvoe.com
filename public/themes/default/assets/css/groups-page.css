@@ -1,0 +1,86 @@
+
+.games-search-box .groups-box-head {
+    padding: 0;
+    margin: -15px 0 0 0;
+    border: none;
+    border-bottom: 1px solid #d9d9d9;
+    line-height: 50px;
+    position: relative;
+}
+
+.groups-title {
+    font-family: "OpenSans Regular";
+    font-size: 14px;
+    color: #7d838d;
+    padding: 0 0 10px 0;
+}
+
+.groups-title .svoe-icon {
+    display: inline-block;
+    color: #afbfcf;
+    vertical-align: middle;
+    position: relative;
+    top: -3px;
+    margin: 0 8px 0 0;
+    font-size: 16px;
+}
+
+.groups-empty {
+    display: block;
+    text-align: center;
+    padding: 79px 20px 54px 20px;
+    font-family: "OpenSans Regular";
+    font-size: 14px;
+    line-height: 16px;
+    color: #9d9d9d;
+}
+
+.groups-empty .svg-pic {
+    display: block;
+    width: 110px;
+    height: auto;
+    margin: 0 auto 13px auto;
+    fill: #9d9d9d;
+}
+
+.groups-create-btn {
+    background: none;
+    background-color: #2195ed;
+    border-radius: 0;
+    color: #fff !important;
+    border: 0;
+    font-family: "OpenSans Regular";
+    padding: 0;
+    margin: 12px 0 0 0;
+    display: block;
+    transition: all 0.4s;
+    -webkit-transition: all 0.4s;
+    width: 190px;
+    height: 32px;
+    line-height: 32px;
+    text-align: center;
+}
+
+.groups-create-btn:hover {
+    background-color: #335287;
+    transition: all 0.4s;
+    -webkit-transition: all 0.4s;
+}
+
+.groups-create-btn .svoe-icon {
+    color: #fff;
+    position: relative;
+    top: 2px;
+    margin: 0 10px 0 0;
+}
+
+.wrap-group-more {
+    display: block;
+    clear: both;
+    text-align: center;
+    padding: 0;
+    position: relative;
+    top: 10px;
+}
+
+

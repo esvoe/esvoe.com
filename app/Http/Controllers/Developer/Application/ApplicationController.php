@@ -191,7 +191,8 @@ class ApplicationController extends Controller
         $application->title = $this->request->get('title');
         $application->description = $this->request->get('description');
         $application->category_id = $this->request->get('category_id') ? $this->request->get('category_id') : null;
-        $application->is_active = $this->request->get('is_active') ? 1 : 0;
+        $application->is_visible = $this->request->get('is_visible') ? 1 : 0;
+        //$application->is_active = $this->request->get('is_active') ? 1 : 0;
 
         $titleWasChanged = $application->isDirty('title');
 

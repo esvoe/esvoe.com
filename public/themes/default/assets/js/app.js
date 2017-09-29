@@ -887,6 +887,7 @@ $(function () {
                 pagelike_btn.find('.joined').parent().addClass('hidden');
                 pagelike_btn.find('.join').parent().removeClass('hidden');
                 pagelike_btn.find('.join').closest('.holder').slideToggle();
+                pagelike_btn.closest('.groups-item').slideToggle();
                 notify('You have successfully unjoined this group','warning');
                }
            }

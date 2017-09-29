@@ -85,10 +85,11 @@ class RegisterController extends Controller
     {
         $this->middleware('guest');
 
-        //$ips = config('resolved-ip.ip');
-        //if (!in_array($_SERVER['REMOTE_ADDR'], $ips)){
-        //    die;
-        //}
+        $ips = config('resolved-ip.ip');
+//        if (!in_array($_SERVER['REMOTE_ADDR'], $ips)){
+        if (in_array($_SERVER['SERVER_NAME'], ['sand.esvoe.com']) && !in_array($_SERVER['REMOTE_ADDR'], $ips)){
+            die('754');
+        }
     }
 
 
@@ -235,7 +236,7 @@ class RegisterController extends Controller
                 if (Setting::get('mail_verification') == 'on') {
                     $chk = 'on';
                     Mail::send('emails.welcome', ['user' => $user], function ($m) use ($user) {
-                        $m->from(Setting::get('noreply_email'), Setting::get('site_name'));
+                        $m->from(env('MAIL_USERNAME'), Setting::get('site_name'));
 
                         $m->to($user->email, $user->name)->subject(trans('emails.header.title'). Setting::get('site_name'));
                     });

@@ -65,7 +65,7 @@ function suggestedPages()
 function verifiedBadge($timeline)
 {
     $code = '<span class="verified-badge bg-success">
-                    <i class="fa fa-check"></i>
+                    <i class="icon-verifikaciya svoe-icon"></i>
                 </span>';
     if($timeline->type == 'user')
     {
@@ -127,6 +127,12 @@ function static_uploads($filePathName) {
     if (LOCAL_DEV_MODE()) {
         return '//'.'static.'.$_SERVER['SERVER_NAME'].'/'.$filePathName;
     }
-    return 'https://static.esvoe.com/'.$filePathName;
-}
 
+    $static = 'static';
+    if (in_array($_SERVER['SERVER_NAME'], ['sand.esvoe.com'])){
+        $static = 'static-dev';
+    }
+
+//    return 'https://static.esvoe.com/'.$filePathName;
+    return "https://{$static}.esvoe.com/".$filePathName;
+}

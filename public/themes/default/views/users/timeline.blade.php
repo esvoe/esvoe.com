@@ -422,12 +422,12 @@
 																					</a>
 																					<ul class="dropdown-menu profheader-ctrl-dropdown dropdown-unclosed">
 																						<li>
-																							<a data-action="friend-accept" href="#" class="">
+																							<a data-action="friend-accept" data-user-id="{{$friend->id}}" href="#" class="ctrlFriend" >
 																								<i class="icon-prinyat svoe-icon"></i>{{ trans('common.accept') }}
 																							</a>
 																						</li>
 																						<li>
-																							<a data-action="friend-cancel" href="#" class="">
+																							<a data-action="friend-cancel" data-user-id="{{$friend->id}}" href="#" class="ctrlFriend">
 																								<i class="icon-vidpysatys svoe-icon"></i>{{ trans('common.decline') }}
 																							</a>
 																						</li>
@@ -436,7 +436,7 @@
 																			</div>
 																			<!-- case 1 : add to friend -->
 																			<div class="profheader-ctrl-item" data-role="add-to-friend" @if($friend->type_friend != 0) style="display: none;" @endif>
-																				<a data-action="add" href="#" class="profheader-ctrl-btn profheader-ctrl-togglewidth profheader-ctrl-addtofriend" style="">
+																				<a data-action="add" data-user-id="{{$friend->id}}" href="#" class="ctrlFriend profheader-ctrl-btn profheader-ctrl-togglewidth profheader-ctrl-addtofriend" style="">
 																					<i class="icon-dodaty-druzi svoe-lg svoe-icon"></i>
 																					<span class="profheader-ctrl-text">{{ trans('friend.add_to_friends') }}</span>
 																				</a>
@@ -450,7 +450,7 @@
 																					</a>
 																					<ul class="dropdown-menu profheader-ctrl-dropdown">
 																						<li>
-																							<a data-action="cancel" href="#" class="">
+																							<a data-action="cancel" data-user-id="{{$friend->id}}" href="#" class="ctrlFriend">
 																								<i class="icon-vidpysatys svoe-icon"></i>{{ trans('friend.cancel_request') }}
 																							</a>
 																						</li>
@@ -466,7 +466,7 @@
 																					</a>
 																					<ul class="dropdown-menu profheader-ctrl-dropdown">
 																						<li>
-																							<a data-action="delete" href="#" class="dropdown-unclosed">
+																							<a data-action="delete" data-user-id="{{$friend->id}}" href="#" class="ctrlFriend dropdown-unclosed">
 																								<i class="icon-vidpysatys svoe-icon"></i>{{ trans('friend.delete_from_friends') }}
 																							</a>
 																						</li>
@@ -482,7 +482,7 @@
 																										<label for="{{$status}}">
 																											<span class="wrap-checker-sett">
 																												<div class="jq-checkbox" id="{{$status}}-styler">
-																													<input data-action="status" type="checkbox" name="status" data-action-friend-status="{{$status}}" value="{{$status}}" @if(isset($friend->curStatuses) AND strpos($friend->curStatuses, $status)!==false) checked="checked" @endif /><div class="jq-checkbox__div"></div>
+																													<input data-action="status" data-user-id="{{$friend->id}}" class="ctrlFriend" type="checkbox" name="status" data-action-friend-status="{{$status}}" value="{{$status}}" @if(isset($friend->curStatuses) AND strpos($friend->curStatuses, $status)!==false) checked="checked" @endif /><div class="jq-checkbox__div"></div>
 																												</div>
 																											</span>
 																											{{ trans('friend.status_'.$status) }}
@@ -495,7 +495,7 @@
 																						<li>
 																							<form name="user-relative-form">
 																								<a class="sub profheader-ctrl-submenu-btn collapsed" data-toggle="collapse" href="#collapseMenu-2" aria-expanded="false" aria-controls="collapseMenu-2">
-																									<i class="icon-strilka svoe-icon"></i>{{ trans('timeline.relatives') }}
+																									<i class="icon-strilka svoe-icon"></i>{{ trans('friend.relatives') }}
 																								</a>
 																								<ul id="collapseMenu-2" class="profheader-ctrl-submenu collapse" role="tabpanel">
 																									@if (isset($available_relative))
@@ -504,7 +504,7 @@
 																											<label for="{{$rl}}">
 		                            																			<span class="wrap-checker-sett">
 																													<div class="jq-radio" id="{{$rl}}-styler">
-		                            																					<input data-action="relative" type="radio" name="relative" data-action-friend-relative="{{$rl}}" value="{{$rl}}" @if($rlValue == $friend->curRelative) checked="checked" @endif /><div class="jq-radio__div"></div>
+		                            																					<input data-action="relative"  data-user-id="{{$friend->id}}" class="ctrlFriend" type="radio" name="relative" data-action-friend-relative="{{$rl}}" value="{{$rl}}" @if($rlValue == $friend->curRelative) checked="checked" @endif /><div class="jq-radio__div"></div>
 																													</div>
 		                            																			</span>
 																													{{ trans('friend.rl_'.$rl) }}
@@ -521,11 +521,11 @@
 																				</div>
 																			</div>
 																			<div class="profheader-ctrl-item profheader-ctrl-item___message">
-																				<a data-action="subscribe" href="#" class="profheader-ctrl-btn profheader-ctrl-message" @if($friend->is_follower) style="display: none;" @endif>
+																				<a data-action="subscribe"  data-user-id="{{$friend->id}}" href="#" class="ctrlFriend profheader-ctrl-btn profheader-ctrl-message" @if($friend->is_follower) style="display: none;" @endif>
 																					<i class="icon-pidpysatysya svoe-lg svoe-icon"></i>
 																					<span class="profheader-ctrl-text">{{ trans('friend.subscribe') }}</span>
 																				</a>
-																				<a data-action="unsubscribe" href="#" class="profheader-ctrl-btn profheader-ctrl-message" @if(!$friend->is_follower) style="display: none;" @endif>
+																				<a data-action="unsubscribe" data-user-id="{{$friend->id}}" href="#" class="ctrlFriend profheader-ctrl-btn profheader-ctrl-message" @if(!$friend->is_follower) style="display: none;" @endif>
 																					<i class="icon-vidpysatys svoe-icon"></i>
 																					<span class="profheader-ctrl-text">{{ trans('friend.unsubscribe') }}</span>
 																				</a>
@@ -543,12 +543,12 @@
 																						</li>
 																						<li class="divider"></li>
 																						<li>
-																							<a data-action="claim" href="#" class="sub">
+																							<a data-action="claim" data-user-id="{{$friend->id}}" href="#" class="ctrlFriend sub">
 																								<i class="icon-poskarzhytysya svoe-icon"></i>{{ trans('common.report') }}
 																							</a>
 																						</li>
 																						<li>
-																							<a data-action="block" href="#" class="sub">
+																							<a data-action="block" data-user-id="{{$friend->id}}" href="#" class="ctrlFriend sub">
 																								<i class="icon-zablokuvaty svoe-icon"></i>{{ trans('friend.block') }}
 																							</a>
 																						</li>

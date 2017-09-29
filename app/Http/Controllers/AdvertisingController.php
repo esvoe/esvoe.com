@@ -73,7 +73,7 @@ class AdvertisingController extends AppBaseController
         }
 
 //        Log::info($response->getBody());
-//        Log::info($responseBody);
+        Log::info($responseBody);
 //
 //        dd($responseBody);
 //
