@@ -62,7 +62,7 @@ class AdvertisingController extends AppBaseController
             ],
         ];
 
-        $response = $client->request('POST', 'http://add.esvoe.com/api/get_banners', ['json' => $data]);
+        $response = $client->request('POST', 'https://add.esvoe.com/api/get_banners', ['json' => $data]);
 //        $response = $client->request('POST', 'https://sand.esvoe.com/get-banners-test', ['json' => $data]);
 
         $responseBody = json_decode($response->getBody(), true);

@@ -14,6 +14,7 @@ class User extends Authenticatable
 {
     use Notifiable;
     use EntrustUserTrait;
+    use SoftDeletes;
     // use SoftDeletes, EntrustUserTrait {
 
     //     SoftDeletes::restore insteadof EntrustUserTrait;
@@ -27,7 +28,7 @@ class User extends Authenticatable
      *
      * @var array
      */
-    //protected $dates = ['deleted_at'];
+    protected $dates = ['deleted_at'];
 
 
       /**
