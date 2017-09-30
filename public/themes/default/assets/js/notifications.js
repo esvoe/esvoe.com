@@ -12,17 +12,17 @@ var notifications = new Vue({
         pusher: []
     },
     created: function() {
-        $('.dropdown-messages-list').bind('scroll', this.chk_scroll);
+        var vm = this;
+
+        $('.dropdown-messages-list').bind('scroll', vm.chk_scroll);
 
         // Get if there are any unread notifications or conversations
-        this.getNotificationsCounter();
-        this.getUnreadConversationsCounter();
+        vm.getNotificationsCounter();
+        vm.getUnreadConversationsCounter();
+
         // init the pusher
-        this.subscribeToNotificationsChannel();
-        this.subscribeToMessagesChannel();
-    },
-    ready: function() {
-        var vm = this;
+        vm.subscribeToNotificationsChannel();
+        vm.subscribeToMessagesChannel();
 
         vm.$on('pre-message', function (event) {
             if (event.sender.id === event.receiver.id) event.noty = false;
@@ -40,10 +40,6 @@ var notifications = new Vue({
         });
 
         vm.$on('read', function (event) {
-            vm.unreadedDialogsCount = event.counters.unreadedDialogCount;
-        });
-
-        vm.$on('deleteMessage', function (event) {
             vm.unreadedDialogsCount = event.counters.unreadedDialogCount;
         });
     },
@@ -199,9 +195,6 @@ var notifications = new Vue({
             }
             if (event.action === 'readMessage') {
                 vm.$emit('read', event);
-            }
-            if (event.action === 'deleteMessage') {
-                vm.$emit('deleteMessage', event);
             }
         }
     }

@@ -49,9 +49,9 @@
 .webcam .btn,
 .userpic .btn {
     margin-top: 15px;
-    border: 2px solid #ed1c24;
+    border: 2px solid #2296ED;
     border-radius: 0;
-    color: #ed1c24;
+    color: #2296ED;
     font-family: "GothamProMedium";
     font-size: 18px;
     margin: 20px 0;
@@ -62,8 +62,8 @@
 
 #submitform {
     margin-top: 15px;
-    border: 2px solid #ed1c24;
-    color: #ed1c24;
+    border: 2px solid #2296ED;
+    color: #2296ED;
     font-family: "GothamProMedium";
     font-size: 18px;
     margin: 20px 0;
@@ -359,13 +359,14 @@
 }
 
 .js-upload.btn {
-    background: #ED1C24;
+    background: #2296ED;
     color: white;
 }
 
 #popup .btn_browse_small {
     display: block !important;
-    padding: 0 10px !important;
+    padding: 5px !important;
+    border-radius: 0!important;
 }
 
 canvas {
