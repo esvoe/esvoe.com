@@ -309,7 +309,7 @@
                   <w:anchorlock/>
                   <center style="color:#ffffff;font-family:Helvetica, Arial, sans-serif;font-size:14px;font-weight:regular;">My Account</center>
                 </v:roundrect>
-              <![endif]--><a class="button-mobile" href="{!! url('email/verify?email='.urlencode($user->email).'&code='.$user->verification_code) !!}"
+              <![endif]--><a class="button-mobile" href="{!! url('email/verify?email='.$user->email.'&code='.$user->verification_code) !!}"
               style="background-color:#ff6f6f;border-radius:5px;color:#ffffff;display:inline-block;font-family:'Cabin', Helvetica, Arial, sans-serif;font-size:14px;font-weight:regular;line-height:45px;text-align:center;text-decoration:none;width:155px;-webkit-text-size-adjust:none;mso-hide:all;">{!! trans('emails.button.verification_reg')!!}</a></div>
             </td>
           </tr>

@@ -8,6 +8,8 @@
 npm-debug.log
 yarn-error.log
 
+_ide_helper.php
+.phpstorm.meta.php
 Homestead.yaml
 Homestead.json
 

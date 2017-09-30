@@ -281,6 +281,7 @@ form.signup-form .form-control {
   pointer-events: none;
 }
 
+.custom-captcha .g-recaptcha,
 .signup-form .g-recaptcha {
   position: relative;
   border: 1px solid #e2e6e9;
@@ -289,7 +290,9 @@ form.signup-form .form-control {
   overflow: hidden;
 }
 
+.custom-captcha .g-recaptcha:before,
 .signup-form .g-recaptcha:before,
+.custom-captcha .g-recaptcha:after,
 .signup-form .g-recaptcha:after {
   content: '';
   display: block;
@@ -301,12 +304,15 @@ form.signup-form .form-control {
   left: 0;
 }
 
+.custom-captcha .g-recaptcha:after,
 .signup-form .g-recaptcha:after {
   top: auto;
   bottom: 0;
 }
 
+.custom-captcha .g-recaptcha > div:before,
 .signup-form .g-recaptcha > div:before,
+.custom-captcha .g-recaptcha > div:after,
 .signup-form .g-recaptcha > div:after {
   content: '';
   display: block;
@@ -318,11 +324,13 @@ form.signup-form .form-control {
   left: 0;
 }
 
+.custom-captcha .g-recaptcha > div:after,
 .signup-form .g-recaptcha > div:after {
   left: auto;
   right: 0;
 }
 
+.custom-captcha .g-recaptcha > div,
 .signup-form .g-recaptcha > div {
   width: 100% !important;
 }
@@ -333,10 +341,12 @@ form.signup-form .form-control {
     padding: 15px !important;
   }
 
+  .custom-captcha .g-recaptcha,
   .signup-form .g-recaptcha {
     width: 304px;
   }
 
+  .custom-captcha .g-recaptcha > div,
   .signup-form .g-recaptcha > div {
     width: 304px !important;
   }

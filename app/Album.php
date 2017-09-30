@@ -51,6 +51,11 @@ class Album extends Model
         return $this->belongsTo('App\Media', 'preview_id', 'id');
     }
 
+    public function getImageAttribute()
+    {
+
+    }
+
     public function timeline()
     {
         return $this->belongsTo('App\Timeline', 'timeline_id', 'id');

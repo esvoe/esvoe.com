@@ -207,6 +207,7 @@ return [
         Vijaytupakula\Transvel\TransvelServiceProvider::class,
         Cartalyst\Stripe\Laravel\StripeServiceProvider::class,
         Watson\Sitemap\SitemapServiceProvider::class,
+        Oprudkyi\LaravelMailLogger\MailLoggerServiceProvider::class,
 
     ],
 

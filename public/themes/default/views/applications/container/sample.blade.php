@@ -86,26 +86,7 @@
 
             </div>
             <div class="panel-footer">
-                <button class="btn btn-primary" data-action="call_rest_user_info">/user/info</button>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="row">
-    <div class="col-sm-offset-1 col-sm-10">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                TEST /user/info
-            </div>
-            <div class="panel-content" style="padding: 1em">
-
-                <div class="well" style="padding: 1em" id="user-info-response">
-
-                </div>
-
-            </div>
-            <div class="panel-footer">
-                <button class="btn btn-primary" data-action="call_rest_user_profile">/user/profile</button>
+                <button class="btn btn-primary" data-action="call_rest_user_info">Call REST using session</button>
             </div>
         </div>
     </div>
@@ -226,32 +207,6 @@
             console.log($api_server + '/api/v1/apps/user/info');
 
             $.ajax($api_server + '/api/v1/apps/user/info',{
-                'method': 'get',
-                'data': data
-            })
-                .done(function(response){
-                    alert(response)
-                })
-                .error(function (error) {
-
-                })
-        });
-
-        $('[data-action="call_rest_user_profile"]').on('click', function(){
-
-            var data = {
-                'method':'user.profile',
-                'app-id': $app_id,
-                'session-key': $session_key,
-                'session-secret-key': $session_secret_key,
-                'timestamp': getTimestamp()
-            };
-
-            data['sign'] = calcSign(data, $session_secret_key);
-
-            console.log($api_server + '/api/v1/apps/call.me');
-
-            $.ajax($api_server + '/api/v1/apps/call.me',{
                 'method': 'get',
                 'data': data
             })

@@ -118,7 +118,7 @@ class RegisterController extends Controller
      * @return User
      */
     protected function create(array $data)
-    {        
+    {
         $timeline = Timeline::create([
             'username' => $data['username'],
             'name'     => $data['name'],
@@ -141,12 +141,13 @@ class RegisterController extends Controller
         if ($validator->fails()) {
             return response()->json(['status' => '201', 'msg'=>'error', 'err_result' => $validator->errors()->toArray()]);
         }
+        
         return response()->json(['status' => '200','msg'=>'success']);
     }
 
     public function register()
     {
-        
+
         if (Auth::user()) {
             return Redirect::to('/');
         }
@@ -243,8 +244,8 @@ class RegisterController extends Controller
                 }
 
                 return response()->json([
-                    'status' => '200', 
-                    'message' => trans('auth.verify_email'), 
+                    'status' => '200',
+                    'message' => trans('auth.verify_email'),
                     'emailnotify' => $chk]);
             }
         }

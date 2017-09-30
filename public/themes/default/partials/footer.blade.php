@@ -25,7 +25,7 @@
 
 
 					<li>
-						<a href="#terms-modal" data-toggle="modal">{{ trans('auth.terms') }}</a>
+						<a href="#terms-modal" data-toggle="modal">{{ trans('common.terms_footer') }}</a>
 					</li>
 				</ul>
 			</div>

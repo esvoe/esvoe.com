@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="csrf_token" content="{!! csrf_token() !!}"/>
-
+    
     <title>{{ Theme::get('title') }}</title>
 
     {!! Theme::asset()->styles() !!}
@@ -81,11 +81,11 @@
         <p>
             You have errors in request:
 
-@if (session('status'))
-        status:{{ session('status') }}
-@endif
-@if (session('error_code'))
-        error_code:{{ session('error_code') }}
+            @if (session('status'))
+                status:{{ session('status') }}
+            @endif
+            @if (session('error_code'))
+                error_code:{{ session('error_code') }}
             @endif        
         </p>
     </div>

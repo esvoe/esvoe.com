@@ -41,12 +41,12 @@
                                     <span class="profheader-ctrl-text">{{ trans('friend.want_friend') }}</span> </a>
                                 <ul class="dropdown-menu profheader-ctrl-dropdown dropdown-unclosed">
                                     <li>
-                                        <a data-action="friend-accept" href="#" class="ctrlFriend" data-user-id="{{$user->id}}">
+                                        <a data-action="friend-accept" href="#" class="ctrlFriend" data-user="{{$user->id}}">
                                             <i class="icon-prinyat svoe-icon"></i>{{ trans('friend.accept') }}
                                         </a>
                                     </li>
                                     <li>
-                                        <a data-action="friend-cancel" href="#" class="ctrlFriend" data-user-id="{{$user->id}}">
+                                        <a data-action="friend-cancel" href="#" class="ctrlFriend" data-user="{{$user->id}}">
                                             <i class="icon-vidpysatys svoe-icon"></i>{{ trans('friend.decline') }}
                                         </a>
                                     </li>
@@ -56,7 +56,7 @@
 
                         <!-- case 1 : add to friend -->
                         <div class="profheader-ctrl-item" data-role="add-to-friend" @if($type_friend != 0) style="display: none;" @endif>
-                            <a data-action="add" data-user-id="{{$user->id}}" href="#" class="ctrlFriend profheader-ctrl-btn profheader-ctrl-togglewidth profheader-ctrl-addtofriend">
+                            <a data-action="add" onclick="addFriend({{$user->id}})" data-user="{{$user->id}}" href="#" class="ctrlFriend profheader-ctrl-btn profheader-ctrl-togglewidth profheader-ctrl-addtofriend">
                                 <i class="icon-dodaty-druzi svoe-lg svoe-icon"></i>
                                 <span class="profheader-ctrl-text">{{ trans('friend.add_to_friends') }}</span> </a>
                         </div>
@@ -69,7 +69,7 @@
                                     <span class="profheader-ctrl-text">{{ trans('friend.not_confirmed') }}</span> </a>
                                 <ul class="dropdown-menu profheader-ctrl-dropdown">
                                     <li>
-                                        <a data-action="cancel" data-user-id="{{$user->id}}" href="#" class="ctrlFriend">
+                                        <a data-action="cancel" data-user="{{$user->id}}" href="#" class="ctrlFriend">
                                             <i class="icon-vidpysatys svoe-icon"></i>{{ trans('friend.cancel_request') }}
                                         </a>
                                     </li>
@@ -85,7 +85,7 @@
                                     <span class="profheader-ctrl-text">{{ trans('friend.in_your_friends') }}</span> </a>
                                 <ul class="dropdown-menu profheader-ctrl-dropdown">
                                     <li>
-                                        <a data-action="delete" data-user-id="{{$user->id}}" href="#" class="ctrlFriend dropdown-unclosed">
+                                        <a data-action="delete" data-user="{{$user->id}}" href="#" class="ctrlFriend dropdown-unclosed">
                                             <i class="icon-vidpysatys svoe-icon"></i>{{ trans('friend.delete_from_friends') }}
                                         </a>
                                     </li>
@@ -102,7 +102,7 @@
                                                     <li class="profheader-ctrl-submenu-item">
                                                         <label for="{{$status}}">
 		                            			<span class="wrap-checker-sett">
-		                            				<input data-action="status" data-user-id="{{$user->id}}" data-action-friend-status="{{$status}}" class="ctrlFriend" type="checkbox" name="status" value="{{$status}}" @if(isset($curStatuses) AND strpos($curStatuses, $status)!==false) checked="checked" @endif />
+		                            				<input data-action="status" data-user="{{$user->id}}" data-action-friend-status="{{$status}}" class="ctrlFriend" type="checkbox" name="status" value="{{$status}}" @if(isset($curStatuses) AND strpos($curStatuses, $status)!==false) checked="checked" @endif />
 		                            			</span>
                                                             {{ trans('friend.status_'.$status) }}
                                                         </label>
@@ -123,7 +123,7 @@
                                                         <li class="profheader-ctrl-submenu-item">
                                                             <label for="{{$rl}}">
 		                            			<span class="wrap-checker-sett">
-		                            				<input data-action="relative" data-user-id="{{$user->id}}" type="radio" name="relative" class="ctrlFriend" data-action-friend-relative="{{$rl}}" value="{{$rl}}" @if($rlValue == $curRelative) checked="checked" @endif />
+		                            				<input data-action="relative" data-user="{{$user->id}}" type="radio" name="relative" class="ctrlFriend" data-action-friend-relative="{{$rl}}" value="{{$rl}}" @if($rlValue == $curRelative) checked="checked" @endif />
 		                            			</span>
                                                                 {{ trans('friend.rl_'.$rl) }}
                                                             </label>
@@ -155,13 +155,13 @@
                                 <ul class="dropdown-menu profheader-ctrl-dropdown dropdown-unclosed">
 
                                     <li>
-                                        <a data-action="subscribe" class="ctrlFriend" data-user-id="{{$user->id}}" href="#" @if($is_follower) style="display: none;" @endif>
+                                        <a data-action="subscribe" class="ctrlFriend" data-user="{{$user->id}}" href="#" @if($is_follower) style="display: none;" @endif>
                                             <i class="icon-pidpysatysya svoe-icon"></i>{{ trans('friend.subscribe') }}
                                         </a>
                                     </li>
 
                                     <li>
-                                        <a data-action="unsubscribe" data-user-id="{{$user->id}}" class="ctrlFriend" href="#" @if(!$is_follower) style="display: none;" @endif>
+                                        <a data-action="unsubscribe" data-user="{{$user->id}}" class="ctrlFriend" href="#" @if(!$is_follower) style="display: none;" @endif>
                                             <i class="icon-vidpysatys svoe-icon"></i>{{ trans('friend.unsubscribe') }}
                                         </a>
                                     </li>
@@ -175,7 +175,7 @@
                                             </a>
                                         </li>
                                         <li>
-                                            <a data-action="block" data-user-id="{{$user->id}}" href="#" class="ctrlFriend sub">
+                                            <a data-action="block" data-user="{{$user->id}}" href="#" class="ctrlFriend sub">
                                                 <i class="icon-zablokuvaty svoe-icon"></i>{{ trans('friend.block') }}
                                             </a>
                                         </li>
@@ -305,8 +305,6 @@
     });
 
     $(function () {
-
-
         // Fixed position Profile Header when scroll
         function profHeaderFix() {
             var $box = $('.new-content-prof .profheader-nav');
@@ -338,8 +336,6 @@
         $(window).resize(profHeaderFix);
         profHeaderFix();
 
-
-
         // Tabs
         $('.profheader-nav a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
             //e.target // newly activated tab
@@ -351,11 +347,9 @@
 
 
         // USER ACTION
-
 //        var userid = $('#profheader').data('userid');
-        var userid = $('#currentUserId').val();
+//        var userid = $('#currentUserId').val();
         token = $('meta[name="csrf_token"]').attr('content');
-
         var $btnAddToFriend = $('.profheader-ctrl-item[data-role="add-to-friend"]'),
             $btnNotAllowed = $('.profheader-ctrl-item[data-role="not-allowed"]'),
             $btnYourFriend = $('.profheader-ctrl-item[data-role="your-friend"]'),
@@ -369,7 +363,6 @@
             $btnFriendCancel = $('.profheader-ctrl-item a[data-action="friend-cancel"]');
 
         var userRequest;
-
         var reqUrlUserAdd = '{{route('friend.add')}}', 				// ### DEBUG set real url's
             reqUrlUserDelete = '{{route('friend.delete')}}',
             reqUrlUserCancel = '{{route('friend.cancel')}}',	//cancel invite
@@ -387,25 +380,26 @@
         // click n close dropdown
         var $frEv = $('.ctrlFriend');
         $frEv.on('click', 'a[data-action]', function (e) {
-            userAction($(this).data('action'), $(this).data('user-id'));
+            console.log($(this));
+            userAction($(this).data('action'), $(this).data('user'));
             e.preventDefault();
         });
 
         // input
         $frEv.on('change', 'input[data-action]', function (e) {
-            userAction($(this).data('action'), $(this).data('user-id'));
+            userAction($(this).data('action'), $(this).data('user'));
         });
 
         // click but not close dropdown (.dropdown-unclosed)
         $('.profheader-ctrl .dropdown-menu').click(function (e) {
             if ($(e.target).is('.dropdown-unclosed') || $(e.target).is('.dropdown-unclosed *')) {
-                if ($(e.target).is('a[data-action]')) userAction($(e.target).data('action'), $(this).data('user-id'));
+                if ($(e.target).is('a[data-action]')) userAction($(e.target).data('action'), $(this).data('user'));
                 e.stopPropagation();
             }
         });
 
         function userAction(event, userid) {
-            console.log('user-action: ' + event);
+            console.log('user-action: ', event, ' userId=', userid);
 
             switch (event) {
                 case 'add':
@@ -470,11 +464,6 @@
                         _token: token
                     }
                 }).done(function (response) {
-                    // ### DEBUG fake response for testing
-                    /*response = {
-                        //'result': 'false'
-                        'result': 'true'
-                    }*/
                     console.log("ajax request done:", response);
 
                     if (response.result === "true") {

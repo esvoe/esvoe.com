@@ -164,6 +164,7 @@
     float: left;
     margin: 1px 0 0 2px;
 }
+
 .ratingblock .ratingblock-value,
 .games-grid .ratingblock .ratingblock-value {
     float: left;
@@ -180,7 +181,7 @@
 .ratingblock .br-theme-fontawesome-stars-o .br-widget span,
 .games-grid .ratingblock .br-theme-fontawesome-stars-o .br-widget span {
     font: normal normal normal 13px/13px FontAwesome;
-    margin: 0 !important;
+    margin: 0 2px 0 0 !important;
     padding: 0 !important;
 }
 

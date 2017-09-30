@@ -66,13 +66,13 @@ class AdvertisingController extends AppBaseController
 //        $response = $client->request('POST', 'https://sand.esvoe.com/get-banners-test', ['json' => $data]);
 
         $responseBody = json_decode($response->getBody(), true);
+        Log::info($response->getBody());
 
         $htmlBlocks = '';
         foreach ($responseBody[0]['codes'] as $code){
             $htmlBlocks .= $code;
         }
 
-//        Log::info($response->getBody());
         Log::info($responseBody);
 //
 //        dd($responseBody);

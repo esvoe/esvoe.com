@@ -289,7 +289,7 @@
                                                                                                     <label for="{{$status}}">
 																											<span class="wrap-checker-sett">
 																												<div class="jq-checkbox" id="{{$status}}-styler">
-																													<input data-action="status" data-action-friend-status="{{$status}}" data-user="{{$friend->id}}" type="checkbox" class="ctrlFriend" name="status"  value="{{$status}}" @if(isset($friend->curStatuses) AND strpos($friend->curStatuses, $status)!==false) checked="checked" @endif /><div class="jq-checkbox__div"></div>
+																													<input data-action="status" data-user="{{$friend->id}}" type="checkbox" class="ctrlFriend" name="status" id="{{$status}}" value="{{$status}}" @if(isset($friend->curStatuses) AND strpos($friend->curStatuses, $status)!==false) checked="checked" @endif /><div class="jq-checkbox__div"></div>
 																												</div>
 																											</span>
                                                                                                         {{ trans('friend.status_'.$status) }}
@@ -311,7 +311,7 @@
                                                                                                         <label for="{{$rl}}">
 		                            																			<span class="wrap-checker-sett">
 																													<div class="jq-radio" id="{{$rl}}-styler">
-		                            																					<input data-action="relative" data-action-friend-relative="{{$rl}}" class="ctrlFriend" data-user="{{$friend->id}}" type="radio" name="relative" value="{{$rl}}" @if($rlValue == $friend->curRelative) checked="checked" @endif /><div class="jq-radio__div"></div>
+		                            																					<input data-action="relative" class="ctrlFriend" data-user="{{$friend->id}}" type="radio" name="relative" id="{{$rl}}" value="{{$rl}}" @if($rlValue == $friend->curRelative) checked="checked" @endif /><div class="jq-radio__div"></div>
 																													</div>
 		                            																			</span>
                                                                                                             {{ trans('friend.rl_'.$rl) }}

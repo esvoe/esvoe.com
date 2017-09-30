@@ -54,11 +54,12 @@
         <span class="template-logo-text">своє!</span>
     </div>
 
-<script type="text/javascript">
-    if(window.parent) {
+    <script type="text/javascript">
+        if(window.parent) {
             window.parent.postMessage('status={{$status}}')
-    }
-</script>
+        }
+    </script>
+
     @if($status == 'authorize') 
 
         <div class="template-reg-svoe">

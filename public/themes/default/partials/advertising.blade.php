@@ -46,7 +46,7 @@
         </div>--}}
 
         <div class="wrap-commertion">
-            <h4>{{ trans('common.advertising') }}<a href="">{{ trans('common.create_advertising') }}</a></h4>
+            <h4>{{ trans('common.advertising') }}<a href="http://sand.esvoe.com/application/auth?id=50&endpoint=d20537dc031e67cf5157">{{ trans('common.create_advertising') }}</a></h4>
             <div class="advertising-place">
             </div>
 

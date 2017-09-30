@@ -751,19 +751,19 @@
 
                     <div class="text esvoe-text" >
                         <h2 class="typed" style="opacity: 1;"><div style="display: block; text-align: start; position: relative;">{{ trans('auth.svoe') }}</div></h2>
-                        <p >Exclusive antibiotic formulations, vitamin-mineral-amino acid premixes, disinfectants and other advanced products for poultry farms.</p>
+                        <p >{{ trans('auth.new_ua_soc') }}</p>
                     </div>
                     <div class="text music-text" >
-                        <h2 class="typed" style="opacity: 1;"><div style="display: block; text-align: start; position: relative;">Корова </div></h2>
-                        <p>Broad-spectrum antibacterial drugs, vitamin-mineral premixes, disinfectants and other veterinary products for meat and dairy cattle.</p>
+                        <h2 class="typed" style="opacity: 1;"><div style="display: block; text-align: start; position: relative;">{{ trans('auth.music') }} </div></h2>
+                        <p>{{ trans('auth.ua_sing') }}</p>
                     </div>
                     <div class="text games-text" >
-                        <h2 class="typed" style="opacity: 1;"><div style="display: block; text-align: start; position: relative;">Є!Ігри</div></h2>
-                        <p>Various formulations of antibiotics, vitamin-mineral-amino acid premixes, mycotoxin adsorbents and other medicines for sheep farms.</p>
+                        <h2 class="typed" style="opacity: 1;"><div style="display: block; text-align: start; position: relative;">{{ trans('auth.games') }}</div></h2>
+                        <p>{{ trans('auth.game_desc') }}</p>
                     </div>
                     <div class="text wallet-text" >
-                        <h2 class="typed" style="opacity: 1;"><div style="display: block; text-align: start; position: relative;">Є! Гаманець</div></h2>
-                        <p>Thermostable antibiotics in the form of microgranules and microcapsules, modern sexual activity stimulants and other veterinary medicines for wallet farms.</p>
+                        <h2 class="typed" style="opacity: 1;"><div style="display: block; text-align: start; position: relative;">{{ trans('auth.wallet') }}</div></h2>
+                        <p>{{ trans('auth.wallet_desc') }}</p>
                     </div>
 
                     <div class="intro-e">

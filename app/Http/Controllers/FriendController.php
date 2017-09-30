@@ -44,23 +44,23 @@ class FriendController extends Controller
         $relations = [];
         $relations['friends'] = Auth::user()->following()
             ->where('type_friend', config('friend.type.approve'))
-            ->latest()->get()
-            ->map(function ($user) {
+            ->latest()->get();
+            /*->map(function ($user) {
                 return TimelineController::getRelationOf($user);
-            });
+            });*/
 
         $relations['followers'] = Auth::user()->following()
             ->where('is_follower', '1')
-            ->latest()->get()
-            ->map(function ($user) {
+            ->latest()->get();
+            /*->map(function ($user) {
                 return TimelineController::getRelationOf($user);
-            });
+            });*/
         $relations['family'] = Auth::user()->following()
             ->whereNotNull('relative_id')
-            ->latest()->get()
-            ->map(function ($user) {
+            ->latest()->get();
+            /*->map(function ($user) {
                 return TimelineController::getRelationOf($user);
-            });
+            });*/
 
         $available_relative = TimelineController::getRelative(Auth::user()->profile->gender);
         $inviteList = $this->loadFriend(Auth::user()->id);
