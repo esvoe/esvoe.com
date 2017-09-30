@@ -271,6 +271,11 @@ class UserAPIController extends AppBaseController
      */
     public function destroy($id)
     {
+
+        //fixme: soft deletes on users (2017.10.01)
+
+        return Response::json(ResponseUtil::makeError('User not found'), 400);
+
         /** @var User $user */
         $user = $this->userRepository->find($id);
 
@@ -278,7 +283,7 @@ class UserAPIController extends AppBaseController
             return Response::json(ResponseUtil::makeError('User not found'), 400);
         }
 
-        $user->delete();
+        //$user->delete();
 
         return $this->sendResponse($id, 'User deleted successfully');
     }

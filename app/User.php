@@ -6,15 +6,14 @@ use Illuminate\Notifications\Notifiable;
 use Auth;
 use Cmgmyr\Messenger\Traits\Messagable;
 use DB;
-use Illuminate\Database\Eloquent\SoftDeletes;
+//use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-//use Zizaco\Entrust\Traits\EntrustUserTrait;
+use Zizaco\Entrust\Traits\EntrustUserTrait;
 
 class User extends Authenticatable
 {
     use Notifiable;
-    //use EntrustUserTrait;
-    use SoftDeletes;
+    use EntrustUserTrait;
     // use SoftDeletes, EntrustUserTrait {
 
     //     SoftDeletes::restore insteadof EntrustUserTrait;
@@ -28,7 +27,7 @@ class User extends Authenticatable
      *
      * @var array
      */
-    protected $dates = ['deleted_at'];
+    //protected $dates = ['deleted_at'];
 
 
       /**

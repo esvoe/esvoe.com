@@ -268,6 +268,11 @@ class UserController extends AppBaseController
 
     public function deleteMe($username)
     {
+
+        //fixme: soft deletes on users (2017.10.01)
+
+        return redirect('/');
+
         $timeline = Timeline::where('username', $username)->first();
         $user = $timeline->user;
 
