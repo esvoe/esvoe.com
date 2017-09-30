@@ -14,6 +14,10 @@ trait Image
 
         $image = Storage::disk($disk)->path($source);
 
+        if(!File::isFile($image)){
+            return false;
+        }
+
         $dir = File::dirname($image);
         $folder =   '/' . $width . "x" . $height . '/';
         $dest = $dir . $folder;
