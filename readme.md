@@ -16,3 +16,27 @@ Laravel local install.
     composer update
     npm install
 ```
+
+**Local apache virtual hosts**
+```
+    <VirtualHost *:80>
+       ServerName dev.esvoe.com
+       DocumentRoot "/usr/www/dev.esvoe.com/public"
+       <Directory "/usr/www/dev.esvoe.com/public">
+            Options Indexes FollowSymLinks
+            AllowOverride All
+            Require all granted
+        </Directory>
+    </VirtualHost>
+```
+```
+    <VirtualHost *:80>
+       ServerName static.dev.esvoe.com
+       DocumentRoot "/usr/www/dev.esvoe.com/storage/uploads"
+       <Directory "/usr/www/dev.esvoe.com/storage/uploads">
+            Options Indexes FollowSymLinks
+            AllowOverride All
+            Require all granted
+        </Directory>
+    </VirtualHost>
+```
