@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Applications;
 
-use App\Application;
-use App\ApplicationCategory;
-use App\ApplicationImage;
-use App\ApplicationUser;
+use App\Models\Application;
+use App\Models\ApplicationCategory;
+use App\Models\ApplicationImage;
+use App\Models\ApplicationUser;
 use App\Http\Controllers\Controller;
 use App\Setting;
 use Illuminate\Http\Request;

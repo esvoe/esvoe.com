@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Auth;
 use DB;
@@ -28,7 +28,7 @@ class Application extends Model
 
     public function category()
     {
-        return $this->belongsTo('App\ApplicationCategory');
+        return $this->belongsTo('App\Models\ApplicationCategory');
     }
 
     public function getRatingPackedAttribute($value) {

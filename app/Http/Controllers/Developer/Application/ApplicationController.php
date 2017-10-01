@@ -9,10 +9,10 @@
 namespace App\Http\Controllers\Developer\Application;
 
 
-use App\Application;
-use App\ApplicationCategory;
-use App\ApplicationEndpoint;
-use App\ApplicationImage;
+use App\Models\Application;
+use App\Models\ApplicationCategory;
+use App\Models\ApplicationEndpoint;
+use App\Models\ApplicationImage;
 use App\Http\Controllers\Controller;
 use App\Setting;
 use Illuminate\Http\Request;

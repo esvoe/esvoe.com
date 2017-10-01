@@ -9,7 +9,7 @@
 namespace App\Http\Controllers\Applications;
 
 
-use App\Application;
+use App\Models\Application;
 use App\Http\Controllers\Controller;
 use App\Setting;
 use Auth;

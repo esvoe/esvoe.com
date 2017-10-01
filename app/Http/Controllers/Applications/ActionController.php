@@ -9,7 +9,7 @@
 namespace App\Http\Controllers\Applications;
 
 
-use App\ApplicationUser;
+use App\Models\ApplicationUser;
 use App\Http\Controllers\Controller;
 use App\Setting;
 use Illuminate\Http\Request;

@@ -9,11 +9,10 @@
 namespace App\Http\Controllers\Applications;
 
 
-use App\Application;
-use App\ApplicationEndpoint;
-use App\ApplicationLog;
-use App\ApplicationPermissions;
-use App\ApplicationUser;
+use App\Models\Application;
+use App\Models\ApplicationEndpoint;
+use App\Models\ApplicationLog;
+use App\Models\ApplicationUser;
 use App\Http\Controllers\Controller;
 use App\Setting;
 

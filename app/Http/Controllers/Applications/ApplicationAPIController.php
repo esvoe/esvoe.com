@@ -9,8 +9,8 @@
 namespace App\Http\Controllers\Applications;
 
 
-use App\Application;
-use App\ApplicationUser;
+use App\Models\Application;
+use App\Models\ApplicationUser;
 use App\Http\Controllers\Controller;
 use App\User;
 use DB;
@@ -47,12 +47,12 @@ class ApplicationAPIController extends Controller
     private $apiLevel = 0;
 
     /**
-     * @var \App\Application
+     * @var \App\Models\Application
      */
     private $application;
 
     /**
-     * @var \App\ApplicationUser
+     * @var \App\Models\ApplicationUser
      */
     private $applicationUser;
 

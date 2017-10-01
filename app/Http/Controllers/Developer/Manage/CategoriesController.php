@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Developer\Manage;
 
-use App\Application;
-use App\ApplicationCategory;
+use App\Models\Application;
+use App\Models\ApplicationCategory;
 use App\Http\Controllers\Controller;
 use App\Setting;
 use Illuminate\Http\Request;

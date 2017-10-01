@@ -1,5 +1,5 @@
 <?php
-namespace App;
+namespace App\Models;
 
 use Auth;
 use DB;
@@ -28,7 +28,7 @@ class ApplicationUser extends Model
 
     public function application()
     {
-        return $this->belongsTo('App\Application', 'app_id');
+        return $this->belongsTo('App\Models\Application', 'app_id');
     }
 
     public function user()

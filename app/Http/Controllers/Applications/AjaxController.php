@@ -9,8 +9,8 @@
 namespace App\Http\Controllers\Applications;
 
 
-use App\Application;
-use App\ApplicationUser;
+use App\Models\Application;
+use App\Models\ApplicationUser;
 use App\ExchangeRate;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;

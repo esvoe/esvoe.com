@@ -1,5 +1,5 @@
 <?php
-namespace App;
+namespace App\Models;
 
 use Auth;
 use DB;
@@ -31,7 +31,7 @@ class ApplicationCategory extends Model
 
     public function parent()
     {
-        return $this->belongsTo('App\ApplicationCategory');
+        return $this->belongsTo('App\Models\ApplicationCategory');
     }
 
     private static $treeCache = null;
