@@ -26,13 +26,7 @@
     var base_url = "{{ url('/') }}/";
     var theme_url = "{!! Theme::asset()->url('') !!}";
     </script>
-    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-    <script>
-      (adsbygoogle = window.adsbygoogle || []).push({
-        google_ad_client: "ca-pub-8128663849778602",
-        enable_page_level_ads: true
-      });
-    </script>
+
     {!! Theme::asset()->scripts() !!}
 
     <script src="{!! Theme::asset()->url('js/jquery.jplayer.js') !!}"></script>

@@ -62,12 +62,11 @@ class AuthController extends Controller
                 'numeric',
             ),
             'perms' => array(
-                'regex:/[a-zA-Z_,\-]+/u', // fixme: invalid chars allowed (NOT WORK AT ALL ! )
-                'string',
+                "regex:/^(([_a-z]+)[\|]?)+$/u"
             ),
             'params' => array(
                 'string',
-                'regex:/[\w\s]?/u'
+                'regex:/^\?([\w-]+(=[\w-]*)?(&[\w-]+(=[\w-]*)?)*)?$/u' // -._~:/?#[]@!$&'()*+,;=
             ),
             'endpoint' => array(
                 'string',

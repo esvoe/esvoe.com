@@ -164,6 +164,7 @@
 <!-- </div> -->
 <!-- /main-content -->
 
+{{--
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD_vuWi_hzMDDeenNYwaNAj0PHzzS2GAx8&libraries=places&callback=initMap"
         async defer></script>
 
@@ -201,3 +202,4 @@ function initMap(event)
     } 
 }
 </script>
+--}}
