@@ -1,23 +1,18 @@
-## Laravel Project
+## ESvoe Project
 
-Laravel application.
+Laravel local install.
 
-~/.ssh/config
+**~/.ssh/config**
+```
+    Host                    95.211.204.15
+        Hostname            95.211.204.15
+        IdentityFile        ~/.ssh/your_id_rsa
+        IdentitiesOnly      yes
+```
 
-
-Host            95.211.204.15
-    Hostname        95.211.204.15
-    IdentityFile    ~/.ssh/esvoe_id_rsa
-    IdentitiesOnly yes
-
-
-
-git clone ssh://git@95.211.204.15:7999/esv/esvoe.git
-
-
-
-composer update
-
-
-npm install
-
+**Local install**
+```
+    git clone ssh://git@95.211.204.15:7999/esv/esvoe.git
+    composer update
+    npm install
+```
