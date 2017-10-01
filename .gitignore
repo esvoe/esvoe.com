@@ -7,7 +7,6 @@
 .DS_Store
 npm-debug.log
 yarn-error.log
-/composer.lock
 
 _ide_helper.php
 .phpstorm.meta.php
@@ -16,3 +15,7 @@ Homestead.json
 
 /.env
 /.htaccess
+
+# While we have no strict versions in composer.json - better skip update of this file
+/composer.lock
+
