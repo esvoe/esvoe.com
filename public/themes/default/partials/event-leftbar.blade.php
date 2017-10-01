@@ -82,4 +82,4 @@
 			@endif
 		</ul>
 	</div>
-<iframe style="height:100%;width:100%;border:0;" frameborder="0" src="https://www.google.com/maps/embed/v1/place?q={!! $event->location !!}&key={{ env('GOOGLE_MAPS_API_KEY') }}"></iframe>
+{{--<iframe style="height:100%;width:100%;border:0;" frameborder="0" src="https://www.google.com/maps/embed/v1/place?q={!! $event->location !!}&key={{ env('GOOGLE_MAPS_API_KEY') }}"></iframe>--}}
