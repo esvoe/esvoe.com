@@ -37,7 +37,7 @@
 				<span>{{ trans('sidebar.my_wallet') }}</span></a>
 		</li>
 		<li data-li-setting="photos" class="{!! (Request::segment(2)=='photos' ? 'active' : '') !!}">
-			<a data-change-logo="photo" href="{{ url('/'.Auth::user()->username.'/albums') }}" >
+			<a data-change-logo="photo" href="{{ url('/'.Auth::user()->username.'#tab-photos') }}" >
 				<i class="icon-photo svoe-lg svoe-icon"></i>
 				<span>{{ trans('sidebar.my_photos') }}</span></a>
 		</li>

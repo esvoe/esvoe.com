@@ -305,6 +305,15 @@
     });
 
     $(function () {
+
+        var navbar = $('#profheader-navbar-collapse');
+        // change hash on click
+        $('a',navbar).click(function () {
+            window.location.hash = this.href.substring(this.href.indexOf('#')+1);
+        });
+        // get hash
+        $('a[href='+window.location.hash+']',navbar).click();
+
         // Fixed position Profile Header when scroll
         function profHeaderFix() {
             var $box = $('.new-content-prof .profheader-nav');

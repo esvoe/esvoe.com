@@ -8,7 +8,7 @@
 			<div class="login-block static-pages">
 		   		
 		    	<p class="static-para">
-		    		{!! str_replace("\r\n","<br />",$page->description) !!}
+					{!! nl2br(strip_tags($post->description)) !!}
 		    	</p>
 			</div><!-- /login-block -->
 		</div>

@@ -22,7 +22,7 @@
 				{{  $current_anouncement->description }}
 				<div class="time-created">			
 					<?php $announces_date = date("F d Y, G:i A", strtotime($current_anouncement->created_at));?>
-					{!! '<br> Created on '.$announces_date !!}
+						<br> Created on {{$announces_date}}
 				</div>
 			</div>
 			<span class="pull-right announcement-actions">

@@ -193,7 +193,7 @@
     <div class="panel-body">
         <div class="text-wrapper">
             <p class="post-description">
-                {!! nl2br($post->description) !!}
+                {!! nl2br(strip_tags($post->description)) !!}
             </p>
 
             <div class="post-image-holder  @if(count($post->images()->get()) == 1) single-image @endif">
