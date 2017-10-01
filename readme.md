@@ -17,6 +17,11 @@ Laravel local install.
     npm install
 ```
 
+.env file required for no error "composer update"
+
+/vendor-patch must be applyed after composer update to fix incompability with 5.4 (while waiting official fix)
+
+
 **Local apache virtual hosts**
 ```
     <VirtualHost *:80>
