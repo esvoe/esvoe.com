@@ -25,11 +25,13 @@ Route::get('sitemap', 'SitemapsController@index');
 
 Route::get('games/browse', 'GameController@getBrowse');
 
+/*
 Route::group(['prefix' => 'api', 'middleware' => ['auth', 'cors'], 'namespace' => 'API'], function () {
     Route::group(['prefix' => 'v1'], function () {
         require config('infyom.laravel_generator.path.api_routes');
     });
 });
+*/
 
 Route::post('pusher/auth', function (Illuminate\Http\Request $request, Pusher $pusher) {
     return $pusher->presence_auth(
