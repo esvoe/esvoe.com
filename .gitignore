@@ -7,11 +7,12 @@
 .DS_Store
 npm-debug.log
 yarn-error.log
+/composer.lock
 
 _ide_helper.php
 .phpstorm.meta.php
 Homestead.yaml
 Homestead.json
 
-.env
+/.env
 /.htaccess
