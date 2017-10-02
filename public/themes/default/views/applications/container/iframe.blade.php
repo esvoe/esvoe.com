@@ -39,19 +39,6 @@
                             <span class="ratingblock-total hidden-xs hidden-sm"></span>
                         </div>
                     </div>
-
-                </div>
-                <div class="col-xs-12 col-sm-4 col-md-6 " style="padding:0 5px">
-                    <div class="balance">
-                        Баланс:
-                        <span>
-                            0.00
-                        </span>
-                        $
-                        <a href="#">
-                            <img src="{!! Theme::asset()->url('images/modal-full-screen.png') !!}" alt="full-screen">
-                        </a>
-                    </div>
                 </div>
             </div>
         </div>
@@ -69,88 +56,6 @@
                     frameborder="0"
                     width="100%"
             ></iframe>
-        </div>
-        <div class="row" style="margin: 0 -5px;">
-            <div class="col-xs-12 col-md-7" style="padding:0 5px">
-                <div class="user-comments" style="height: 361px">
-
-                </div>
-            </div>
-            <div class="col-xs-12 col-md-5" style="padding: 0 5px">
-                <div class="user-activity">
-                    <div class="user-activity-header">
-                        <a href="">Активность друзей</a>
-                    </div>
-                    <div class="user-activity-body">
-                        <ul>
-                            <li>
-                                <div class="avatar" >
-                                    <a href="" style="background-image: url('{!! Theme::asset()->url('images/sambuka.png') !!}')"></a>
-                                </div>
-                                <div class="activity-item">
-                                    <a href="#">
-                                        Ольга
-                                        <span>
-                                            набрала 53 очки у
-                                        </span>
-                                    </a>
-                                    <div class="time">
-                                        8 хв тому
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="avatar" >
-                                    <a href="" style="background-image: url('{!! Theme::asset()->url('images/sambuka.png') !!}')"></a>
-                                </div>
-                                <div class="activity-item">
-                                    <a href="#">
-                                        Ольга
-                                        <span>
-                                            набрала 53 очки у
-                                        </span>
-                                    </a>
-                                    <div class="time">
-                                        8 хв тому
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="avatar" >
-                                    <a href="" style="background-image: url('{!! Theme::asset()->url('images/sambuka.png') !!}')"></a>
-                                </div>
-                                <div class="activity-item">
-                                    <a href="#">
-                                        Ольга
-                                        <span>
-                                            набрала 53 очки у
-                                        </span>
-                                    </a>
-                                    <div class="time">
-                                        8 хв тому
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="avatar" >
-                                    <a href="" style="background-image: url('{!! Theme::asset()->url('images/sambuka.png') !!}')"></a>
-                                </div>
-                                <div class="activity-item">
-                                    <a href="#">
-                                        Ольга
-                                        <span>
-                                            набрала 53 очки у
-                                        </span>
-                                    </a>
-                                    <div class="time">
-                                        8 хв тому
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
     <div>
