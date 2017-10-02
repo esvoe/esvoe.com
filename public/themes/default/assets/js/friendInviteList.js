@@ -2,16 +2,16 @@
  * Created by lis on 15/9/17.
  */
 
+var token;
 $(function () {
-    token = $('meta[name="csrf_token"]').attr('content');
+    _getTokent();
     function takeListInvite() {
-        $.post(urlTakeInvite, {'_token':token}, function(data){
+        $.post(urlTakeInvite, {'_token':_getTokent()}, function(data){
             $( "#friendInviteList" ).html( data );
         } );
         // setTimeout(takeListInvite, 30000);//tmp - only after click on icon
     }
     setTimeout(takeListInvite, 300);
-
 
     $('body').on('click','.hypothetically-friend',function(e){
         e.preventDefault();
@@ -22,7 +22,7 @@ $(function () {
             $.ajax({
                 method: 'POST',
                 url: reqUrlUserAdd,
-                data: {user_id: userId, _token: token}
+                data: {user_id: userId, _token: _getTokent()}
             }).done(function(response) {
                 console.log("ajax request done:", response);
                 if (response.result === "true") {
@@ -36,7 +36,7 @@ $(function () {
             $.ajax({
                 method: 'POST',
                 url: reqUrlUserCancel,
-                data: {user_id: userId, _token: token}
+                data: {user_id: userId, _token: _getTokent()}
             }).done(function(response) {
                 console.log("ajax request done:", response);
                 if (response.result === "true") {
@@ -64,7 +64,7 @@ function acceptFriend(userId) {
         url: reqUrlUserFriendAccept,
         data: {
             user_id: userId,
-            _token: token
+            _token: _getTokent()
         }
     }).done(function(response) {
         console.log("ajax request done:", response);
@@ -85,7 +85,7 @@ function rejectFriend(userId) {
         url: reqUrlUserFriendReject,
         data: {
             user_id: userId,
-            _token: token
+            _token: _getTokent()
         }
     }).done(function(response) {
         console.log("ajax request done:", response);
@@ -99,6 +99,7 @@ function rejectFriend(userId) {
 
 function addFriend(userId) {
     console.log('Request url: reqUrlUserAdd '+userId);
+
     $("#inviteElement"+userId).hide();
     $("#inviteElementOnForm"+userId).hide();
     userRequest = $.ajax({
@@ -106,7 +107,7 @@ function addFriend(userId) {
         url: reqUrlUserAdd,
         data: {
             user_id: userId,
-            _token: token
+            _token: _getTokent()
         }
     }).done(function(response) {
         console.log("ajax request done:", response);
@@ -127,7 +128,7 @@ function cancelFriend(userId) {
         url: reqUrlUserCancel,
         data: {
             user_id: userId,
-            _token: token
+            _token: _getTokent()
         }
     }).done(function(response) {
         console.log("ajax request done:", response);
@@ -137,4 +138,10 @@ function cancelFriend(userId) {
             // $btnAddToFriend.removeClass('wait');
         }
     });
+}
+function _getTokent(){
+    if(token==undefined){
+        token = $('meta[name="csrf_token"]').attr('content');
+    }
+    return token;
 }
