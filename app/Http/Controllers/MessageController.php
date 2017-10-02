@@ -108,6 +108,9 @@ class MessageController extends Controller
 
         if ($thread->type == 'dialog') {
             $result = $this->prepareDialogFields($thread->toArray());
+            if (empty($result)) {
+                return abort(404);
+            }
         } else {
             $result = $this->prepareGroupFields($thread->toArray());
         }
@@ -498,8 +501,17 @@ class MessageController extends Controller
         foreach ($data as $type => $items) {
             $pre = [];
             foreach ($items->toArray() as $item) {
-                if (($type == 'newuser') || ($type == 'friend')) $pre[] = $this->prepareUserFields($item, $type);
-                if ($type == 'dialog') $pre[] = $this->prepareDialogFields($item);
+                if (($type == 'newuser') || ($type == 'friend')) {
+                    $pre[] = $this->prepareUserFields($item, $type);
+                    continue;
+                }
+                if ($type == 'dialog') {
+                    $fields = $this->prepareDialogFields($item);
+                    if (!empty($fields)) {
+                        $pre[] = $fields;
+                    }
+                    continue;
+                }
                 if ($type == 'group') $pre[] = $this->prepareGroupFields($item);
             }
             $result = array_merge($result, $pre);
@@ -613,9 +625,19 @@ class MessageController extends Controller
         $result['data'] = array_slice($result['data'], ($paginate * ($page - 1)), $paginate);
 
         // prepare result fields
-        foreach ($result['data'] as &$item) {
-            if ($item['type'] == 'dialog') $item = $this->prepareDialogFields($item);
-            if ($item['type'] == 'group') $item = $this->prepareGroupFields($item);
+        foreach ($result['data'] as $key => $item) {
+            if ($item['type'] == 'dialog') {
+                $item = $this->prepareDialogFields($item);
+                if (empty($item)) {
+                    unset($result['data'][$key]);
+                } else {
+                    $result['data'][$key] = $item;
+                }
+                continue;
+            }
+            if ($item['type'] == 'group') {
+                $result['data'][$key] = $this->prepareGroupFields($item);
+            }
         };
 
         // paginate urls

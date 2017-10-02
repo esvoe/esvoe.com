@@ -718,10 +718,6 @@ var vue = new Vue({
                             break;
                     }
                 });
-                setTimeout(function(){
-                    timeagoLng.timeSet("time.microtime");
-                },10);
-
             });
 
         },

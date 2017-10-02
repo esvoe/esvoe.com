@@ -170,6 +170,7 @@
     </div>
 
     {!! Theme::asset()->container('footer')->usePath()->add('app', 'js/app.js') !!}
+    {!! Theme::asset()->container('footer')->usePath()->add('timeago', 'js/timeago/locales/timeago-'.App::getLocale().'.js') !!}
     {{--</div>--}}
         <script>
           @if(Config::get('app.debug'))

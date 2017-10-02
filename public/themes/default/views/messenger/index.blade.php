@@ -737,7 +737,7 @@
 
 {!! Theme::asset()->container('footer')->usePath()->add('notifications', 'js/notifications.js') !!}
 
-{!! Theme::asset()->container('footer')->usePath()->add('timeago', 'js/timeago/timeago-'.App::getLocale().'.js') !!}
+{!! Theme::asset()->container('footer')->usePath()->add('timeagoMes', 'js/timeago/timeago-'.App::getLocale().'.js') !!}
 
 {!! Theme::asset()->container('footer')->usePath()->add('moments', 'js/moment/moment.js') !!}
 {!! Theme::asset()->container('footer')->usePath()->add('moments', 'js/moment/locale/'.App::getLocale().'.js') !!}
