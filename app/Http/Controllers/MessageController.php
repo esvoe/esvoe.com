@@ -670,6 +670,19 @@ class MessageController extends Controller
             ->value('user_id');
         $user = User::where('id', $userId)
             ->first(['timeline_id', 'last_online']);
+        if (! $user ){
+            return [
+                'type'                  => 'dialog',
+                'avatar'                => '',
+                'id'                    => $item['id'],
+                'subject'               => "delete" . ' ' . "me",
+                'updated_at'            => $item['updated_at'],
+                'text'                  => $this->getLastMessage($item['id']),
+                'unreadedMessagesCount' => $this->unreadedMessagesCount(Auth::id(), $item['id']),
+                'online'                => false,
+                'username'              => "deleted"
+            ];
+        }
         $username = Timeline::where('id', $user->timeline_id)->value('username');
         $profile = UserProfile::where('user_id', $userId)->first(['firstname', 'lastname', 'avatar', 'gender']);
 
