@@ -129,6 +129,7 @@ class AuthController extends Controller
             }
         }
 
+
         $redirectHash = $this->request->get('endpoint');
         $redirectUri = route('developer.oauth.redirect');
 
